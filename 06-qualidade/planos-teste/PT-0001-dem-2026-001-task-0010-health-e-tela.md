@@ -2,13 +2,13 @@
 id: PT-0001
 titulo: "Plano de testes — DEM-2026-001 [TESTE] · TASK-0010 · GET /health e tela de status (G5)"
 tipo: pt
-versao: 1.0
+versao: 1.1
 status: vigente
 dono: QA
 autores: [QA]
 aprovado_por: QA
 criado_em: 2026-11-26T15:35-03:00
-atualizado_em: 2026-11-26T15:35-03:00
+atualizado_em: 2026-11-26T15:46-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0010, TASK-0008, TASK-0009, TASK-0012, US-0001, US-0002, REQ-0001, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, ET-0001, EF-0001, ADR-0001, ADR-0002, ADR-0003, DEC-ARQ-0001, DEC-ARQ-0002, DEC-ARQ-0007, DEC-ARQ-0008, DEC-ARQ-0009, DEC-ARQ-0010, DEC-ARQ-0011, DEC-PO-0005, DEC-PO-0006, DEC-PO-0008, DEC-PO-0009, DEC-AS-0001, DEC-AS-0002, UX-0001, PARECER-G2-DEM-2026-001-TASK-0010, CT-0001, CT-0049]
 substitui: null
@@ -26,7 +26,7 @@ substituido_por: null
 - **Classe de risco:** R3 (DEC-ARQ-0001) — matriz de proporcionalidade R3 (PROMPT do QA, seção 6.1 da governança, tabela 6.2): unitários, integração, funcionais, regressão completa, contrato, segurança (varredura + testes dirigidos), desempenho (caminho crítico) e aceitação obrigatórios.
 
 ## 2. Base (versões conferidas na `main` `7d85a6e`, contexto v37+)
-US-0001 v1.4 (editorial de referência: "ADR proposto" → "ADR v1.1, aceito" nos CA-04/07/08/09; nenhum CA muda de comportamento, ID ou oráculo) e US-0002 v1.4 (CA inalterados); REQ-0001..0004 e RN-0001/0002 v1.3; ET-0001 v1.4 e EF-0001 v1.3 (aprovadas pelo ARQ, G3/R1); `openapi.yaml` portal-api 1.0.0 (prosa R1, e34e6b9); ADR-0001 v2.0 (D4, D7, D8), ADR-0002 v1.1, ADR-0003 v1.1; DEC-ARQ-0002; DEC-ARQ-0007 v1.1, 0008, 0009 v1.1, 0010, 0011 v1.1; parecer G3 do ARQ v1.2 (§9); UX-0001 v1.1 (DEC-PO-0005); DEC-AS-0001/0002; DEC-PO-0009 (ID reservado e conteúdo no plano G2 v1.2, `7d85a6e`, status em-revisão; concordância técnica na DEC-ARQ-0011 v1.1 — L-PT-08); parecer OPS da TASK-0012 v2.1 (portas, scripts, p95, evidências).
+US-0001 v1.4 (editorial de referência: "ADR proposto" → "ADR v1.1, aceito" nos CA-04/07/08/09; nenhum CA muda de comportamento, ID ou oráculo) e US-0002 v1.4 (CA inalterados); REQ-0001..0004 e RN-0001/0002 v1.3; ET-0001 v1.4 e EF-0001 v1.3 (aprovadas pelo ARQ, G3/R1); `openapi.yaml` portal-api 1.0.0 (prosa R1, e34e6b9); ADR-0001 v2.0 (D4, D7, D8), ADR-0002 v1.1, ADR-0003 v1.1; DEC-ARQ-0002; DEC-ARQ-0007 v1.1, 0008, 0009 v1.1, 0010, 0011 v1.1; parecer G3 do ARQ v1.2 (§9); UX-0001 v1.1 (DEC-PO-0005); DEC-AS-0001/0002; DEC-PO-0009 (mesmo padrão das DEC-PO-0007/0008: ID em `registro-ids.yaml`; texto em `analise-po-task-0002.md` v1.5 e no plano G2 v1.2, commit `7d85a6e` — L-PT-08 **fechada** por decisão do PO; concordância técnica na DEC-ARQ-0011 v1.1); parecer OPS da TASK-0012 v2.1 (portas, scripts, p95, evidências).
 
 ## 3. Estratégia e responsabilidades (Opção A — DEC-PO-0009; DEC-ARQ-0011 v1.1)
 | Tipo do CT | Quem escreve/executa | O que a QA faz | Qtde |
@@ -34,20 +34,20 @@ US-0001 v1.4 (editorial de referência: "ADR proposto" → "ADR v1.1, aceito" no
 | **AUT-API** | FS escreve e mantém (xUnit 2.9.x + `WebApplicationFactory<Program>`, `tests/Portal.Api.Tests`) na TASK-0008 | Especifica (este PT/CT, **antes do PR**), verifica a suíte (CT-0049) e a executa no `verify-local` (CT-0048) | 25 |
 | **AUT-WEB** | FS escreve e mantém (`ng test`, Vitest + jsdom) na TASK-0008 | Idem | 7 |
 | **QA-BB** | QA, black-box contra o processo real em Release (loopback) | Executa e registra evidência | 6 |
-| **QA-MAN** | QA, manual no navegador da box (Chrome/Chromium) e/ou processo real | Executa e registra evidência | 4 |
+| **QA-MAN** | QA, manual no navegador da box (Chrome, base Chromium — esta é a referência quando o texto cita Chromium) e/ou processo real | Executa e registra evidência | 4 |
 | **QA-EVID** | QA, sobre as evidências do `verify-local` e da suíte | Reexecuta/lê e julga | 7 |
 | **Total** | | | **49** (automatizados pelo FS: 32; QA manual/black-box/evidência: 17) |
 
 Regras: (i) cada teste automatizado leva o ID do CT (ex.: `[Trait("CT","CT-0001")]`; nome do `describe`/`it` com o ID) — sem isso o rastreio CA → CT não fecha; (ii) a QA não corrige código testado: divergência vira **BUG-nnnn** (P0–P3) ao FS; (iii) ganchos de falha **só** por `WebApplicationFactory` (DEC-ARQ-0011); (iv) nenhuma ferramenta nova (sem Playwright/automação de navegador); (v) dados de teste fictícios; nenhum segredo; evidências sanitizadas em `/workspace/projetos/portal/evidencias/<tipo>/<AAAA-MM-DDTHHMM-03>-<sha7>/` (gitignorado), citadas no PQ.
 
 ## 4. Ambiente
-Execução local na box, em loopback, conforme o parecer OPS v2.1: API em **Release** e Portal em `ng serve`, processos separados, por `scripts/start-local.sh` / `scripts/stop-local.sh` (SIGTERM, SIGKILL após 10 s). Configuração **só por nome** (ADR-0001 v2 D7): `PORTAL_API_HOST`, `PORTAL_API_PORT`, `PORTAL_API_ALLOWED_ORIGIN`, `LOG_LEVEL`, `PORTAL_WEB_PORT`, `PORTAL_API_BASE_URL`; valores no `.env` fora do git. Toolchain: SDK .NET 10 (10.0.404), Angular CLI 22.3.0, Node 24 (evidência OPS). Rede necessária para NuGet Audit e `npm audit`.
+Execução local na box, em loopback, conforme o parecer OPS v2.1: API em **Release** e Portal em `ng serve`, processos separados, por `scripts/start-local.sh` / `scripts/stop-local.sh` (SIGTERM, SIGKILL após 10 s). Configuração **só por nome** (ADR-0001 v2 D7): `PORTAL_API_HOST`, `PORTAL_API_PORT`, `PORTAL_API_ALLOWED_ORIGIN`, `LOG_LEVEL`, `PORTAL_WEB_PORT`, `PORTAL_API_BASE_URL`; valores no `.env` fora do git. Toolchain (conferida após carregar o script da OPS indicado pelo ORQ; L-PT-07 **fechada**): SDK .NET 10.0.404, Angular CLI 22.3.0, Node v24.22.1. Rede necessária para NuGet Audit e `npm audit`.
 
 ## 5. Critérios de entrada no G5 (execução)
 1. G4 encerrado: CR-nnnn **Aprovado** ou **Aprovado com observações** + 2ª aprovação explícita do ARQ (R3); SHA aprovada registrada.
 2. `verify-local` verde na SHA do G4 (log do FS no PR e reexecução do CR — DEC-ARQ-0007 §3), incluindo A1–A5 e W1–W5.
 3. CT-0001..CT-0032 implementados pelo FS, identificáveis pelo ID do CT (checklist do CR inclui os itens PV — R3 — e "nenhum gancho na composição de produção" — DEC-ARQ-0011).
-4. Ambiente da TASK-0012 pronto (scripts depositados, valores no `.env`, toolchain com o `dotnet` acessível no PATH de quem executa — L-PT-07) e rede disponível.
+4. Ambiente da TASK-0012 pronto (scripts depositados, valores no `.env`, toolchain da OPS carregada no shell de quem executa — L-PT-07 **fechada**) e rede disponível.
 5. Spike R4 registrado (condição do CT-0038 / CA-07). Sem ele, a execução começa, mas o CA-07 fica **pendente** no PQ.
 6. Biblioteca de validação de esquema aprovada pelo ARQ (PS-09) ou validação explícita equivalente com o controle negativo do CT-0004.
 7. Nenhuma MSG-BLQ aberta que impeça a execução; PT-0001 vigente.
@@ -116,9 +116,9 @@ Execução local na box, em loopback, conforme o parecer OPS v2.1: API em **Rele
 | L-PT-03 | Comportamento de `OPTIONS /health` **sem** cabeçalhos de preflight não definido (D8 item 5: "204 só no preflight"; ET RT-16) | ARQ/AS |
 | L-PT-04 | Duração da janela de drenagem no encerramento gracioso não definida (D8 item 10, PS-05); o `stop-local.sh` faz SIGKILL após 10 s; spike R4 pendente | ARQ/FS (OPS) |
 | L-PT-05 | Forma de servir o Portal numa origem não permitida para o CORS real (CT-0039), sem ferramenta nova | OPS/FS |
-| L-PT-06 | A box tem Google Chrome (`/usr/bin/google-chrome`, base Chromium), não Chromium puro; não há leitor de tela real nem outros navegadores. A UX-0001 (4.1.3 e orientação à QA, item 3) pede "leitor de tela real, outros navegadores e zoom 400%" — isso vai além dos CA; zoom 400% é feito no CT-0040 se o UX/PO confirmarem; leitor de tela e outros navegadores ficam fora até decisão do UX/PO | UX/PO |
-| L-PT-07 | `dotnet` não está no PATH do shell da QA (instalação do OPS em `~/.dotnet`, verificada pelo ORQ: 10.0.404) | OPS |
-| L-PT-08 | DEC-PO-0009 (Opção A; PT+CT depende de G3 + R1): ID reservado em `7d85a6e` e conteúdo no plano G2 v1.2, que está **em-revisão** (a v1.1 segue vigente até o ORQ registrar a decisão). Não há registro próprio da decisão; este PT a cita pelo plano e pelo `historico.md` (15:26) | PO (ORQ registra) |
+| L-PT-06 | **FECHADA (limite declarado / fora do escopo por decisão do PO).** Leitor de tela real, outros navegadores e zoom 400% pedidos pela UX-0001 (4.1.3 e orientação à QA, item 3) ficam **fora do escopo desta demanda**. O critério são os 15 CA (DEC-PO-0008). O Chrome da box (base Chromium) basta para os CT manuais no G5; quando o texto cita "Chromium", a referência é esse Chrome. Não é falha. Os itens extras viram candidatos de backlog, que o PO alinha com o UX. | — (PO; backlog com o UX) |
+| L-PT-07 | **FECHADA.** Após carregar o script de toolchain da OPS indicado pelo ORQ, conferido: `dotnet` 10.0.404, Node v24.22.1, Angular CLI 22.3.0. | — |
+| L-PT-08 | **FECHADA (decisão do PO).** A DEC-PO-0009 segue o mesmo padrão das DEC-PO-0007/0008: o ID está reservado em `registro-ids.yaml` e o texto está em `analise-po-task-0002.md` v1.5 e no plano G2 v1.2, no commit `7d85a6e`. | — |
 | L-PT-09 | Timeout real de 5 s (CE-04) só é verificado em jsdom com relógio simulado (CT-0028); não há servidor lento sem ferramenta nova. Verificação real fica limitada à API parada (conexão recusada, CT-0041) | QA registra; ARQ ciente |
 | L-PT-10 | Valores de porta/origem (127.0.0.1, 8080, 4200 — MSG FS→OPS; parecer OPS v2.1) ficam no `.env`; este PT usa só os nomes das variáveis | OPS/FS |
 | L-PT-11 | CT-0022: se o FS mapear `OPTIONS` como endpoint explícito, a superfície muda; aceitar ou não é do ARQ | ARQ |
@@ -184,3 +184,4 @@ Execução local na box, em loopback, conforme o parecer OPS v2.1: API em **Rele
 | Versão | Data/hora (America/Sao_Paulo) | Autor | Mudança |
 |---|---|---|---|
 | 1.0 | 26/11/2026 15:35 | QA | Criação: 49 CT, matriz CA → CT, critérios de entrada/saída do G5 |
+| 1.1 | 26/11/2026 15:46 | QA | §11: L-PT-06, L-PT-07 e L-PT-08 fechadas (decisões do PO; toolchain da OPS conferida). Referência "Chromium" = Chrome da box (base Chromium), sem mudança de CA. |

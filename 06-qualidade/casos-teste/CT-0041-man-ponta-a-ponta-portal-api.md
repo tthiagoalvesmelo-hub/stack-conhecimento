@@ -2,13 +2,13 @@
 id: CT-0041
 titulo: 'Manual: ponta a ponta Portal↔API (CA-01, CA-03, CA-04, CA-05, CA-06)'
 tipo: ct
-versao: 1.0
+versao: 1.1
 status: vigente
 dono: QA
 autores: [QA]
 aprovado_por: QA
 criado_em: 2026-11-26T15:35-03:00
-atualizado_em: 2026-11-26T15:35-03:00
+atualizado_em: 2026-11-26T15:46-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0010, PT-0001]
 substitui: null
@@ -21,13 +21,13 @@ substituido_por: null
 
 | Campo | Valor |
 |---|---|
-| Tipo | QA-MAN — Manual da QA (navegador Chrome/Chromium da box e/ou processo real) |
+| Tipo | QA-MAN — Manual da QA (navegador Chrome da box, base Chromium — esta é a referência quando o texto cita Chromium — e/ou processo real) |
 | Rastreio | US-0002 CA-01, CA-03, CA-04, CA-05, CA-06 |
 | Estado de execução | Não executado (aguarda G4) |
 
 ## Pré-condições
 - Versão aprovada no G4; API em Release e Portal em `ng serve`, processos separados, via `scripts/start-local.sh` (origem configurada em `PORTAL_API_ALLOWED_ORIGIN`).
-- Navegador da box (Chrome/Chromium) com DevTools; nenhuma ferramenta nova.
+- Navegador da box: Google Chrome (base Chromium; esta é a referência quando o texto cita Chromium) com DevTools; nenhuma ferramenta nova.
 
 ## Passos
 1. Abrir a tela; comparar os valores exibidos com o corpo da mesma requisição na aba Network.
@@ -44,3 +44,6 @@ substituido_por: null
 
 ## Evidência exigida
 - Capturas de tela e registro da aba Network (ou HAR sanitizado), versão do navegador, hora America/Sao_Paulo, SHA; em `evidencias/` (gitignorado, sanitizado).
+
+## Observações
+- Quando o texto cita Chromium, a referência é o Chrome da box (base Chromium). Não altera o CA.
