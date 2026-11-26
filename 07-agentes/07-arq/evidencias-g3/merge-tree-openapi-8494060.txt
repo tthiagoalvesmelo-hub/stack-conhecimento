@@ -1,0 +1,7 @@
+merge-tree main × 8494060 (doc/TASK-0006-R1-openapi-prosa)
+main: 417d62f docs(po): validação do PLANO-RM-0002 v1.0 — impacto no backlog e prazo da DE
+exit: 0
+tree: c0ba886c5af26db0b37991b6a4bcedfaefdc8dd2
+arquivos no ramo vs main:
+M	02-tecnica/contratos-api/portal-api/openapi.yaml
+historico.md/contexto.yaml: nenhum
