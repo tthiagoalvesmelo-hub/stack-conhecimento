@@ -1,7 +1,7 @@
 # Convenção de identificadores
 
-> Versão 1.2 · 26/11/2026 · gerado a partir dos Prompts 01–04 da Stack Multiagentes (Prompt 04, Anexo A, tem prioridade).
-> v1.2 (TASK-0011, DOC): prefixo UX-nnnn vigente, endossado pelo UX (MSG-RET de Bruno Tavares, 26/11/2026). v1.1 permanece válida para L-CR2 e para o restante. Ver “Histórico desta convenção” ao final.
+> Versão 1.3 · 26/11/2026 · gerado a partir dos Prompts 01–04 da Stack Multiagentes (Prompt 04, Anexo A, tem prioridade).
+> v1.3 (TASK-0011, DOC): desdobramento da matriz 7.1 vigente no protocolo-memoria v1.1 (AH-0002). v1.2 permanece válida para UX-nnnn; v1.1 permanece válida para o local do CR-nnnn (L-CR2). Ver “Histórico desta convenção” ao final.
 
 | Prefixo | Artefato | Formato | Exemplo | Quem cria | Onde vive |
 |---|---|---|---|---|---|
@@ -49,7 +49,7 @@ Regras
 ### Pareceres de revisão e de qualidade na fase atual (L-CR2)
 - Sem GitHub, o parecer **CR-nnnn** não vive num PR: é um arquivo `06-qualidade/pareceres/CR-nnnn-<slug>.md`, com o frontmatter padrão (`tipo: cr`, `dono: CR`) e o corpo de `modelos/parecer-cr.md`. O ponteiro (ID + versão + caminho + commit) vai na coluna **Evidência** da linha da TASK de Code Review no Tarefas.csv. **PQ-nnnn** segue em `06-qualidade/pareceres/` (`tipo: pq`, `dono: QA`). Os dois prefixos não colidem; o prefixo do nome do arquivo distingue o tipo.
 - Quando o GitHub for conectado, o CR-nnnn volta a viver no PR (link na TASK); os arquivos já criados mantêm o ID.
-- Quem pode gravar em `06-qualidade/pareceres/` por tipo de parecer depende da matriz 7.1 do `protocolo-memoria.md`; o desdobramento proposto está num ramo separado, dependente de AH (ver histórico abaixo).
+- Quem pode gravar em `06-qualidade/pareceres/` por tipo de parecer segue a matriz 7.1 vigente do `protocolo-memoria.md` v1.1 (AH-0002, merge 3755fc6): pareceres CR-nnnn com A = CR e E = ARQ; o restante de 06-qualidade (planos, casos, BUG, PQ) permanece A = QA.
 
 ### Prefixo UX-nnnn (L-UX-01) — vigente (endosso do UX, 26/11/2026)
 Fonte do endosso: MSG-RET do UX (Bruno Tavares) à DOC, cópia ORQ, DEM-2026-001 / TASK-0011, status Concluída. Regras 1 a 3 abaixo reproduzem o endosso; a DOC não inventou conteúdo de UX.
@@ -65,3 +65,4 @@ Fonte do endosso: MSG-RET do UX (Bruno Tavares) à DOC, cópia ORQ, DEM-2026-001
 | 1.0 | 26/11/2026 | Geração inicial (Prompts 01–04) | Criação |
 | 1.1 | 26/11/2026 | DOC | CR-nnnn: local na fase atual (L-CR2); PQ-nnnn: padrão de nome; UX-nnnn proposto (L-UX-01). Sem mudança de regra de quem escreve (matriz 7.1 em ramo próprio, dependente de AH) |
 | 1.2 | 26/11/2026 | DOC | UX-nnnn vigente (endosso do UX); regras 1–3 da entrega; reserva e alias UX-0001 do artefato UX-ESPEC-DEM-2026-001-TASK-0004, a aplicar pelo UX após o merge |
+| 1.3 | 26/11/2026 | DOC | Desdobramento da matriz 7.1 vigente (protocolo-memoria v1.1, AH-0002, merge 3755fc6): pareceres CR-nnnn em 06-qualidade/pareceres com A = CR e E = ARQ; restante de 06-qualidade permanece A = QA. Texto literal da AH: “Aprovo AH-0001 e também AH-0002”. |
