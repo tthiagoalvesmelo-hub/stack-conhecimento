@@ -2,15 +2,15 @@
 id: NOTA-ANALISE-DEM-2026-001-TASK-0008
 titulo: "Nota de análise (itens 1–9) — TASK-0008: GET /health da portal-api e tela de status (.NET 10 + Angular 22.3)"
 tipo: nota-analise
-versao: 1.0
+versao: 1.1
 status: em-revisao
 dono: FS
 autores: [FS]
 aprovado_por: null
 criado_em: 2026-11-26T15:55-03:00
-atualizado_em: 2026-11-26T15:55-03:00
+atualizado_em: 2026-11-26T16:05-03:00
 revisar_ate: 2027-02-26
-relacionados: [DEM-2026-001, TASK-0008, TASK-0009, TASK-0010, TASK-0012, US-0001, US-0002, REQ-0001, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, ADR-0001, ADR-0002, ADR-0003, DEC-ARQ-0002, DEC-ARQ-0007, DEC-ARQ-0008, DEC-ARQ-0009, DEC-ARQ-0010, DEC-ARQ-0011, DEC-PO-0008, DEC-PO-0009, ET-0001, EF-0001, PT-0001, RM-0002, AH-0003, AH-0004]
+relacionados: [DEM-2026-001, TASK-0008, DEC-ARQ-0012, DEC-ARQ-0013, DEC-ARQ-0014, TASK-0009, TASK-0010, TASK-0012, US-0001, US-0002, REQ-0001, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, ADR-0001, ADR-0002, ADR-0003, DEC-ARQ-0002, DEC-ARQ-0007, DEC-ARQ-0008, DEC-ARQ-0009, DEC-ARQ-0010, DEC-ARQ-0011, DEC-PO-0008, DEC-PO-0009, ET-0001, EF-0001, PT-0001, RM-0002, AH-0003, AH-0004]
 substitui: null
 substituido_por: null
 ---
@@ -87,6 +87,43 @@ L-04 (plano G2 v1.2 §10/§11): as 32 h só valem se o **núcleo da RM-0002 do F
 - `LOG_LEVEL`: aceito `Trace|Debug|Information|Warning|Error|Critical|None`. Valor inválido ou ausente ⇒ `Information` + aviso no log. Mapeado no código para `Logging:LogLevel:Default`.
 - Para o OPS: no SDK 10.0.404, `dotnet build --project …` falha (`MSB1001: Switch: --project`); use o caminho posicional. O `ng serve` dá precedência à variável `PORT` sobre `--port`: o `start-local.sh` deve desfazer `PORT`. O `.env.example` do repositório tem **só nomes** (os valores do rascunho do OPS vão para o `.env` local).
 - `portal-web` com `package.json` em `0.0.0` (o ADR-0002 só cobre a API); `index.html` com `lang`/`title` do template: decisão do UX na US-0002.
+
+## 10. Atualização v1.1 (16:05) — respostas do ARQ e convenções da QA
+> Base de implementação. As decisões do ARQ estão no **PR #4** do stack-conhecimento (DEC-ARQ-0012/0013/0014 e DEC-ARQ-0007 v1.2), **ainda não mesclado**. O FS não decide por ele; se a revisão mudar algum valor, os testes abaixo foram planejados para ajuste localizado. Pendência registrada também para o PR da TASK-0008.
+
+### 10.1 Decisões do ARQ adotadas (substituem as propostas da v1.0 onde divergem)
+- **R2 / PS-09 (DEC-ARQ-0014):** nenhum pacote de JSON Schema. O validador explícito fica **no projeto de testes** e cobre `const`, `required`, `additionalProperties: false`, `pattern` com `\z` e `date-time` por `TryParseExact`. Os negativos são obrigatórios (CT-0004/CT-0049). O YamlDotNet está pré-aprovado, mas **não será usado**.
+- **Contrato sem cópia (§5 desta nota):** sem cópia do `openapi.yaml`, sem submodule e sem rede. Uma **constante única** no projeto de testes registra o repositório `tthiagoalvesmelo-hub/stack-conhecimento`, o caminho `02-tecnica/contratos-api/portal-api/openapi.yaml`, `info.version` 1.0.0 e o SHA `e34e6b9` (ou posterior sem mudança de contrato). Contrato novo obriga a atualizar essa constante e os testes.
+- **L-PT-04 / spike do CA-07 (DEC-ARQ-0012 §3):** isto substitui a hipótese do §9 (hosted service segurando a parada), que **não funciona**, porque o servidor já parou no `StopAsync`.
+  - Janela **D = 3 s** aplicada no manipulador de `ApplicationStopping`, como constante em código.
+  - `HostOptions.ShutdownTimeout = 5 s` em código.
+  - Aceite: ≥ 1 resposta 503 válida antes da recusa de conexão e saída sozinha em ≤ 8 s, sem SIGKILL. Registrar M1..M8, incluindo o código de saída (M4).
+  - Nos testes com a fábrica, a espera fica atrás da abstração de encerramento (DEC-ARQ-0011), para não custar 3 s por teste. A composição de produção registra só a implementação real.
+- **L-PT-03 (DEC-ARQ-0012 §1):**
+  - Preflight (`Origin` + `Access-Control-Request-Method`) ⇒ 204.
+  - Origem negada ⇒ 204 sem cabeçalhos CORS, nunca 403.
+  - `OPTIONS` sem preflight ⇒ 405 com `Allow: GET, HEAD` e ProblemDetails.
+  - `Allow`/`Access-Control-Allow-Methods` são comparados como **conjunto**.
+- **L-PT-11 (DEC-ARQ-0012 §2):** a superfície é exatamente {(`/health`, GET), (`/health`, HEAD)} no `EndpointDataSource`. Não há mapeamento de `OPTIONS` nem rota curinga; o CORS entra por `UseCors` depois de `UseRouting` (ou `RequireCors`).
+- **L-PT-13 (DEC-ARQ-0013):** `Microsoft.AspNetCore` = Warning por **regra em código** (`AddFilter`), não por appsettings. `Microsoft.Hosting.Lifetime` fica fora do oráculo.
+- **Catálogo de serviços:** registrado pelo ARQ em PR próprio. Sai das lacunas do FS.
+- **DEC-ARQ-0007 v1.2:** o PR #4 muda **só o A5** (código de saída 0 do `dotnet list package --vulnerable` agora medido; o veredito continua pelo parse do JSON). O código de saída 0 **no encerramento** está na DEC-ARQ-0012 §3 (M4; protótipo do ARQ saiu com 0) e entra no aceite do spike.
+
+### 10.2 Convenções de rastreabilidade (QA, PT-0001 v1.1, main `b49d803`)
+- **xUnit:** uma `[Trait("CT","CT-nnnn")]` **por CT**. Um teste que cobre vários CT leva várias `Trait`.
+- **Vitest:** ID no título, ex.: `it('CT-0027 — ...')`, filtrável com `-t`.
+- **PR da TASK-0008:** traz a **tabela completa CT → teste** (CT-0001..CT-0032; arquivo, classe/describe, método/it), que a QA cruza com o PT-0001 §7. CT faltando vira achado.
+- **Negativos e mutações conferidos (CT-0049):**
+  - (a) sem o override de falha, o CT-0017 falha;
+  - (b) `\z` → `$` faz o negativo do CT-0005 falhar;
+  - (c) sem a checagem de `date-time`, o negativo do CT-0004 (`2026-02-31T10:00:00.000Z`) falha.
+  O validador expõe cada regra como unidade isolada, para que as mutações sejam aplicáveis numa cópia descartável e detectadas. O FS roda essas mutações antes de abrir o PR e anexa a evidência.
+
+### 10.3 CT sujeitos a mudança pelo PR #4 (estruturados para ajuste fácil)
+CT-0004, 0010, 0018, 0022, 0023, 0024, 0025, 0038 (QA), 0049 e um **caso novo de `OPTIONS` sem preflight**, que a QA criará. Estrutura planejada:
+- oráculos em constantes ou *helpers* nomeados (conjunto de métodos permitidos, D, `ShutdownTimeout`, categorias de log silenciadas, regras do validador);
+- testes de `OPTIONS` parametrizados por variante de cabeçalho (`[Theory]`), já cobrindo o 405 sem preflight, com `Trait` do CT novo **a preencher** quando a QA criar o ID.
+Pendência: "CT ajustados após o merge do PR #4" constará no PR da TASK-0008.
 
 ## Próximos passos (fase 2, após o OK do ORQ)
 Spike do CA-07 → implementação da US-0001 com CT-0001..0025 → US-0002 com CT-0026..0032 → `verify-local` verde → PR `feat/TASK-0008-health-portal` para o G4.
