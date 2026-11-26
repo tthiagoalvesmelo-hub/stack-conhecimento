@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 38
-atualizado_em: "2026-11-26T15:41-03:00"   # relógio da box atrasado em relação ao histórico (última entrada 15:40); registro adiante do relógio
+versao_contexto: 39
+atualizado_em: "2026-11-26T15:48-03:00"
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -48,7 +48,7 @@ resultados: []
 testes:
   - {ref: 06-qualidade/pareceres/parecer-planejamento-g2-task-0010.md, id: PARECER-G2-DEM-2026-001-TASK-0010, versao: "1.1", commit: 1bd34a6, estimativa: "33 h (23,5–40 h)"}
   - {ref: 06-qualidade/pareceres/analise-testabilidade-task-0005.md, id: ANALISE-TESTABILIDADE-DEM-2026-001-TASK-0005, versao: "1.0", commit: 80e9184, resultado_pre_g1: "favorável com ressalvas"}
-aprovacoes: {G0: "CPO 26/11", G1: "PO 26/11 12:38 — Aprovado com observações (condições 1–3 em aprovacoes.md)", G2: "PO 26/11 15:31 — Aprovado com observações — MANTIDO COM AJUSTE (a)–(f) em aprovacoes.md; PLANO-DEM-2026-001-G2 v1.2 (7d85a6e, em-revisao); antecedente v1.1 13:05 (053a2d4, f61a1f9)", G3: "ARQ 26/11 15:08 — Aprovado com ressalvas R1..R5 (7bc37ba; merge a271ac1); R1 fechada 15:23 (ebb5f22; merges e34e6b9, edc9467); R2..R5 abertas"}
+aprovacoes: {G0: "CPO 26/11", G1: "PO 26/11 12:38 — Aprovado com observações (condições 1–3 em aprovacoes.md)", G2: "PO 26/11 15:31 — Aprovado com observações — MANTIDO COM AJUSTE (a)–(f) em aprovacoes.md; PLANO-DEM-2026-001-G2 v1.2 vigente (7d85a6e; promoção PR #1 2d2ca94, merge 6449aa9); antecedente v1.1 13:05 (053a2d4, f61a1f9)", G3: "ARQ 26/11 15:08 — Aprovado com ressalvas R1..R5 (7bc37ba; merge a271ac1); R1 fechada 15:23 (ebb5f22; merges e34e6b9, edc9467); R2..R5 abertas"}
 roadmap: RM-0001   # registrado pela CPO no Roadmap.csv (Em andamento, Normal, dono CPO), DEM-2026-001 vinculada
 ah: [AH-0001, AH-0002, AH-0003, AH-0004]   # AH-0004 Aprovada 26/11 15:29, literal "Aprovo AH-0004" (chat do ORQ; 27eb1e1); AH-0003 Aprovada 26/11 14:54, literal "Aprovo AH-0003"; AH-0001 substituída — ambas Aprovadas 26/11 14:45 — literal: "Aprovo AH-0001 e também AH-0002"
 implantacao: []
@@ -74,7 +74,7 @@ pendencias_contexto:
   - {item: "L-08: incremento A da DOC permanece Parcial; justificativa da matriz 7.1 atualizada neste registro (mesclada 3755fc6, AH-0002); item que falta para Concluída não identificado", dono: PO/DOC/ORQ}
   - {item: "L-09: pareceres do FS e da DOC só em rascunhos/ sem commit; parecer do CR só transcrito pelo ORQ", dono: FS/DOC/CR}
   - {item: "L-10: horas do ARQ sem ponto único; total central não soma o ARQ (só faixa)", dono: ARQ}
-  - {item: "Plano G2 v1.2 registrado (7d85a6e; decisão PO 15:31, MANTIDO COM AJUSTE); TASK-0008 liberada ao FS 15:41. Promoção da v1.2 a vigente (só status e aprovado_por) é do PO. L-11 (horas 0003/0007, estimativas, justificativa DOC A) e L-12 (RK-1, frontmatter ET/EF) atualizados neste v38: RK-1 mitigado (AH-0003 + ADR-0001 v2.0); frontmatter ET-0001 v1.4 e EF-0001 v1.3 aprovado (merge 0e4363b)", dono: PO}
+  - {item: "Plano G2 v1.2 registrado (7d85a6e; decisão PO 15:31, MANTIDO COM AJUSTE); TASK-0008 liberada ao FS 15:41. v1.2 promovida a vigente pelo PO (PR #1, 2d2ca94; merge ORQ 6449aa9, 15:48). L-11 (horas 0003/0007, estimativas, justificativa DOC A) e L-12 (RK-1, frontmatter ET/EF) atualizados neste v38: RK-1 mitigado (AH-0003 + ADR-0001 v2.0); frontmatter ET-0001 v1.4 e EF-0001 v1.3 aprovado (merge 0e4363b)", dono: PO}
   - {item: "RM-0002: PLANO-RM-0002 v1.0 validado pela CPO 15:12 (MOB, PMM, AN fora; DBA/SUP por gatilho com núcleo curto definido pelo ARQ; prazo e forma de acordo; sem DEC nova); falta o PO validar impacto em backlog e prazo da DEM", dono: PO}
   - {item: "Pergunta ao Thiago (texto da CPO, 15:12) sobre a diretriz AH-0003: (a) Angular estável mais recente + acompanhar suporte, ou só começar na mais recente; (b) C#/.NET só nas APIs do Portal Web ou também demais backends. Premissas registradas até a resposta: (a) Angular 22.x estável; (b) só APIs do Portal Web. Não bloqueia a DEM; se (b) ampliar, CPO abre DEC-CPO-0002", dono: ORQ/Thiago}
   - {item: "P-QA-01..05: SAST/p95 decididos (DEC-ARQ-0005/0006); cobertura: QA confirma 80% de linhas no código alterado como entrada do G4 (ramos só reportados); calibração definitiva no G5 com a 1ª medição real", dono: QA}
