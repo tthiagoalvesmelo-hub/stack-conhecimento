@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 27
-atualizado_em: "2026-11-26T13:16-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
+versao_contexto: 28
+atualizado_em: "2026-11-26T13:17-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -71,7 +71,6 @@ pendencias_contexto:
   - {item: "L-CR2: DOC confirmou (padrão documental) 06-qualidade/pareceres/CR-nnnn-<slug>.md, ponteiro na Evidência da TASK-0009, ajuste de convenção/modelo/README e desdobramento da matriz 7.1 (CR = A em pareceres CR) — implementação no incremento A da TASK-0011, antes do G4; incremento A liberado pelo PO (DEC-PO-0007, 26/11 12:58) e atribuído à DOC; concluir antes do G4; ciência QA/CR", dono: DOC}
   - {item: "Valores de porta/host/PORTAL_API_ALLOWED_ORIGIN e comando de subida (L-06 residual): fecham no 1º bloco da preparação (até 2 h após início, só com AH-0001), OPS propõe por MSG-COL e FS confirma; valores em .env fora do git", dono: OPS/FS}
   - {item: "Tolerância do timestamp (±5 s) e tempo limite do cliente (5 s) na ET", dono: AS}
-  - {item: "INDEX.md ainda cita a especificação de UX v1.0 em revisão — atualizar para v1.1/UX-0001 (0e9a4af)", dono: DOC}
   - {item: "AH-0002 (governança): matriz 7.1 (pareceres CR-nnnn A=CR) + EL-08 + Leia-me.csv — aguardando decisão literal do Thiago; sem ela o CR não tem escrita formal em 06-qualidade/pareceres (bloqueia entrada no G4)", dono: ORQ/Thiago}
   - {item: "EF-0001 §8 e ET-0001 §12 ainda citam CONF-0001 aberto e modelos ausentes (atualizar na próxima versão)", dono: AS}
   - {item: "Exposição do /health interna ou pública (pública => R3 + AH) e acesso à tela", dono: ARQ}
