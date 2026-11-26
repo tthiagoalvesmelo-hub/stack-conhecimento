@@ -1,3 +1,22 @@
+---
+id: CR-nnnn
+titulo: "Parecer de Code Review — <TASK/PR>"
+tipo: cr
+versao: 1.0
+status: rascunho            # rascunho | em-revisao | vigente | substituido
+dono: CR
+autores: [CR]               # inclua ARQ quando houver 2ª aprovação (alteração crítica)
+aprovado_por: null          # CR; e ARQ na 2ª aprovação, quando exigida
+criado_em: AAAA-MM-DDTHH:MM-03:00
+atualizado_em: AAAA-MM-DDTHH:MM-03:00
+revisar_ate: AAAA-MM-DD
+relacionados: [DEM-AAAA-nnn, TASK-nnnn, US-nnnn]
+substitui: null
+substituido_por: null
+---
+
+> **Local de registro na fase atual (sem GitHub):** `06-qualidade/pareceres/CR-nnnn-<slug>.md`. Reserve o CR-nnnn em `00-memoria/registro-ids.yaml` antes de criar o arquivo. Ponteiro (ID + versão + caminho + commit) na coluna **Evidência** da linha da TASK de Code Review no Tarefas.csv. Com o GitHub conectado, o parecer volta a ser registrado no PR (link na TASK). Esta nota e o frontmatter não alteram as regras de mérito abaixo.
+
 # Parecer de Code Review CR-nnnn — MODELO
 
 PR/TASK/DEM: · Autor: · Revisor: (≠ autor) · CI verde: sim/não · Rodada: 1 | 2 (máx. 2; na 3ª escala ao Arquiteto)
