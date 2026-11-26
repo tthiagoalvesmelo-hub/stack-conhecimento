@@ -2,13 +2,13 @@
 id: AGT-ARQ-NOTAS
 titulo: "Notas compartilháveis — Ricardo Almeida (Arquiteto Líder)"
 tipo: agente
-versao: 1.7
+versao: 1.8
 status: vigente
 dono: ARQ
 autores: [ARQ]
 aprovado_por: Thiago Melo
 criado_em: 2026-11-26T11:00-03:00
-atualizado_em: 2026-11-26T15:23-03:00
+atualizado_em: 2026-11-26T16:00-03:00
 revisar_ate: 2027-02-26
 relacionados: []
 substitui: null
@@ -54,3 +54,10 @@ Conhecimento da especialidade que outros agentes podem precisar. Informação da
 ## 26/11/2026 — esclarecimentos PO (opção A) e QA
 - Autoria dos testes: **Opção A** (DEC-ARQ-0011 v1.1, esclarecimento; não muda a L-12). FS escreve/mantém xUnit-WAF e Vitest na TASK-0008; QA especifica, verifica e executa black-box/manual na TASK-0010. PT+CT da 0010 depende de G3+R1 (concordância técnica; execução no G4).
 - `ng test --coverage`: pacote oficial `@vitest/coverage-v8` (MIT). `dotnet list --vulnerable`: não usar exit code; parse JSON (DEC-ARQ-0007/0009 v1.1). Oráculo do D8 item 13 (logs): parecer G3 v1.2 §9.2.
+
+## 26/11/2026 — lacunas do PT-0001 e catálogo da portal-api
+- **DEC-ARQ-0012** (PR #4, ainda não mesclado): `OPTIONS` que não é preflight responde 405 + `Allow: GET, HEAD`; preflight responde 204 (origem negada: 204 sem cabeçalhos CORS, nunca 403); preflight não é endpoint (superfície do CT-0022 = `GET`/`HEAD /health`); janela de drenagem D = 3 s no `ApplicationStopping`, `ShutdownTimeout` = 5 s; aceite do spike R4/CT-0038: ≥ 1 `503` antes da recusa, saída sozinha em ≤ 8 s. R4 segue aberto.
+- **DEC-ARQ-0013** (PR #4): oráculo do D8 item 13 vale para aplicação e framework; regra em código `Microsoft.AspNetCore` = Warning; `Microsoft.Hosting.Lifetime` fora do oráculo.
+- **DEC-ARQ-0014** (PR #4): PS-09 aprovada **sem pacote** (validador explícito; R2/R5). JsonSchema.Net exigiria AH (OSMF); NJsonSchema não atende.
+- **DEC-ARQ-0007 v1.2** (PR #4): código de saída 0 do `dotnet list package --vulnerable` medido; o critério continua sendo o parse do JSON (High/Critical).
+- **DEC-ARQ-0015** (este ramo): testes do `portal` não copiam o `openapi.yaml` (nem *submodule*, nem rede); validador da 0014 + constante/comentário com repo, caminho, `info.version` 1.0.0 e SHA `e34e6b9` (ou posterior sem mudança de contrato). DEC-ARQ-0011 v1.2: `WebApplicationFactory<Program>` confirmada pelo FS, sem `public partial class Program`. Catálogo: `01-institucional/microsservicos/portal-api.md`.
