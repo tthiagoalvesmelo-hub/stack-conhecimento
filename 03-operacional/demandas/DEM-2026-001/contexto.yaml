@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 35
-atualizado_em: "2026-11-26T15:24-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
+versao_contexto: 36
+atualizado_em: "2026-11-26T15:30-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -65,8 +65,8 @@ riscos:
 pendencias_contexto:
   - {item: "R1 do G3 entregue pela AS 15:16: ET-0001 v1.4 + EF-0001 v1.3 (ac391ea, merge 9b3dc1b) e prosa do openapi.yaml (8494060, ramo doc/TASK-0006-R1-openapi-prosa, área do ARQ, merge aguarda confirmação do ARQ); ARQ confirma fechamento; só então ORQ libera a TASK-0008", dono: ARQ}
   - {item: "R2..R5 do G3: format date-time no teste de contrato; itens PV do ADR-0001 v2 D8 como testes obrigatórios antes do G4; spike do encerramento antes do CA-07; âncora fim-de-texto nas regex .NET", dono: FS/QA/CR/OPS}
-  - {item: "OPS: instalar SDK .NET 10 e Angular CLI na box (R4; pré-requisito da TASK-0012 e das evidências da RM-0002) e refazer preparação e estimativa", dono: OPS}
-  - {item: "PO: plano G2 v1.2. DEC-PO-0008 (a20fe82): nenhum CA reaberto; premissas de stack revisadas (US-0001 v1.3, US-0002 v1.4, REQ/RN v1.3). Reestimativas recebidas: FS TASK-0008 40 h (32–50); CR TASK-0009 5 h + 2 h; ARQ (TASK-0003 0,5–1 h, TASK-0007 3–6 h, 2ª aprovação 1,5–3 h); AS R1 ≈0,1 h real + 0,25 h contingência. DOC incremento B 7,5 h (6,5–9; era 5,5 h). PO propõe capacitação fora das TASKs (validação PO do PLANO-RM-0002, 417d62f; perguntas à CPO). QA TASK-0010 33 h (23,5–40; era 20 h; parecer v1.1 1bd34a6). DEC-PO-0009 (PO 15:20, ID a reservar no v1.2): FS escreve os testes automatizados na TASK-0008 (premissa A; confirmação técnica do ARQ pedida pelo PO); PT+CT da TASK-0010 depende de G3+R1, execução/PQ do G4. Falta OPS", dono: PO}
+  - {item: "TASK-0012 Parcial: toolchain instalada e verificada pelo ORQ (dotnet 10.0.404, Angular CLI 22.3.0, Node 24.22.1; evidência rascunhos/ops/evidencias/TASK-0012-toolchain-box-2026-11-26T1516-03); falta esqueleto D6 (FS), confirmação do FS da MSG-COL de portas/comando e ensaio N1", dono: OPS/FS}
+  - {item: "PO: plano G2 v1.2. DEC-PO-0008 (a20fe82): nenhum CA reaberto; premissas de stack revisadas (US-0001 v1.3, US-0002 v1.4, REQ/RN v1.3). Reestimativas recebidas: FS TASK-0008 40 h (32–50); CR TASK-0009 5 h + 2 h; ARQ (TASK-0003 0,5–1 h, TASK-0007 3–6 h, 2ª aprovação 1,5–3 h); AS R1 ≈0,1 h real + 0,25 h contingência. DOC incremento B 7,5 h (6,5–9; era 5,5 h). PO propõe capacitação fora das TASKs (validação PO do PLANO-RM-0002, 417d62f; perguntas à CPO). QA TASK-0010 33 h (23,5–40; era 20 h; parecer v1.1 1bd34a6). DEC-PO-0009 (PO 15:20, ID a reservar no v1.2): FS escreve os testes automatizados na TASK-0008 (premissa A; confirmação técnica do ARQ pedida pelo PO); PT+CT da TASK-0010 depende de G3+R1, execução/PQ do G4. OPS TASK-0012 preparação 10 h (8–13) + G6/G7 6 h ativas (5–8) + 24 h calendário (parecer v2.0 d214f94). Todas as reestimativas recebidas; PO fecha o v1.2", dono: PO}
   - {item: "RM-0002: PLANO-RM-0002 v1.0 validado pela CPO 15:12 (MOB, PMM, AN fora; DBA/SUP por gatilho com núcleo curto definido pelo ARQ; prazo e forma de acordo; sem DEC nova); falta o PO validar impacto em backlog e prazo da DEM", dono: PO}
   - {item: "Pergunta ao Thiago (texto da CPO, 15:12) sobre a diretriz AH-0003: (a) Angular estável mais recente + acompanhar suporte, ou só começar na mais recente; (b) C#/.NET só nas APIs do Portal Web ou também demais backends. Premissas registradas até a resposta: (a) Angular 22.x estável; (b) só APIs do Portal Web. Não bloqueia a DEM; se (b) ampliar, CPO abre DEC-CPO-0002", dono: ORQ/Thiago}
   - {item: "P-QA-01..05: SAST/p95 decididos (DEC-ARQ-0005/0006); cobertura: QA confirma 80% de linhas no código alterado como entrada do G4 (ramos só reportados); calibração definitiva no G5 com a 1ª medição real", dono: QA}
