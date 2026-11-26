@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 11
-atualizado_em: "2026-11-26T12:52-03:00"
+versao_contexto: 12
+atualizado_em: "2026-11-26T12:55-03:00"
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -61,6 +61,8 @@ riscos:
   - {id: RK-2, descricao: "Exposição fora da rede interna vira contrato público", P_x_I: "1x3=3", dono: ARQ, mitigacao: "condição no ADR-0003; reabre R3/N3 + AH", status: aberto}
   - {id: RK-3, descricao: "Cadeia de suprimentos npm (Fastify)", P_x_I: "1x2=2", dono: ARQ, mitigacao: "lockfile, npm ci (ver MSG-RET TASK-0003)", status: aberto}
 pendencias_contexto:
+  - {item: "L-CR1: substituto local do CI (ADR-0001 D5 exclui CI/CD) e L-CR3: lint/análise estática — por DEC-ARQ, antes do PR da TASK-0008 (bloqueia entrada no G4, não o G2)", dono: ARQ/OPS}
+  - {item: "L-CR2: local de registro do CR-nnnn sem GitHub (proposta CR: 06-qualidade/pareceres/CR-nnnn.md com ponteiro no Tarefas.csv)", dono: DOC/ORQ}
   - {item: "CONF-0001: lado PO resolvido (textos v1.1 citam R3); fechamento formal", dono: DOC}
   - {item: "OpenAPI: aplicar ajustes 1–6 do DEC-ARQ-0002 (L-01..L-07 decididos), rebase na main e retirar historico.md do ramo doc/ET-0001-contrato-portal-api-health", dono: AS}
   - {item: "Merge --no-ff do contrato (proposto) após ramo limpo — não é o G3", dono: ARQ}
