@@ -1,13 +1,13 @@
 # Contrato OpenAPI 3.1 — portal-api — GET /health
 # Metadados do documento (equivalem ao frontmatter padrão da Stack; ver também info.x-stack):
 #   versão do contrato: 1.0.0 (SemVer próprio, ADR-0003; distinto da versão do serviço, ADR-0002)
-#   status: proposto (rascunho do AS para validação do ARQ no G3 — TASK-0007)
-#   dono: ARQ (aprova) · autor: AS · criado em 2026-11-26T12:33-03:00 · atualizado em 2026-11-26T12:44-03:00 · revisar até 2027-02-26
-#   demanda: DEM-2026-001 [TESTE] · atividade: TASK-0006 · especificação: EF-0001 v1.2 / ET-0001 v1.2
-#   fontes: ADR-0003 v1.0 (proposto), ADR-0002 v1.0 (proposto), ADR-0001 v1.0 (proposto),
-#           DEC-ARQ-0002 v1.0 (vigente, L-01 a L-07), US-0001/US-0002/RN-0001/RN-0002/REQ-0001..0004 v1.2 vigente (G1)
-#   Itens marcados "premissa a confirmar (AH-0001)" dependem da stack (ADR-0001, aguarda AH-0001).
-#   Este merge do ramo (quando o ARQ o fizer) NÃO é o G3.
+#   status: aprovado pelo ARQ no G3 (TASK-0007, aprovado com ressalvas; ressalva R1 fechada neste ajuste de prosa — TASK-0006)
+#   dono: ARQ (aprova) · autor: AS · criado em 2026-11-26T12:33-03:00 · atualizado em 2026-11-26T15:16-03:00 (só prosa; R1) · revisar até 2027-02-26
+#   demanda: DEM-2026-001 [TESTE] · atividade: TASK-0006 · especificação: EF-0001 v1.3 / ET-0001 v1.4
+#   fontes: ADR-0003 v1.1 (aceito), ADR-0002 v1.1 (aceito), ADR-0001 v2.0 (aceito; AH-0003; C#/.NET 10 LTS + Angular 22.3),
+#           DEC-ARQ-0002 v1.0 (vigente, L-01 a L-07), DEC-ARQ-0011 v1.0 (vigente, L-12), US-0001/US-0002/RN-0001/RN-0002/REQ-0001..0004 v1.2 vigente (G1)
+#   Premissas de stack: ADR-0001 v2.0 D8 (ASP.NET Core; obrigações de implementação, itens PV a verificar no 1º spike/teste). A AH-0001 foi substituída pela AH-0003.
+#   Ajuste desta revisão: somente prosa (R1 do G3); caminhos, esquemas, exemplos, cabeçalhos HTTP e info.version permanecem inalterados (1.0.0).
 openapi: 3.1.0
 info:
   title: portal-api
@@ -28,8 +28,9 @@ info:
     - Tempo limite do cliente (Portal): 5 s, sem nova tentativa automática (DEC-AS-0001, confirmada
       na DEC-ARQ-0002 e aceita pelo PO como premissa).
     - Alvo indicativo de desempenho: p95 ≤ 100 ms em execução local — **não é SLO** (ADR-0003; a calibrar por OPS/QA).
-    - Framework, servidor, porta de escuta, forma de obter a versão e biblioteca de CORS:
-      premissa a confirmar (AH-0001). A regra de CORS (variável obrigatória, fail closed) está na DEC-ARQ-0002 L-06.
+    - Stack: ASP.NET Core Minimal APIs / Kestrel em .NET 10 LTS (ADR-0001 v2.0 D2, AH-0003); porta de escuta
+      por `PORTAL_API_PORT` (valor por OPS/FS, TASK-0012); versão lida do `<Version>` do `.csproj` (ADR-0001 v2.0 D8 item 1,
+      ADR-0002 v1.1); CORS pelo middleware embutido (D8 item 8). A regra de CORS (variável obrigatória, fail closed) está na DEC-ARQ-0002 L-06.
     - **Padrão do serviço (não é resposta de `GET /health`):** um caminho inexistente responde `404`
       em `application/problem+json` (`type: "about:blank"`, `title: "Not Found"`, `status: 404`)
       com `Cache-Control: no-store` e `X-Content-Type-Options: nosniff` (DEC-ARQ-0002 L-04).
@@ -40,8 +41,8 @@ info:
     atividade: TASK-0006
     especificacao: [EF-0001, ET-0001]
     adr: [ADR-0001, ADR-0002, ADR-0003]
-    decisoes: [DEC-ARQ-0002, DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, DEC-PO-0006]
-    status-documento: proposto
+    decisoes: [DEC-ARQ-0002, DEC-ARQ-0011, AH-0003, DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, DEC-PO-0006]
+    status-documento: aprovado
     dono: ARQ
     autor: AS
     classe-de-risco: R3
@@ -87,7 +88,7 @@ paths:
         Premissa de teste: `http://127.0.0.1:${PORTAL_WEB_PORT}` (valores por OPS/FS, TASK-0012;
         porta não inventada neste contrato). Sem credenciais. Origem não permitida ⇒ a resposta
         mantém o status normal e **não** traz `Access-Control-Allow-Origin` (**sem 403**).
-        A biblioteca de CORS é premissa a confirmar (AH-0001).
+        O CORS usa o middleware embutido do ASP.NET Core, sem pacote de terceiros (ADR-0001 v2.0 D8 item 8).
       parameters:
         - $ref: '#/components/parameters/XRequestIdRequest'
       responses:
@@ -278,8 +279,9 @@ components:
         Serviço indisponível (US-0001 CA-07, REQ-0001 item 2). Hoje: processo em encerramento
         gracioso enquanto o listener estiver no ar (DEC-ARQ-0002 L-05); no futuro, dependência
         crítica fora — ADR-0003. Mesmo formato do `200`, sem causa, sem detalhe e **sem `Retry-After`**.
-        O gancho concreto do encerramento é premissa a confirmar (AH-0001). Testável somente por
-        injeção na fábrica da aplicação (proibido controle remoto em não-teste).
+        O encerramento gracioso usa uma janela de drenagem do host (ADR-0001 v2.0 D8 item 10; a verificar no
+        spike). Testável somente por injeção de colaborador em `WebApplicationFactory<Program>` com
+        `ConfigureTestServices` (DEC-ARQ-0011; proibido controle remoto em não-teste).
         O Portal trata como US-0002 CA-03 caso (b) e **não exibe** versão nem timestamp (RE-02).
       headers:
         Cache-Control:
