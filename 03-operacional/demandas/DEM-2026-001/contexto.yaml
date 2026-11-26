@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 36
-atualizado_em: "2026-11-26T15:30-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
+versao_contexto: 37
+atualizado_em: "2026-11-26T15:34-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -48,7 +48,7 @@ resultados: []
 testes:
   - {ref: 06-qualidade/pareceres/parecer-planejamento-g2-task-0010.md, id: PARECER-G2-DEM-2026-001-TASK-0010, versao: "1.0", commit: 40c8ace, estimativa: "20 h (16–23 h)"}
   - {ref: 06-qualidade/pareceres/analise-testabilidade-task-0005.md, id: ANALISE-TESTABILIDADE-DEM-2026-001-TASK-0005, versao: "1.0", commit: 80e9184, resultado_pre_g1: "favorável com ressalvas"}
-aprovacoes: {G0: "CPO 26/11", G1: "PO 26/11 12:38 — Aprovado com observações (condições 1–3 em aprovacoes.md)", G2: "PO 26/11 13:05 — Aprovado com observações (a)–(e) em aprovacoes.md; PLANO-DEM-2026-001-G2 v1.1 (053a2d4)", G3: "ARQ 26/11 15:08 — Aprovado com ressalvas R1..R5 (7bc37ba; merge a271ac1)"}
+aprovacoes: {G0: "CPO 26/11", G1: "PO 26/11 12:38 — Aprovado com observações (condições 1–3 em aprovacoes.md)", G2: "PO 26/11 13:05 — Aprovado com observações (a)–(e) em aprovacoes.md; PLANO-DEM-2026-001-G2 v1.1 (053a2d4)", G3: "ARQ 26/11 15:08 — Aprovado com ressalvas R1..R5 (7bc37ba; merge a271ac1); R1 fechada 15:23 (ebb5f22; merges e34e6b9, edc9467); R2..R5 abertas"}
 roadmap: RM-0001   # registrado pela CPO no Roadmap.csv (Em andamento, Normal, dono CPO), DEM-2026-001 vinculada
 ah: [AH-0001, AH-0002, AH-0003]   # AH-0003 Aprovada 26/11 14:54, literal "Aprovo AH-0003" (chat do ORQ); AH-0001 substituída — ambas Aprovadas 26/11 14:45 — literal: "Aprovo AH-0001 e também AH-0002" (Thiago, chat do ORQ)
 implantacao: []
@@ -63,7 +63,7 @@ riscos:
   - {id: RK-2, descricao: "Exposição fora da rede interna vira contrato público", P_x_I: "1x3=3", dono: ARQ, mitigacao: "condição no ADR-0003; reabre R3/N3 + AH", status: aberto}
   - {id: RK-3, descricao: "Cadeia de suprimentos npm (Fastify)", P_x_I: "1x2=2", dono: ARQ, mitigacao: "lockfile, npm ci (ver MSG-RET TASK-0003)", status: aberto}
 pendencias_contexto:
-  - {item: "R1 do G3 entregue pela AS 15:16: ET-0001 v1.4 + EF-0001 v1.3 (ac391ea, merge 9b3dc1b) e prosa do openapi.yaml (8494060, ramo doc/TASK-0006-R1-openapi-prosa, área do ARQ, merge aguarda confirmação do ARQ); ARQ confirma fechamento; só então ORQ libera a TASK-0008", dono: ARQ}
+  - {item: "R1 do G3 FECHADA (ARQ 15:23; merges e34e6b9 openapi e edc9467 parecer G3 v1.2). ET-0001 v1.4 aprovada tecnicamente pelo ARQ para o G3: AS atualiza o frontmatter (status/aprovado_por ARQ) no próximo commit dela. TASK-0008 aguarda só o plano G2 v1.2 do PO", dono: AS/PO}
   - {item: "R2..R5 do G3: format date-time no teste de contrato; itens PV do ADR-0001 v2 D8 como testes obrigatórios antes do G4; spike do encerramento antes do CA-07; âncora fim-de-texto nas regex .NET", dono: FS/QA/CR/OPS}
   - {item: "TASK-0012 Parcial: toolchain instalada e verificada pelo ORQ (dotnet 10.0.404, Angular CLI 22.3.0, Node 24.22.1; evidência rascunhos/ops/evidencias/TASK-0012-toolchain-box-2026-11-26T1516-03); falta esqueleto D6 (FS), confirmação do FS da MSG-COL de portas/comando e ensaio N1", dono: OPS/FS}
   - {item: "PO: plano G2 v1.2. DEC-PO-0008 (a20fe82): nenhum CA reaberto; premissas de stack revisadas (US-0001 v1.3, US-0002 v1.4, REQ/RN v1.3). Reestimativas recebidas: FS TASK-0008 40 h (32–50); CR TASK-0009 5 h + 2 h; ARQ (TASK-0003 0,5–1 h, TASK-0007 3–6 h, 2ª aprovação 1,5–3 h); AS R1 ≈0,1 h real + 0,25 h contingência. DOC incremento B 7,5 h (6,5–9; era 5,5 h). PO propõe capacitação fora das TASKs (validação PO do PLANO-RM-0002, 417d62f; perguntas à CPO). QA TASK-0010 33 h (23,5–40; era 20 h; parecer v1.1 1bd34a6). DEC-PO-0009 (PO 15:20, ID a reservar no v1.2): FS escreve os testes automatizados na TASK-0008 (premissa A; confirmação técnica do ARQ pedida pelo PO); PT+CT da TASK-0010 depende de G3+R1, execução/PQ do G4. OPS TASK-0012 preparação 10 h (8–13) + G6/G7 6 h ativas (5–8) + 24 h calendário (parecer v2.0 d214f94). Todas as reestimativas recebidas; PO fecha o v1.2", dono: PO}
