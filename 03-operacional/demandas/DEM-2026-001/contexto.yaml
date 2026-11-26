@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 25
-atualizado_em: "2026-11-26T13:13-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
+versao_contexto: 26
+atualizado_em: "2026-11-26T13:15-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -63,7 +63,7 @@ riscos:
   - {id: RK-2, descricao: "Exposição fora da rede interna vira contrato público", P_x_I: "1x3=3", dono: ARQ, mitigacao: "condição no ADR-0003; reabre R3/N3 + AH", status: aberto}
   - {id: RK-3, descricao: "Cadeia de suprimentos npm (Fastify)", P_x_I: "1x2=2", dono: ARQ, mitigacao: "lockfile, npm ci (ver MSG-RET TASK-0003)", status: aberto}
 pendencias_contexto:
-  - {item: "P-QA-01..05: SAST e p95 decididos (DEC-ARQ-0005/0006, 458acb8; condicionadas ao ADR-0001); resta calibrar cobertura 80% com o QA", dono: QA}
+  - {item: "P-QA-01..05: SAST/p95 decididos (DEC-ARQ-0005/0006); cobertura: QA confirma 80% de linhas no código alterado como entrada do G4 (ramos só reportados); calibração definitiva no G5 com a 1ª medição real", dono: QA}
   - {item: "Gancho de fábrica para 500 (CA-09): AS registrou na ET-0001 v1.3 (bb3e08a) a L-12 (extensão da L-05 ao 500, fora do OpenAPI); ARQ confirmar no G3; forma concreta da fábrica depende da AH-0001", dono: ARQ}
   - {item: "FS (b): teste de tela em navegador exigiria ADR/dependência nova?", dono: ARQ}
   - {item: "Texto narrativo da US-0002 ainda cita público não definido (fechado na DEC-PO-0002) — não afeta CA", dono: PO}
@@ -77,7 +77,7 @@ pendencias_contexto:
   - {item: "Exposição do /health interna ou pública (pública => R3 + AH) e acesso à tela", dono: ARQ}
   - {item: "Lacunas da análise do PO v1.2: L2/L8/L9 fechadas; L3–L6 respondidas como premissa (abertas até G3 e AH-0001); L1 (CPO) e L7 (OPS) abertas como premissa de teste", dono: PO, ref: analise-po-task-0002.md}
   - {item: "Conversão do ARQ recebida (458acb8: TASK-0003 1–3 h, TASK-0007 2–4 h, 2ª aprovação G4 1–2 h; planejamento 6,5 h → total em horas 78 h sem janela de 24 h); PO incorpora ao plano sem nova decisão", dono: PO}
-  - {item: "QA: dizer se exige teste em navegador real na TASK-0010 (se sim, DEC/ADR do ARQ antes da 0008/0010; alternativa sem dependência nova: testes de módulo com node:test)", dono: QA}
+  - {item: "Recorte de teste da tela (QA 26/11 13:15): sem ferramenta nova — node:test com fetch mockado + CT manual em Chromium da box; condição para a TASK-0008: separar a lógica de apresentação da manipulação do DOM", dono: FS}
   - {item: "Visão e objetivos estratégicos ausentes em 01-institucional/produto; alinhamento desta demanda é à validação da esteira", dono: CPO}
   - {item: "Stack base proposta no ADR-0001 (Node.js 24 LTS + Fastify 5 + Portal estático) — aguarda AH-0001 do Thiago (N3 arquitetura)", dono: ORQ/Thiago}
   - {item: "Ambientes (dev/hml) e forma de execução no teste — não existem; premissa de teste: execução local em /workspace/projetos/", dono: OPS}
