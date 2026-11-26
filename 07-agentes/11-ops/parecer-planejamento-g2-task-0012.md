@@ -2,22 +2,22 @@
 id: PARECER-G2-DEM-2026-001-TASK-0012
 titulo: "Parecer de planejamento do G2 — TASK-0012 (execução local, smoke, rollback e observação) — stack .NET + Angular"
 tipo: parecer
-versao: 2.0
+versao: 2.1
 status: em-revisao
 dono: OPS
 autores: [OPS]
 aprovado_por: null
 criado_em: 2026-11-26T12:56-03:00
-atualizado_em: 2026-11-26T15:21-03:00
+atualizado_em: 2026-11-26T15:25-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0012, TASK-0008, TASK-0009, TASK-0010, PLANO-DEM-2026-001-G2, ADR-0001, ADR-0002, ADR-0003, DEC-ARQ-0001, DEC-ARQ-0002, DEC-ARQ-0007, DEC-ARQ-0008, DEC-ARQ-0009, DEC-ARQ-0010, DEC-ARQ-0011, DEC-AS-0001, AH-0003, AH-0001, AH-0002, ET-0001, RM-0002]
 substitui: "rascunho v1.1 (stack Node/Fastify; AH-0001; DEC-ARQ-0003..0006)"
 substituido_por: null
 ---
 
-# Parecer de planejamento G2 — TASK-0012 (OPS) — v2.0
+# Parecer de planejamento G2 — TASK-0012 (OPS) — v2.1
 
-> [TESTE] DEM-2026-001 · parecer de **planejamento** para o G2 (etapa C), **v2.0**, refeito após a **AH-0003** (Thiago, 26/11/2026 14:54, texto literal: “Aprovo AH-0003”) e o **ADR-0001 v2.0 aceito** na main (merge `d40518e`): C#/.NET 10 LTS + ASP.NET Core na `portal-api` e Angular 22.3 no front; Node 24 permanece só como ferramenta. Substitui o rascunho v1.1 (stack Node/Fastify da AH-0001, hoje substituída). Nada vai para produção. **Não** altera estado, etapa, gates, `contexto.yaml`, `historico.md`, `aprovacoes.md` nem `Tarefas.csv` (só o ORQ). Registrado em ramo próprio de `07-agentes/11-ops/` para o ORQ mesclar (`merge --no-ff`); a OPS não faz o merge.
+> [TESTE] DEM-2026-001 · parecer de **planejamento** para o G2 (etapa C), **v2.1** (1º bloco fechado com o FS). Refeito na v2.0 após a **AH-0003** (Thiago, 26/11/2026 14:54, texto literal: “Aprovo AH-0003”) e o **ADR-0001 v2.0 aceito** na main (merge `d40518e`): C#/.NET 10 LTS + ASP.NET Core na `portal-api` e Angular 22.3 no front; Node 24 permanece só como ferramenta. Substitui o rascunho v1.1 (stack Node/Fastify da AH-0001, hoje substituída). Nada vai para produção. **Não** altera estado, etapa, gates, `contexto.yaml`, `historico.md`, `aprovacoes.md` nem `Tarefas.csv` (só o ORQ). Registrado em ramo próprio de `07-agentes/11-ops/` para o ORQ mesclar (`merge --no-ff`); a OPS não faz o merge.
 >
 > Horário: America/Sao_Paulo. Estado operacional: **Normal** (fase de testes internos). Fluxo 01, responsável do fluxo: PO. Classe de risco: **R3** (DEC-ARQ-0001, inalterada). Preparação da TASK-0012 **liberada** pelo ORQ (MSG-SOL, contexto v33/v34). Esqueleto da aplicação **não** é criado por este parecer nem por esta preparação (código do FS, ADR-0001 v2 D6).
 
@@ -152,26 +152,52 @@ Evidência já produzida desta entrega (toolchain): `rascunhos/ops/evidencias/TA
 
 ## 5. Variáveis necessárias (somente nomes; sem valores nem segredos) e impacto CORS
 
-Nenhuma variável nova é proposta além das já nomeadas no **ADR-0001 v2 D7** e na DEC-ARQ-0002 L-06. Os **nomes oficiais permanecem** `PORTAL_*` e `LOG_LEVEL`. Valores concretos não constam deste parecer (versionado): são propostos ao FS por MSG-COL no 1º bloco, e ficam no `.env` local, **fora do git**.
+Nenhuma variável nova é proposta além das já nomeadas no **ADR-0001 v2 D7** e na DEC-ARQ-0002 L-06. Os **nomes oficiais permanecem** `PORTAL_*` e `LOG_LEVEL`. Os valores locais de desenvolvimento do 1º bloco foram **confirmados pelo FS** em 26/11/2026 15:23 (America/Sao_Paulo) e constam da seção 5.1; vivem no `.env` local, **fora do git**. Não são segredos (loopback e portas de teste).
 
-| Nome | Origem | Finalidade (resumo) | Valor neste parecer |
+| Nome | Origem | Finalidade (resumo) | Situação |
 |---|---|---|---|
-| `PORTAL_API_HOST` | ADR-0001 v2 D7 | Interface de escuta da API | Proposta por MSG-COL (premissa segura do ADR: loopback `127.0.0.1`) |
-| `PORTAL_API_PORT` | ADR-0001 v2 D7 | Porta de escuta da API | Proposta por MSG-COL |
-| `PORTAL_API_ALLOWED_ORIGIN` | ADR-0001 v2 D7, D8 item 8; DEC-ARQ-0002 L-06; ADR-0003 v1.1 | Origem exata do Portal para CORS; obrigatória; fail closed se ausente, inválida ou `*` | Proposta por MSG-COL: exatamente a origem do `ng serve` em loopback, `http://127.0.0.1:${PORTAL_WEB_PORT}` |
-| `LOG_LEVEL` | ADR-0001 v2 D7 | Nível de log da API (`ILogger`) | Proposta por MSG-COL; valores aceitos: FS confirma |
-| `PORTAL_WEB_PORT` | ADR-0001 v2 D7 | Porta do `ng serve` (fase de testes; D3) | Proposta por MSG-COL |
-| `PORTAL_API_BASE_URL` | ADR-0001 v2 D7 | URL da API usada pelo Portal | Proposta por MSG-COL (derivada de host/porta da API); **injeção no Angular é do FS** (lacuna D7 / ADR item 3) |
+| `PORTAL_API_HOST` | ADR-0001 v2 D7 | Interface de escuta da API | Confirmado pelo FS (§5.1): `127.0.0.1` |
+| `PORTAL_API_PORT` | ADR-0001 v2 D7 | Porta de escuta da API | Confirmado pelo FS (§5.1): `8080` |
+| `PORTAL_API_ALLOWED_ORIGIN` | ADR-0001 v2 D7, D8 item 8; DEC-ARQ-0002 L-06; ADR-0003 v1.1 | Origem exata do Portal para CORS; obrigatória; fail closed se ausente, inválida ou `*` | Confirmado pelo FS (§5.1): `http://127.0.0.1:4200` (exata, sem curinga) |
+| `LOG_LEVEL` | ADR-0001 v2 D7 | Nível de log da API (`ILogger`) | Confirmado pelo FS (§5.1): `Information`. Aceitos: Trace, Debug, Information, Warning, Error, Critical, None. Fallback se inválido/ausente: nota de análise da TASK-0008 (FS) |
+| `PORTAL_WEB_PORT` | ADR-0001 v2 D7 | Porta do `ng serve` (fase de testes; D3) | Confirmado pelo FS (§5.1): `4200` |
+| `PORTAL_API_BASE_URL` | ADR-0001 v2 D7 | URL da API usada pelo Portal | Confirmado pelo FS (§5.1): `http://127.0.0.1:8080`; **injeção no Angular é do FS** (lacuna D7 / ADR item 3) |
 
 A versão do serviço **não** vem de variável de ambiente (ADR-0002 v1.1): lê-se `<Version>` do `.csproj` de `Portal.Api` (`IncludeSourceRevisionInInformationalVersion=false`).
 
-**Impacto CORS vs convenção `__` do ASP.NET Core (pedido do PO):** o contrato externo de configuração **não muda de nome**. `PORTAL_API_ALLOWED_ORIGIN` continua sendo a variável oficial (D7, fail closed, origem exata, sem `*`, sem credenciais, métodos GET/HEAD; origem não permitida: sem ACAO e **sem 403**, L-06). A convenção de variáveis hierárquicas do ASP.NET Core (ex.: `Section__Key`) **não substitui** esse nome. **Proposta operacional (não é decisão do ARQ):** o FS mapeia, no código ou na configuração, os nomes D7 para o middleware CORS embutido; não se cria um segundo nome oficial no `.env`. `ASPNETCORE_URLS` e `ASPNETCORE_ENVIRONMENT` **não** são variáveis oficiais desta demanda; nenhum comportamento do contrato pode depender de `ASPNETCORE_ENVIRONMENT` (D8 itens 9 e 11).
+**Impacto CORS vs convenção `__` do ASP.NET Core (pedido do PO):** o contrato externo de configuração **não muda de nome**. `PORTAL_API_ALLOWED_ORIGIN` continua sendo a variável oficial (D7, fail closed, origem exata, sem `*`, sem credenciais, métodos GET/HEAD; origem não permitida: sem ACAO e **sem 403**, L-06). A convenção de variáveis hierárquicas do ASP.NET Core (ex.: `Section__Key`) **não substitui** esse nome. **Confirmado pelo FS (26/11 15:23):** o mapeamento dos nomes D7 para a configuração do ASP.NET Core é feito no código (sem segundo nome oficial no `.env`). `ASPNETCORE_URLS` e `ASPNETCORE_ENVIRONMENT` **não** são variáveis oficiais desta demanda; nenhum comportamento do contrato pode depender de `ASPNETCORE_ENVIRONMENT` (D8 itens 9 e 11). O `start-local.sh` não exporta `ASPNETCORE_URLS` nem passa `--urls` (bind no `Program.cs`). Atenção: `http://localhost:4200` e `http://127.0.0.1:4200` são origens diferentes; testes e evidências abrem o Portal em `http://127.0.0.1:4200`.
 
-**Angular (`ng serve`) e proxy:** na fase de testes o Portal roda em processo separado (`ng serve`, loopback — D3). A origem CORS deve ser a origem real do dev server, para o contrato L-06 ser exercitado. Um `proxy.conf.json` **pode** ser usado pelo FS para facilitar o desenvolvimento; **proposta (não decidida):** o proxy é opcional e **não dispensa** `PORTAL_API_ALLOWED_ORIGIN` nem o teste de CORS na origem do Portal.
+**Angular (`ng serve`) e proxy:** na fase de testes o Portal roda em processo separado (`ng serve`, loopback — D3), com o **binário local** após `npm ci` (`npx --no-install ng serve`). O script de subida **não gera** arquivo de configuração do front (injeção de `PORTAL_API_BASE_URL`: FS). Um `proxy.conf.json` **pode** ser usado pelo FS; **confirmado:** o proxy é opcional e **não dispensa** `PORTAL_API_ALLOWED_ORIGIN` nem o teste de CORS na origem do Portal.
 
 **CSP:** no ADR-0003 v1.1 a CSP passa a ser requisito da **hospedagem de produção** do Portal Angular (ADR futuro). Nesta fase o Portal roda em `ng serve`; a OPS **não** implementa CSP agora e não estima hospedagem de produção (D5). Compatibilidade da CSP com o `ng build` fica para esse ADR futuro (já marcada “a verificar” no ADR-0003).
 
-**Prazo e método do 1º bloco (ainda válido, com a AH-0003 no lugar da AH-0001):** porta, host, `PORTAL_API_ALLOWED_ORIGIN` e comando de subida fecham no primeiro bloco da preparação (até 2 h após o início efetivo com o FS). Método: (1) OPS propõe por MSG-COL ao FS (cópia ORQ; ARQ informado se houver dúvida de convenção), checando porta livre na box; (2) FS confirma ou ajusta; (3) nomes em `.env.example` versionado; valores no `.env` local fora do git; (4) `scripts/start-local.sh` e `scripts/stop-local.sh` são o comando oficial. A proposta desta entrega está redigida; o envio ao FS é do fluxo de mensagens (não feito por este documento).
+### 5.1 1º bloco fechado
+
+**Fechado** em 26/11/2026 15:23 America/Sao_Paulo, pela MSG-RET do FS (Lucas Fernandes) à MSG-COL da OPS, com cópia ao ORQ. Nada foi implementado no monorepo (a TASK-0008 segue aguardando liberação do ORQ; `/workspace/projetos/` não existe). Os valores confirmados ficam no `.env` local, fora do git; o `.env.example` dos rascunhos traz os mesmos valores só como exemplo de desenvolvimento (não são segredos).
+
+Valores confirmados:
+
+| Variável | Valor confirmado |
+|---|---|
+| `PORTAL_API_HOST` | `127.0.0.1` |
+| `PORTAL_API_PORT` | `8080` |
+| `PORTAL_WEB_PORT` | `4200` |
+| `PORTAL_API_ALLOWED_ORIGIN` | `http://127.0.0.1:4200` (exata, sem curinga, fail closed) |
+| `PORTAL_API_BASE_URL` | `http://127.0.0.1:8080` |
+| `LOG_LEVEL` | `Information`. Aceitos: Trace, Debug, Information, Warning, Error, Critical, None. Fallback se inválido ou ausente: fica na nota de análise da TASK-0008 (proposta do FS: cair em Information e registrar um aviso) |
+
+Comandos oficiais confirmados: `scripts/start-local.sh` e `scripts/stop-local.sh`.
+
+Observações do FS, todas incorporadas nos rascunhos em `rascunhos/ops/DEM-2026-001-TASK-0012-preparacao-dotnet/`:
+
+1. Bind da API no `Program.cs` a partir de `PORTAL_API_HOST`/`PORTAL_API_PORT`. O `start-local.sh` **não** exporta `ASPNETCORE_URLS` nem passa `--urls` (e desfaz essas variáveis se herdadas). Mantém `--no-launch-profile` (proposta operacional 1, confirmada). Porta ausente ou inválida: a API não sobe (fail closed, no código).
+2. O `start-local.sh` imprime a URL do Portal (`http://127.0.0.1:${PORTAL_WEB_PORT}`) e avisa que `localhost` é outra origem para o CORS. Testes e evidências abrem `http://127.0.0.1:4200`.
+3. O Angular usa o binário local (`npx --no-install ng serve`, após `npm ci` em `apps/portal-web`). O script **não gera** arquivo de configuração do front (lacuna 3 do ADR-0001 v2 permanece com o FS).
+4. O `stop-local.sh` encerra a API e o `ng serve` **pelos PIDs gravados em `run/`** (gitignorado), com SIGTERM e espera curta, **sem pkill genérico**. Espera após SIGTERM: **10 s (proposta OPS)**; só se o processo não sair, registra aviso e envia SIGKILL **ao PID específico**. Serve também para exercitar o CA-07 (encerramento gracioso).
+
+Propostas operacionais 1 a 4 da MSG-COL (**confirmadas** pelo FS): `--no-launch-profile`; nomes D7 sem segundo nome oficial no `.env`; proxy do `ng serve` opcional, sem dispensar o CORS; `ASPNETCORE_ENVIRONMENT` fora das variáveis oficiais.
+
+O depósito dos scripts em `/workspace/projetos/portal/scripts/` fica para quando o FS avisar que o esqueleto D6 existe.
 
 ## 6. Impacto no procedimento de verificação local (DEC-ARQ-0003 → DEC-ARQ-0007..0010)
 
@@ -204,8 +230,9 @@ As DEC-ARQ-0003, 0004, 0005 e 0006 estão **substituídas** (vigentes: 0007, 000
 **O que não foi inventado (proposta só onde a DEC deixou em aberto):**
 
 - Alvo do `dotnet` (`.sln`, `.slnx` ou `.csproj`): o rascunho **detecta** o que o FS criar, alinhado ao D6 (“PortalApi.sln (ou .slnx)”).
-- `--no-launch-profile` no `dotnet run` do `start-local.sh`: **proposta operacional** da OPS (não está na DEC), para `launchSettings.json` não sobrescrever host/porta; o FS confirma.
-- Uso do `ng` local (`npx --no-install ng` após `npm ci`, ou `node_modules/.bin/ng`) nos scripts, em vez do CLI global: **proposta operacional** para respeitar o lockfile; o CLI global permanece como pré-requisito da box (R4 / RM-0002).
+- `--no-launch-profile` no `dotnet run` do `start-local.sh`: **confirmado pelo FS** (26/11 15:23), para `launchSettings.json` não sobrescrever host/porta. Sem `ASPNETCORE_URLS` e sem `--urls`.
+- Uso do `ng` local (`npx --no-install ng serve` após `npm ci` em `apps/portal-web`), em vez do CLI global: **confirmado pelo FS**. O CLI global permanece como pré-requisito da box (R4 / RM-0002). O script não gera configuração do front.
+- Espera do `stop-local.sh` após SIGTERM: **10 s (proposta OPS)**; SIGKILL só no PID específico se a espera esgotar. Sem pkill genérico. Confirmado o encerramento pelo PID em `run/`.
 
 SAST/SCA (DEC-ARQ-0009): recorte = NuGet Audit + `AnalysisModeSecurity=All` (API) e `npm audit` + `angular-eslint` recommended (Portal), mais testes dirigidos do QA. Sem Semgrep, SonarQube ou ferramenta nova. A OPS não instala SAST externo.
 
@@ -219,12 +246,12 @@ O **método permanece idêntico** (DEC-ARQ-0010): `GET /health` em loopback; 50 
 
 O `start-local.sh` grava `run/api.configuration=Release` para o script de p95 recusar medição se a API não estiver em Release.
 
-## 8. Lacunas de contexto e candidatos a conflito (v2.0)
+## 8. Lacunas de contexto e candidatos a conflito (v2.1)
 
-| Lacuna | Dono | Situação na v2.0 |
+| Lacuna | Dono | Situação na v2.1 |
 |---|---|---|
 | Esqueleto D6 / monorepo `/workspace/projetos/portal/` ainda inexistente | FS | Scripts depositados só após o esqueleto; preparação permanece Parcial nesse ponto |
-| Confirmação FS das portas, origem e comando (1º bloco) | FS | Proposta redigida; aguarda confirmação |
+| Confirmação FS das portas, origem e comando (1º bloco) | FS | **Fechada** em 26/11 15:23 (§5.1) |
 | Injeção de `PORTAL_API_BASE_URL` no Angular | FS | Lacuna já aberta no ADR-0001 v2 (item 3 das lacunas) |
 | Opção exata do `ng lint` / pacote e limiar do `ng test --coverage` | FS/QA | Já declarada na DEC-ARQ-0007/0008; a OPS não inventa |
 | Código de saída de `dotnet list package --vulnerable` como veredito | ARQ (já “a verificar”) | O rascunho julga pela **saída** (High/Critical), não pelo exit code |
@@ -267,7 +294,7 @@ Cabeça da main no momento desta emissão: `f75d8d4` (`f75d8d473505814519b815410
 
 ## 10. O que este parecer não faz
 
-Não cria `/workspace/projetos/` nem o esqueleto D6 (FS). Não envia mensagens (textos prontos acompanham o retorno). Não altera estado/gates/`contexto.yaml`/`historico.md`/`aprovacoes.md`/`Tarefas.csv` (só o ORQ). Não decide arquitetura (ADR/DEC do ARQ já vigentes). Não implementa CSP de produção. Não executa G6/G7 (aguardam o G5). Na v2.0 o parecer é registrado em ramo próprio da pasta do agente (`07-agentes/11-ops/`), **sem merge**.
+Não cria `/workspace/projetos/` nem o esqueleto D6 (FS). Não envia mensagens (os textos do 1º bloco já circularam; esta revisão só ajusta rascunhos e o parecer). Não altera estado/gates/`contexto.yaml`/`historico.md`/`aprovacoes.md`/`Tarefas.csv` (só o ORQ). Não decide arquitetura (ADR/DEC do ARQ já vigentes). Não implementa CSP de produção. Não executa G6/G7 (aguardam o G5). Na v2.0 o parecer é registrado em ramo próprio da pasta do agente (`07-agentes/11-ops/`), **sem merge**.
 
 ## 11. Histórico de versões
 
@@ -276,3 +303,4 @@ Não cria `/workspace/projetos/` nem o esqueleto D6 (FS). Não envia mensagens (
 | 1.0 | 2026-11-26 12:56 | OPS | Parecer de planejamento do G2 (rascunho, stack Node da AH-0001) |
 | 1.1 | 2026-11-26 14:55 | OPS | AH-0001 aprovada; DEC-ARQ-0005/0006; prazo/método do 1º bloco com o FS |
 | 2.0 | 2026-11-26 15:21 | OPS | Refeito para AH-0003 / ADR-0001 v2.0 aceito (.NET 10 + Angular 22); DEC-ARQ-0007..0010; reestimativa 10 h + 6 h + 24 h; instalação da toolchain registrada; premissa de merge pendente retirada |
+| 2.1 | 2026-11-26 15:25 | OPS | 1º bloco fechado com o FS (26/11 15:23): valores, comandos e observações 1–4 incorporados aos rascunhos e a este parecer (§5.1) |
