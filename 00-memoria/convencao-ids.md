@@ -1,7 +1,7 @@
 # Convenção de identificadores
 
-> Versão 1.1 · 26/11/2026 · gerado a partir dos Prompts 01–04 da Stack Multiagentes (Prompt 04, Anexo A, tem prioridade).
-> v1.1 (TASK-0011, incremento A, DOC): CR-nnnn na fase atual sem GitHub (L-CR2) e prefixo UX-nnnn proposto (L-UX-01). Ver “Histórico desta convenção” ao final.
+> Versão 1.2 · 26/11/2026 · gerado a partir dos Prompts 01–04 da Stack Multiagentes (Prompt 04, Anexo A, tem prioridade).
+> v1.2 (TASK-0011, DOC): prefixo UX-nnnn vigente, endossado pelo UX (MSG-RET de Bruno Tavares, 26/11/2026). v1.1 permanece válida para L-CR2 e para o restante. Ver “Histórico desta convenção” ao final.
 
 | Prefixo | Artefato | Formato | Exemplo | Quem cria | Onde vive |
 |---|---|---|---|---|---|
@@ -24,7 +24,7 @@
 | PRB | Problema recorrente | PRB-nnnn | PRB-0009 | Suporte | 04-incidentes/problemas/ |
 | TD | Débito técnico | TD-nnnn | TD-0015 | Arquiteto Líder | 02-tecnica/debitos-tecnicos/ |
 | CONF | Conflito/inconsistência sinalizada | CONF-nnnn | CONF-0003 | Quem detectou (dono resolve) | 00-memoria/conflitos/ |
-| UX *(proposto — endosso do UX pendente)* | Entrega de UX: protótipo + especificação de interface | UX-nnnn | UX-0007 (exemplo) | UX | `07-agentes/06-ux/prototipos/<DEM>-<US>-<slug>/` |
+| UX | Entrega de UX: protótipo navegável + especificação de interface da mesma US e versão | UX-nnnn | UX-0001 | UX | `07-agentes/06-ux/prototipos/<DEM>-<US>-<slug>/` |
 Regras
 - Identificadores são únicos, imutáveis e nunca reutilizados; um artefato cancelado mantém o ID com status “cancelado”.
 - DEM e INC mantêm o padrão com ano do Prompt 02 (DEM-AAAA-nnn, INC-AAAA-nnn); os demais artefatos usam numeração sequencial global de 4 dígitos (formato do Prompt 03).
@@ -51,14 +51,17 @@ Regras
 - Quando o GitHub for conectado, o CR-nnnn volta a viver no PR (link na TASK); os arquivos já criados mantêm o ID.
 - Quem pode gravar em `06-qualidade/pareceres/` por tipo de parecer depende da matriz 7.1 do `protocolo-memoria.md`; o desdobramento proposto está num ramo separado, dependente de AH (ver histórico abaixo).
 
-### Prefixo UX-nnnn (L-UX-01) — proposta, aguarda endosso do UX
-- Identifica uma **entrega de UX** (protótipo navegável + especificação de interface da mesma US/versão). O ID é reservado em `registro-ids.yaml` (`sequencial_global.UX`) **antes** de a entrega ser criada ou regularizada; nunca é reutilizado. Contador atual: 0 (nenhum reservado).
-- Tipos no frontmatter: o UX já usa `tipo: especificacao-interface` na especificação; o protótipo HTML é citado por ela, na mesma versão. Nome de pasta/arquivo: `<ID>-<slug>` quando o ID existir.
-- Rótulos locais `P-UX-nn` (premissa), `L-UX-nn` (lacuna), `D-UX-nn` (decisão de design) e `RE-nn` (recomendação ao PO) **não são IDs da Stack**; valem só dentro do documento do UX. Decisões formais continuam em `DEC-UX-nnnn` (padrão DEC-<SIGLA>-nnnn).
-- O artefato atual `UX-ESPEC-DEM-2026-001-TASK-0004` (v1.0, em revisão) **não foi alterado**. Um alias `UX-nnnn` só será reservado depois do endosso do UX (pedido de endosso por MSG-COL ao UX, cópia ORQ).
+### Prefixo UX-nnnn (L-UX-01) — vigente (endosso do UX, 26/11/2026)
+Fonte do endosso: MSG-RET do UX (Bruno Tavares) à DOC, cópia ORQ, DEM-2026-001 / TASK-0011, status Concluída. Regras 1 a 3 abaixo reproduzem o endosso; a DOC não inventou conteúdo de UX.
+
+1. Um ID **UX-nnnn** identifica uma **entrega de UX**: o protótipo navegável e a especificação de interface da **mesma** US e versão. A versão fica no frontmatter da especificação. Não há IDs separados para protótipo e especificação: os dois são sempre revisados e validados juntos. O número é reservado em `registro-ids.yaml` (`sequencial_global.UX`) **antes** de a entrega ser criada ou regularizada; nunca é reutilizado.
+2. `tipo` no frontmatter: `especificacao-interface` na especificação e `prototipo` para o HTML. O HTML **não tem** frontmatter e é citado pela especificação, na mesma versão. Nome de pasta/arquivo: `<ID>-<slug>` quando o ID for o identificador do arquivo (entregas novas); o artefato já existente mantém o nome atual (ver item 4).
+3. Os rótulos `P-UX-nn` (premissa), `L-UX-nn` (lacuna), `D-UX-nn` (decisão de design) e `RE-nn` (recomendação ao PO) são **locais da entrega** e **não são IDs da Stack**. Decisão formal de UX usa `DEC-UX-nnnn` (padrão DEC-<SIGLA>-nnnn).
+4. Artefato já existente: a especificação `UX-ESPEC-DEM-2026-001-TASK-0004` v1.0 (em revisão; caminho `07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/especificacao-interface-tela-status.md`, protótipo `prototipo-tela-status.html`) **mantém o id atual**. O alias **UX-0001** foi reservado neste registro (`sequencial_global.UX: 1`). O próprio UX aplica o alias no frontmatter da especificação (publicação v1.1), **depois** do merge desta convenção na main. A DOC não altera o artefato do UX.
 
 ### Histórico desta convenção
 | Versão | Data | Autor | Mudança |
 |---|---|---|---|
 | 1.0 | 26/11/2026 | Geração inicial (Prompts 01–04) | Criação |
 | 1.1 | 26/11/2026 | DOC | CR-nnnn: local na fase atual (L-CR2); PQ-nnnn: padrão de nome; UX-nnnn proposto (L-UX-01). Sem mudança de regra de quem escreve (matriz 7.1 em ramo próprio, dependente de AH) |
+| 1.2 | 26/11/2026 | DOC | UX-nnnn vigente (endosso do UX); regras 1–3 da entrega; reserva e alias UX-0001 do artefato UX-ESPEC-DEM-2026-001-TASK-0004, a aplicar pelo UX após o merge |
