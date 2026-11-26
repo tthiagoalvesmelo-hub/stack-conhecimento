@@ -2,13 +2,13 @@
 id: AGT-ARQ-NOTAS
 titulo: "Notas compartilháveis — Ricardo Almeida (Arquiteto Líder)"
 tipo: agente
-versao: 1.5
+versao: 1.6
 status: vigente
 dono: ARQ
 autores: [ARQ]
 aprovado_por: Thiago Melo
 criado_em: 2026-11-26T11:00-03:00
-atualizado_em: 2026-11-26T15:03-03:00
+atualizado_em: 2026-11-26T15:19-03:00
 revisar_ate: 2027-02-26
 relacionados: []
 substitui: null
@@ -45,3 +45,8 @@ Conhecimento da especialidade que outros agentes podem precisar. Informação da
 - ADR-0002 v1.1 (versão no `<Version>` do `.csproj`, `IncludeSourceRevisionInInformationalVersion=false`) e ADR-0003 v1.1: propostos até o G3. OpenAPI 1.0.0 mantém-se.
 - DEC-ARQ-0007..0010 substituem DEC-ARQ-0003..0006 (verify-local, lint, SAST/SCA, p95). Análise de impacto: `07-agentes/07-arq/analise-impacto-troca-stack-DEM-2026-001.md`.
 - Regra prática: nenhum comportamento do contrato pode depender de `ASPNETCORE_ENVIRONMENT`; ganchos de teste só por `WebApplicationFactory`.
+
+## 26/11/2026 — R1 do G3 fechada; RM-0002 (CPO); premissas (a)/(b)
+- **R1 fechada** (parecer G3 v1.1): ET-0001 v1.4 aprovada tecnicamente pelo ARQ (já na main, 9b3dc1b); prosa do OpenAPI 1.0.0 correta (ramo `doc/TASK-0006-R1-openapi-prosa`, 8494060 — o ORQ faz o merge). R2..R5 abertas (FS/QA/OPS). Fonte: `07-agentes/07-arq/parecer-tecnico-DEM-2026-001-g3.md` v1.1.
+- **PLANO-RM-0002:** a CPO validou em 26/11 15:12 (DEC-CPO-0001, sem DEC nova): MOB, PMM e AN fora; **DBA e SUP entram por gatilho** — antes da primeira atividade de cada um numa demanda .NET/Angular, o ARQ define um núcleo curto para o papel. Prazo e forma (leitura + exercício + evidência; Parcial sem evidência) aceitos; o PO avisa a CPO se o núcleo atrasar uma TASK. Falta o PO validar o impacto em backlog e prazo.
+- **Premissas da diretriz AH-0003, vigentes até o Thiago responder** (dúvidas levadas pela CPO): **(a)** "última linguagem do Angular" = Angular **22.x estável** mais recente (hoje 22.3.0), acompanhando o suporte; **(b)** C#/.NET aplica-se **só às APIs do Portal Web** (demais backends permanecem A CONFIRMAR). Se (b) ampliar, a CPO abre DEC-CPO-0002. A DEM-2026-001 não espera essa resposta.

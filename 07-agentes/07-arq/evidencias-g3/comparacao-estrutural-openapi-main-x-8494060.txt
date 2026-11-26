@@ -1,0 +1,15 @@
+info.version main/ramo: 1.0.0 1.0.0
+openapi: 3.1.0 3.1.0
+paths: ['/health'] ['/health']
+ops /health (chaves): ['description', 'get'] ['description', 'get']
+STRUCTURAL_EQUAL_AFTER_STRIP_DESC_XSTACK: True
+ALL_DIFFS_COUNT: 5
+CHANGED $.components.responses.Unavailable.description
+CHANGED $.info.description
+CHANGED $.info.x-stack.decisoes[len]
+CHANGED $.info.x-stack.status-documento
+CHANGED $.paths./health.get.description
+x-stack.status-documento: proposto -> aprovado
+x-stack.decisoes main: ['DEC-ARQ-0002', 'DEC-AS-0001', 'DEC-AS-0002', 'DEC-AS-0003', 'DEC-PO-0006']
+x-stack.decisoes ramo: ['DEC-ARQ-0002', 'DEC-ARQ-0011', 'AH-0003', 'DEC-AS-0001', 'DEC-AS-0002', 'DEC-AS-0003', 'DEC-PO-0006']
+RESULTADO: somente descrições e x-stack mudam; caminhos, esquemas, exemplos, cabeçalhos HTTP e info.version idênticos.

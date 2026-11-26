@@ -1,0 +1,92 @@
+OK    YAML parse estrito (sem chaves duplicadas)
+OK    openapi-spec-validator: OpenAPI 3.1.0 válido; info.version=1.0.0
+OK    openapi 3.1.x
+OK    info.version 1.0.0
+OK    somente o caminho /health
+OK    somente operação get no OpenAPI (achado: ['get'])
+OK    security: [] (contrato interno, sem autenticação)
+OK    sem securitySchemes
+OK    (informativo) menções a force
+OK    único parâmetro = X-Request-Id (achado: ['X-Request-Id'])
+OK    nenhum cabeçalho Retry-After declarado
+OK    cabeçalho proibido/ausente não declarado: Server
+OK    cabeçalho proibido/ausente não declarado: X-Powered-By
+OK    cabeçalho proibido/ausente não declarado: Access-Control-Allow-Credentials
+OK    cabeçalho proibido/ausente não declarado: Access-Control-Allow-Headers
+OK    cabeçalho proibido/ausente não declarado: Access-Control-Expose-Headers
+OK    Cache-Control const no-store
+OK    X-Content-Type-Options const nosniff
+OK    Allow const 'GET, HEAD'
+OK    resposta Ok declara Cache-Control
+OK    resposta Ok declara X-Content-Type-Options
+OK    resposta Ok declara X-Request-Id
+OK    resposta Ok declara Access-Control-Allow-Origin
+OK    resposta Unavailable declara Cache-Control
+OK    resposta Unavailable declara X-Content-Type-Options
+OK    resposta Unavailable declara X-Request-Id
+OK    resposta Unavailable declara Access-Control-Allow-Origin
+OK    resposta MethodNotAllowed declara Cache-Control
+OK    resposta MethodNotAllowed declara X-Content-Type-Options
+OK    resposta MethodNotAllowed declara X-Request-Id
+OK    resposta MethodNotAllowed declara Access-Control-Allow-Origin
+OK    resposta InternalError declara Cache-Control
+OK    resposta InternalError declara X-Content-Type-Options
+OK    resposta InternalError declara X-Request-Id
+OK    resposta InternalError declara Access-Control-Allow-Origin
+OK    405 declara Allow
+OK    Allow só no 405
+OK    respostas do GET = 200/405/500/503 (achado ['200', '405', '500', '503'])
+OK    200 em application/json; charset=utf-8
+OK    405 em application/problem+json
+OK    500 em application/problem+json
+OK    HealthOk: additionalProperties false
+OK    HealthUnavailable: additionalProperties false
+OK    ProblemBase: additionalProperties false
+OK    required = status, version, timestamp (200 e 503)
+OK    status ok (200) / unavailable (503)
+OK    RFC 9457 type about:blank
+OK    problem status 405/500/404
+OK    exemplo Ok/saudavel válido contra HealthOk
+OK    exemplo Unavailable/indisponivel válido contra HealthUnavailable
+OK    exemplo MethodNotAllowed/metodo-nao-permitido válido contra ProblemMethodNotAllowed
+OK    exemplo InternalError/erro-inesperado válido contra ProblemInternalError
+OK    timestamp aceito: 2026-11-26T15:30:00.123Z
+OK    timestamp aceito: 2026-01-01T00:00:00.000Z
+OK    timestamp aceito: 2026-12-31T23:59:59.999Z
+OK    timestamp rejeitado: 2026-11-26T15:30:00Z
+OK    timestamp rejeitado: 2026-11-26T15:30:00.12Z
+OK    timestamp rejeitado: 2026-11-26T15:30:00.1234Z
+OK    timestamp rejeitado: 2026-11-26T15:30:00.123+00:00
+OK    timestamp rejeitado: 2026-11-26T15:30:00.123-03:00
+OK    timestamp rejeitado: 2026-11-26 15:30:00.123Z
+OK    timestamp rejeitado: 2026-13-26T15:30:00.123Z
+OK    timestamp rejeitado: 2026-11-26T24:00:00.000Z
+OK    timestamp rejeitado: 2026-11-26t15:30:00.123z
+OK    version aceita: '0.1.0'
+OK    version aceita: '1.0.0'
+OK    version aceita: '10.20.30'
+OK    version aceita: '0.2.0-rc.1'
+OK    version aceita: '1.0.0-alpha'
+OK    version aceita: '1.0.0-alpha.1'
+OK    version aceita: '1.0.0-0.3.7'
+OK    version aceita: '1.0.0-x-y-z.-'
+OK    version rejeitada: ''
+OK    version rejeitada: '1'
+OK    version rejeitada: '1.0'
+OK    version rejeitada: '01.0.0'
+OK    version rejeitada: '1.01.0'
+OK    version rejeitada: '1.0.01'
+OK    version rejeitada: '1.0.0+build5'
+OK    version rejeitada: '1.0.0-rc.1+b'
+OK    version rejeitada: '1.0.0-'
+OK    version rejeitada: '1.0.0-01'
+OK    version rejeitada: '1.0.0-rc..1'
+OK    version rejeitada: '1.0.0-rc.'
+OK    version rejeitada: 'v1.0.0'
+OK    version rejeitada: '1.0.0 '
+OK    version rejeitada: '1.0.0-rc_1'
+INFO  timestamp com data inexistente 2026-02-31T10:00:00.000Z aceito pelo padrão: True (format date-time via FormatChecker rejeita: True)
+OK    UUID canônico aceito
+OK    UUID maiúsculo rejeitado (padrão exige minúsculo)
+OK    UUID sem hífens rejeitado
+RESULTADO: OK

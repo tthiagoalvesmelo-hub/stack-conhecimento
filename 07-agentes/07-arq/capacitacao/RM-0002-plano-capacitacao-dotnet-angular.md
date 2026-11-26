@@ -2,13 +2,13 @@
 id: PLANO-RM-0002
 titulo: "Plano de capacitação do time em C#/.NET e Angular (RM-0002)"
 tipo: plano
-versao: 1.0
+versao: 1.1
 status: proposto
 dono: ARQ
 autores: [ARQ]
 aprovado_por: null
 criado_em: 2026-11-26T15:06-03:00
-atualizado_em: 2026-11-26T15:06-03:00
+atualizado_em: 2026-11-26T15:19-03:00
 revisar_ate: 2027-02-26
 relacionados: [RM-0002, RM-0001, DEC-CPO-0001, AH-0003, ADR-0001, DEM-2026-001, INST-TECNOLOGIAS]
 substitui: null
@@ -18,6 +18,15 @@ substituido_por: null
 # PLANO-RM-0002 — Capacitação em C#/.NET e Angular
 
 > [TESTE] Fase de testes internos. **Conteúdo: ARQ (dono, DEC-CPO-0001). Prioridade: CPO (Alta).** **Escopo de negócio, prazo e a inclusão de papéis são propostas do ARQ, marcadas "PARA VALIDAÇÃO" da CPO e do PO; o ARQ não os decide.** **Custo zero** (DEC-CPO-0001): só fontes gratuitas e oficiais; qualquer curso, certificação, licença ou ferramenta paga exige AH própria. Este plano não prevê nenhuma.
+
+## Validação da CPO (26/11/2026 15:12) e premissas da diretriz
+A CPO validou este plano estrategicamente, dentro da DEC-CPO-0001 (sem DEC nova):
+- **Fora:** MOB, PMM e AN.
+- **DBA e SUP:** fora agora; **entram por gatilho.** Antes da primeira atividade de cada um numa demanda .NET/Angular, o **ARQ define um núcleo curto** para o papel (conteúdo, fontes oficiais gratuitas, uma evidência, carga horária).
+- **Prazo e forma** (leitura + exercício + evidência; Parcial sem evidência) aceitos, com a condição de o PO avisar a CPO se o núcleo atrasar uma TASK. Prioridade da DEM-2026-001 permanece Normal.
+- **Pendente:** o PO validar o impacto em backlog e prazo da demanda.
+
+**Premissas (a) e (b) da diretriz AH-0003, vigentes até o Thiago responder** (texto levado pela CPO): (a) Angular **22.x estável** mais recente (hoje 22.3.0), acompanhando o suporte; (b) C#/.NET **só nas APIs do Portal Web**. Se (b) ampliar, a CPO abre DEC-CPO-0002. A DEM-2026-001 não espera essa resposta.
 
 ## 1. Objetivo
 Capacitar os agentes envolvidos para trabalhar na stack da AH-0003 (ADR-0001 v2): **C# em .NET 10 LTS com ASP.NET Core Minimal APIs** e **Angular 22.x**, com os padrões de qualidade da Stack (DEC-ARQ-0007..0011). Resultado esperado: cada agente comprova, por **uma evidência verificável**, que consegue executar o seu papel nessa stack. **A DEM-2026-001 é o primeiro exercício prático e não espera o fim da capacitação** (DEC-CPO-0001).
@@ -84,6 +93,6 @@ Premissa das horas: agentes sem experiência prévia na stack; leitura + exercí
 | R-1 | Horas são estimativas do ARQ, sem base histórica | Recalibrar após as primeiras evidências |
 | R-2 | Dependência do SDK instalado (OPS) para as evidências de ARQ, FS, QA, OPS | OPS primeiro; sem SDK, essas evidências ficam "Parcial" |
 | R-3 | Sem experiência, risco de qualidade na TASK-0008 | CR e a segunda aprovação do ARQ no G4 (R3) |
-| L-1 | Escopo de MOB e de outros papéis (PMM, AN, DBA, SUP) | CPO decide; **PARA VALIDAÇÃO** |
-| L-2 | Prazo de negócio | CPO/PO; **PARA VALIDAÇÃO** |
+| L-1 | Escopo de MOB, PMM, AN, DBA e SUP | **Fechada pela CPO (15:12):** MOB/PMM/AN fora; DBA/SUP por gatilho (núcleo curto do ARQ) |
+| L-2 | Prazo de negócio | **Prazo e forma validados pela CPO (15:12)**; falta o PO validar o impacto em backlog e prazo da DEM |
 | L-3 | Qualquer custo (curso, certificação, licença) | Exige AH própria; **não previsto** |
