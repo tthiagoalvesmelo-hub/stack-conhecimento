@@ -5,7 +5,7 @@ Demanda: DEM-2026-001 [TESTE] · Classe de risco: R3 (DEC-ARQ-0001) · Fluxo: 01
 | Gate | Validador | Modo (automatizada / manual pelo agente / AH) | Resultado (Aprovado / Aprovado com observações / Reprovado) | Evidência (CR-/PQ-/pipeline/doc + versão) | Data/hora (America/Sao_Paulo) | Registrado por |
 |---|---|---|---|---|---|---|
 | G0 Entrada confirmada | CPO | manual pelo agente | Aprovado | MSG-RET CPO TASK-0001 (26/11 12:11) | 26/11/2026 12:11 | ORQ |
-| G1 Escopo/proposta consolidados | Responsável do fluxo | | | | | ORQ |
+| G1 Escopo/proposta consolidados | PO (responsável do Fluxo 01) | manual pelo agente | Aprovado com observações — condições: (1) formatos, 503/405/500, 5 s e "sem login" dependem dos ADR-0002/0003 propostos; se mudarem no G3, PO reabre os CA afetados; (2) stack e implementação (TASK-0008/TASK-0012) só após AH-0001 válida do Thiago; G1 não substitui AH; (3) proposta técnica do ARQ (TASK-0003) segue Parcial | US-0001 (CA-01..09), US-0002 (CA-01..06), REQ-0001..0004, RN-0001/0002 v1.1; parecer QA TASK-0005 respondido; commits af208f2, 4df588e; MSG-RET PO 26/11 12:38 | 26/11/2026 12:38 | ORQ |
 | G2 Planejamento aprovado | PO / ARQ | | | | | ORQ |
 | G3 Contratos e dados aprovados | ARQ · DBA | | | | | ORQ |
 | G4 Code Review aprovado | CR (+ ARQ se crítica) | | | | | ORQ |
