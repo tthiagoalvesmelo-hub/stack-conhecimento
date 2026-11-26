@@ -3,7 +3,7 @@ id: CONF-nnnn
 titulo: "<resumo>"
 tipo: conf
 versao: 1.0
-status: aberto
+status: aberto               # aberto | resolvido | cancelado (cancelado mantém o ID, convencao-ids.md)
 dono: DOC
 autores: [DOC]
 aprovado_por: Thiago Melo
