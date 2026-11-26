@@ -2,22 +2,22 @@
 id: INDEX
 titulo: "Índice do repositório stack-conhecimento"
 tipo: indice
-versao: 1.2
+versao: 1.3
 status: vigente
 dono: DOC
 autores: [DOC]
 aprovado_por: DOC
 criado_em: 2026-11-26T13:02-03:00
-atualizado_em: 2026-11-26T13:17-03:00
+atualizado_em: 2026-11-26T14:49-03:00
 revisar_ate: 2027-02-26
-relacionados: [DEM-2026-001, TASK-0011, L-09, L-UX-01, EF-0001, ET-0001, CONF-0001, UX-0001]
+relacionados: [DEM-2026-001, TASK-0011, L-09, L-UX-01, EF-0001, ET-0001, CONF-0001, UX-0001, AH-0002, L-CR2]
 substitui: null
 substituido_por: null
 ---
 
 # INDEX — stack-conhecimento
 
-> Versão 1.2 · 2026-11-26 13:17 (America/Sao_Paulo) · DOC (UX-0001 publicado pelo UX). Estado do Git no commit-base `0e9a4af` (main). Os campos Versão/Status/Último commit vêm do frontmatter e do `git log` dos arquivos. **Em caso de divergência, o arquivo e o histórico do Git prevalecem sobre este índice** (um índice é só ponteiro: ID + caminho + versão, ver `00-memoria/fontes-de-verdade.md`). Quem cria ou muda um documento atualiza este índice (DoD: “contexto.yaml e INDEX atualizados”).
+> Versão 1.3 · 2026-11-26 14:49 (America/Sao_Paulo) · DOC (protocolo-memoria v1.1 vigente, AH-0002). Estado do Git no commit-base `939099a` (main no ponto do ramo). Os campos Versão/Status/Último commit vêm do frontmatter e do `git log` dos arquivos. **Em caso de divergência, o arquivo e o histórico do Git prevalecem sobre este índice** (um índice é só ponteiro: ID + caminho + versão, ver `00-memoria/fontes-de-verdade.md`). Quem cria ou muda um documento atualiza este índice (DoD: “contexto.yaml e INDEX atualizados”).
 
 ## Como usar
 1. Recuperação de contexto: `00-memoria/skills/recuperar-contexto/SKILL.md` (passo 5 aponta para este índice).
@@ -33,7 +33,7 @@ substituido_por: null
 | `03-operacional/` | Demandas (contexto.yaml, historico.md, aprovacoes.md, requisitos, histórias), snapshots, quadro | ORQ |
 | `04-incidentes/` | Incidentes, problemas, runbooks, base de conhecimento | SUP |
 | `05-releases/` | REL-nnnn (com tag Git) | OPS |
-| `06-qualidade/` | Planos e casos de teste, defeitos, pareceres (`PQ-nnnn`, `CR-nnnn`, análises) | QA (pareceres CR: ver matriz 7.1 e AH pendente) |
+| `06-qualidade/` | Planos e casos de teste, defeitos, pareceres (`PQ-nnnn`, `CR-nnnn`, análises) | QA (pareceres CR-nnnn em `pareceres/`: A = CR, E = ARQ; protocolo-memoria v1.1, AH-0002) |
 | `07-agentes/NN-sigla/` | PROMPT.md e notas compartilháveis de cada agente | cada agente / DOC |
 | `08-arquivo/` | Demandas e documentos encerrados ou obsoletos | DOC / ORQ |
 | `modelos/` | Modelos de documentos e mensagens | DOC |
@@ -43,8 +43,8 @@ Fora do Git, em `/workspace/stack-memoria/`: `planilha-operacao/` (espelho CSV d
 ## 2. Memória e governança (`00-memoria/`)
 | Arquivo | Último commit |
 |---|---|
-| `00-memoria/protocolo-memoria.md` | 55b315d |
-| `00-memoria/convencao-ids.md` | 50329b6 |
+| `00-memoria/protocolo-memoria.md` (v1.1 vigente, AH-0002) | 8ead493 |
+| `00-memoria/convencao-ids.md` (v1.3) | c91b7ec |
 | `00-memoria/fontes-de-verdade.md` | 55b315d |
 | `00-memoria/glossario.md` | 55b315d |
 | `00-memoria/registro-ids.yaml` | 50329b6 |
@@ -118,7 +118,7 @@ Contexto consolidado (fonte de verdade do contexto): `03-operacional/demandas/DE
 | `06-qualidade/pareceres/analise-testabilidade-task-0005.md` | ANALISE-TESTABILIDADE-DEM-2026-001-TASK-0005 | 1.0 | vigente | QA | 80e9184 |
 | `06-qualidade/pareceres/parecer-planejamento-g2-task-0010.md` | PARECER-G2-DEM-2026-001-TASK-0010 | 1.0 | vigente | QA | 40c8ace |
 
-Observação: pareceres CR-nnnn e PQ-nnnn ainda não existem (contadores CR: 0, PQ: 0 em `registro-ids.yaml`). Local do CR-nnnn na fase atual: `06-qualidade/pareceres/CR-nnnn-<slug>.md` (convencao-ids v1.1).
+Observação: pareceres CR-nnnn e PQ-nnnn ainda não existem (contadores CR: 0, PQ: 0 em `registro-ids.yaml`). Local do CR-nnnn na fase atual: `06-qualidade/pareceres/CR-nnnn-<slug>.md` (convencao-ids v1.3; matriz 7.1 vigente no protocolo-memoria v1.1, AH-0002: A = CR, E = ARQ).
 
 ## 6. Artefatos de UX e agentes (`07-agentes/`)
 - Entrega de UX da DEM-2026-001: `07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/` — especificação `UX-ESPEC-DEM-2026-001-TASK-0004` (alias **UX-0001**) v1.1 vigente, aprovada com ressalvas (DEC-PO-0005), e `prototipo-tela-status.html` v1.1 (tipo prototipo), commit `0e9a4af`. Prefixo `UX-nnnn` **vigente** (convenção v1.2, endosso do UX).
@@ -140,7 +140,7 @@ Observação: pareceres CR-nnnn e PQ-nnnn ainda não existem (contadores CR: 0, 
 | `11-ops` | AGT-OPS-NOTAS | 1.0 |
 | `12-qa` | AGT-QA-NOTAS | 1.0 |
 | `13-cr` | AGT-CR-NOTAS | 1.0 |
-| `14-doc` | AGT-DOC-NOTAS | 1.0 |
+| `14-doc` | AGT-DOC-NOTAS | 1.1 |
 | `15-sup` | AGT-SUP-NOTAS | 1.0 |
 
 Cada pasta tem também o `PROMPT.md` completo do agente.
