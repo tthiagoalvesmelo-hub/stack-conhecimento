@@ -2,7 +2,7 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 40
+versao_contexto: 41
 atualizado_em: "2026-11-26T15:48-03:00"
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
@@ -69,7 +69,7 @@ pendencias_contexto:
   - {item: "L-02: injeção de PORTAL_API_BASE_URL no Angular (D7; item 3 das lacunas do ADR-0001 v2)", dono: FS}
   - {item: "L-04: piso de 32 h do FS vale só com o núcleo da RM-0002 antes da TASK-0008; FS não confirmou o piso por escrito para essa condição", dono: FS}
   - {item: "L-05: limiar de 2 dias úteis para aviso à CPO se o início da TASK-0008 atrasar após o desbloqueio — consta do plano v1.2; transcrição da CPO com esse número não localizada no repositório (PO)", dono: ORQ/CPO}
-  - {item: "L-06: spike do CA-07 (R4) não executado; se inviável, o PO reabre o CA-07", dono: FS/ARQ}
+  - {item: "L-06: spike do CA-07 (R4) FECHADA 26/11 17:04: viável com D = 3 s (FS M1..M8; ARQ reensaiou no G4 @9e373b8); CT-0038 segue com QA/OPS", dono: FS/ARQ, estado: fechada}
   - {item: "L-07: CSP fora desta fase; limiar numérico de memória/CPU na observação de 24 h não definido", dono: ARQ/OPS}
   - {item: "L-08: incremento A da DOC permanece Parcial; justificativa da matriz 7.1 atualizada neste registro (mesclada 3755fc6, AH-0002); item que falta para Concluída não identificado", dono: PO/DOC/ORQ}
   - {item: "L-09: pareceres do FS e da DOC só em rascunhos/ sem commit; parecer do CR só transcrito pelo ORQ", dono: FS/DOC/CR}
