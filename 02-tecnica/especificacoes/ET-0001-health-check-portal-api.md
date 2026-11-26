@@ -2,13 +2,13 @@
 id: ET-0001
 titulo: "Especificação técnica de GET /health da portal-api (contrato interno, liveness)"
 tipo: et
-versao: 1.0
+versao: 1.1
 status: em-revisao
 dono: AS
 autores: [AS]
 aprovado_por: null
 criado_em: 2026-11-26T12:27-03:00
-atualizado_em: 2026-11-26T12:27-03:00
+atualizado_em: 2026-11-26T12:33-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0006, EF-0001, US-0001, US-0002, REQ-0001, REQ-0003, REQ-0004, RN-0001, RN-0002, ADR-0001, ADR-0002, ADR-0003, DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, CONF-0001]
 substitui: null
@@ -20,7 +20,7 @@ substituido_por: null
 > [TESTE] DEM-2026-001 · TASK-0006 · Fluxo 01 · classe de risco R3 (DEC-ARQ-0001) · autora: AS (Juliana Castro).
 > **Estado:** rascunho em revisão, redigido **sob premissa**: ADR-0001/0002/0003 estão *propostos* (v1.0, commit 362ea35) e a stack depende da AH-0001. O contrato (OpenAPI) independe da stack (ADR-0003); tudo que depende dela está marcado literalmente como **"premissa a confirmar (AH-0001)"**. A validação do contrato (G3) é do ARQ (TASK-0007) e só ocorre após a AH-0001.
 > Contrato: `02-tecnica/contratos-api/portal-api/openapi.yaml` (OpenAPI 3.1, `info.version` **1.0.0**), proposto no ramo `doc/ET-0001-contrato-portal-api-health` (área protegida; aguarda merge `--no-ff` do ARQ).
-> Especificação funcional par: EF-0001 v1.0.
+> Especificação funcional par: EF-0001 v1.1.
 
 ## 1. Objetivo e escopo
 Detalhar tecnicamente o recurso operacional `GET /health` da `portal-api` (API base do Portal Web, a criar): *liveness* do processo, somente leitura, que informa `status`, `version` e `timestamp` (REQ-0001) sem dado sensível (RN-0001, REQ-0004) e de forma que indisponibilidade nunca seja lida como saudável (RN-0002).
@@ -38,7 +38,8 @@ Detalhar tecnicamente o recurso operacional `GET /health` da `portal-api` (API b
 | REQ-0001..REQ-0004 | 1.0 · em-revisao | Requisitos |
 | RN-0001, RN-0002 | 1.0 · em-revisao | Regras aplicadas |
 | DEC-ARQ-0001 | R3 (historico.md, 26/11/2026 12:22) | Classe de risco |
-| contexto.yaml DEM-2026-001 | v5 (lido na v4 e reconferido na v5; commit 329d362) | Estado, riscos, pendências |
+| contexto.yaml DEM-2026-001 | v6 (lido nas v4 a v6; commit da792b3) | Estado, riscos, pendências |
+| Análise de testabilidade (QA, TASK-0005) | v1.0 · vigente · commit 80e9184 | Pontos de testabilidade e desalinhamento REQ-0001 × `503` (L-11) |
 | Especificação de interface da tela (UX) | UX-ESPEC-DEM-2026-001-TASK-0004 v1.0 em revisão (commit 1290f25) | Regras de consumo do Portal (seção 5) |
 | Modelos para EF/ET/contrato | **inexistentes** em `modelos/` (L-09) | Estrutura própria derivada do PROMPT.md da AS |
 
@@ -237,6 +238,7 @@ O corpo de erro segue a **sugestão** do ADR-0003 (RFC 9457; apenas `type`, `tit
 | L-07 | Confirmar as decisões DEC-AS-0001..0003 (delegadas à AS pelo ADR-0003/ADR-0002, mas com efeito no contrato) | ARQ | Revisão do contrato |
 | L-08 | US-0001, US-0002 e REQ-0004 ainda citam "R2 (padrão)", e o contexto/DEC-ARQ-0001 confirmam **R3** (CONF-0001); US/RN estão `em-revisao` (G1 pendente): mudança de CA exige revisão desta ET | PO | Rastreabilidade sobre v1.0 pode ser invalidada |
 | L-09 | Não existem modelos EF/ET/contrato em `modelos/` nem `INDEX.md` na base; estrutura própria usada | DOC | Padronização futura |
+| L-11 | REQ-0001 e US-0001 só preveem `200`; o contrato inclui `503`, `405` e `500` (ADR-0003) sem CA/REQ de escopo correspondente (apontado pelo QA, TASK-0005), e US-0001 CA-04 cita "build/commit" enquanto o ADR-0002 proíbe hash de commit na resposta. Alteração de requisito identificada na especificação: decisão do PO (incluir CA/REQ para `503`/`405`/`500` e alinhar CA-04) | PO | `503`/`405`/`500` ficam sem critério de aceite próprio no G5 |
 | L-10 | Dependência: **AH-0001** (stack, N3) — G3 só após a decisão; TASK-0007 (ARQ) valida o contrato | ORQ / ARQ | Contrato permanece "proposto" |
 
 ## 13. Decisões na alçada da AS
@@ -262,4 +264,5 @@ Matriz completa CA ↔ RN ↔ REQ ↔ EF/ET/contrato: EF-0001 seção 7.
 ## 15. Histórico de versões
 | Versão | Data/hora | Autor | Mudança |
 |---|---|---|---|
-| 1.0 | 26/11/2026 12:27 | AS | Criação (TASK-0006), sob premissa dos ADRs propostos e da AH-0001 |
+| 1.0 | 26/11/2026 12:27 | AS | Criação (TASK-0006), sob premissa dos ADRs propostos e da AH-0001 (commit 950ebff) |
+| 1.1 | 26/11/2026 12:33 | AS | Acrescenta L-11 (cobertura de `503`/`405`/`500` por CA/REQ e CA-04 × ADR-0002) e a fonte QA TASK-0005; sem mudança de contrato |

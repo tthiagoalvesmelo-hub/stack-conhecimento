@@ -2,13 +2,13 @@
 id: EF-0001
 titulo: "Especificação funcional do health-check GET /health da portal-api e consumo pela tela de status"
 tipo: ef
-versao: 1.0
+versao: 1.1
 status: em-revisao
 dono: AS
 autores: [AS]
 aprovado_por: null
 criado_em: 2026-11-26T12:27-03:00
-atualizado_em: 2026-11-26T12:27-03:00
+atualizado_em: 2026-11-26T12:33-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0006, ET-0001, US-0001, US-0002, REQ-0001, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, ADR-0003, CONF-0001]
 substitui: null
@@ -18,7 +18,7 @@ substituido_por: null
 # EF-0001 — Health-check `GET /health` e consumo pela tela de status
 
 > [TESTE] DEM-2026-001 · TASK-0006 · Fluxo 01 · classe de risco R3 (DEC-ARQ-0001) · autora: AS.
-> Rascunho **em revisão**: depende de US/REQ/RN v1.0 (`em-revisao`, G1 pendente) e de ADR-0001/0002/0003 (propostos). A consolidação funcional é do PO; o detalhamento técnico está na ET-0001 v1.0 e o contrato em `02-tecnica/contratos-api/portal-api/openapi.yaml` 1.0.0 (ramo `doc/ET-0001-contrato-portal-api-health`, aguarda ARQ).
+> Rascunho **em revisão**: depende de US/REQ/RN v1.0 (`em-revisao`, G1 pendente) e de ADR-0001/0002/0003 (propostos). A consolidação funcional é do PO; o detalhamento técnico está na ET-0001 v1.1 e o contrato em `02-tecnica/contratos-api/portal-api/openapi.yaml` 1.0.0 (ramo `doc/ET-0001-contrato-portal-api-health`, aguarda ARQ).
 
 ## 1. Objetivo
 Permitir saber, de forma rápida, objetiva e segura, se a `portal-api` (API base do Portal Web) está respondendo e qual versão do serviço está em execução, e tornar esse sinal visível numa tela simples do Portal — sem expor dado sensível e sem jamais apresentar indisponibilidade como saudável.
@@ -68,7 +68,7 @@ Permitir saber, de forma rápida, objetiva e segura, se a `portal-api` (API base
 Persistência; verificação de dependências (banco/serviços externos); autenticação (contrato interno, ADR-0003); métricas e alertas; Mobile; histórico e gráficos; polling automático; *readiness* (`/ready`, quando existir dependência — ADR-0003).
 
 ## 7. Matriz de rastreabilidade
-Legenda das seções: **EF** = esta especificação; **ET** = ET-0001 v1.0; **OAS** = `openapi.yaml` 1.0.0.
+Legenda das seções: **EF** = esta especificação; **ET** = ET-0001 v1.1; **OAS** = `openapi.yaml` 1.0.0.
 
 ### 7.1 Critérios de aceite da US-0001
 | CA (US-0001) | RN | REQ | EF | ET | OAS |
@@ -100,9 +100,10 @@ Legenda das seções: **EF** = esta especificação; **ET** = ET-0001 v1.0; **OA
 | REQ-0004 | ET RT-08, RT-09, RT-12 |
 
 ## 8. Lacunas e pendências (dono)
-Consolidadas na ET-0001 seção 12 (L-01..L-10). Destaques funcionais: público da tela e exposição interna × pública (CPO/ARQ — contexto.yaml); US/RN ainda `em-revisao` e citando R2 enquanto o contexto confirma R3 (PO — CONF-0001); AH-0001 pendente (ORQ/ARQ).
+Consolidadas na ET-0001 seção 12 (L-01..L-11). Destaques funcionais: REQ-0001/US-0001 só preveem `200` — `503`, `405` e `500` do ADR-0003 não têm CA/REQ de escopo e US-0001 CA-04 cita "build/commit" (PO decide — L-11, apontado pelo QA em TASK-0005); público da tela e exposição interna × pública (CPO/ARQ — contexto.yaml); US/RN ainda `em-revisao` e citando R2 enquanto o contexto confirma R3 (PO — CONF-0001); AH-0001 pendente (ORQ/ARQ).
 
 ## 9. Histórico de versões
 | Versão | Data/hora | Autor | Mudança |
 |---|---|---|---|
-| 1.0 | 26/11/2026 12:27 | AS | Criação (TASK-0006) |
+| 1.0 | 26/11/2026 12:27 | AS | Criação (TASK-0006) (commit 950ebff) |
+| 1.1 | 26/11/2026 12:33 | AS | Registra L-11 (cobertura funcional de `503`/`405`/`500`) |
