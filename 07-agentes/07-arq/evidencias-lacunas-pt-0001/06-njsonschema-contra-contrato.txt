@@ -1,0 +1,13 @@
+# NJsonSchema 11.6.2 + NJsonSchema.Yaml 11.6.2 contra os esquemas reais do openapi.yaml 1.0.0 (esperado: só o 1º ACEITO)
+válido                                                     -> ACEITO
+timestamp 2026-02-31 (R2: data inexistente)                -> ACEITO
+timestamp sem ms                                           -> REJEITADO: PatternMismatch@#/timestamp
+timestamp 7 casas                                          -> REJEITADO: PatternMismatch@#/timestamp
+version com +commit                                        -> REJEITADO: PatternMismatch@#/version
+status unavailable no 200 (const)                          -> ACEITO
+campo extra                                                -> REJEITADO: NoAdditionalPropertiesAllowed@#/x
+faltando timestamp                                         -> REJEITADO: PropertyRequired@#/timestamp
+problem 405 válido                                         -> ACEITO
+problem 405 com traceId                                    -> REJEITADO: NotAllOf@#/
+problem 405 com title errado (const)                       -> ACEITO
+problem 405 com type URL (const)                           -> ACEITO

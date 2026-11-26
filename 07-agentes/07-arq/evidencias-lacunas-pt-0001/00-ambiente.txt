@@ -1,0 +1,2 @@
+# Ambiente: SDK 10.0.404, runtime Microsoft.NETCore.App/AspNetCore.App 10.0.15, Linux; protótipo descartável do ARQ (não é o spike R4)
+# 26/11/2026 15:49 America/Sao_Paulo

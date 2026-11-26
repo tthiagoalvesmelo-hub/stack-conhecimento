@@ -1,0 +1,9 @@
+RequireCors=0
+[endpoint] /health methods=GET acceptCorsPreflight=False
+[endpoint] /slow methods=GET acceptCorsPreflight=False
+[endpoint] /health methods=HEAD acceptCorsPreflight=False
+RequireCors=1
+[endpoint] /health methods=GET acceptCorsPreflight=True
+[endpoint] /slow methods=GET acceptCorsPreflight=False
+[endpoint] /health methods=HEAD acceptCorsPreflight=False
+(/slow existe só no protótipo, para a medição de requisição em voo)

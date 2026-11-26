@@ -2,13 +2,13 @@
 id: DEC-ARQ-0007
 titulo: "Substituto local do pré-requisito 'CI verde' para .NET + Angular (verify-local)"
 tipo: dec
-versao: 1.1
+versao: 1.2
 status: vigente
 dono: ARQ
 autores: [ARQ]
 aprovado_por: ARQ
 criado_em: 2026-11-26T15:03-03:00
-atualizado_em: 2026-11-26T15:23-03:00
+atualizado_em: 2026-11-26T15:54-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0008, TASK-0009, TASK-0010, TASK-0012, AH-0003, ADR-0001, DEC-ARQ-0008, DEC-ARQ-0009, DEC-ARQ-0010, L-CR1]
 substitui: DEC-ARQ-0003
@@ -29,7 +29,7 @@ substituido_por: null
 | A2 | `dotnet format --verify-no-changes` | DEC-ARQ-0008 |
 | A3 | `dotnet build -c Release --no-restore -warnaserror` | zero avisos (analyzers: DEC-ARQ-0008/0009) |
 | A4 | `dotnet test -c Release --no-build` com cobertura Coverlet (`coverlet.msbuild`): `/p:CollectCoverage=true /p:Threshold=80 /p:ThresholdType=line /p:ThresholdStat=total /p:CoverletOutputFormat=cobertura` | **≥ 80% de linhas** do módulo `Portal.Api` (exclui o projeto de testes). Ramos e métodos: reportados, sem limiar (alinhado ao QA) |
-| A5 | `dotnet list package --vulnerable --include-transitive --format json --output-version 1` (no SDK 10: também `dotnet package list` com os mesmos argumentos; https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-package-list) | Evidência independente do A1. **O código de saída do comando, por si só, não decide a reprovação:** a documentação oficial (Learn) **não declara** código de saída não-zero quando há vulnerabilidades; o repositório oficial `dotnet/sdk` (issue #16852) relata saída **0** mesmo com pacotes vulneráveis. Esta sessão **não executou** o comando (SDK não instalado). O script **analisa o JSON** (`projects[].frameworks[].topLevelPackages[]` e `transitivePackages[]`, campo `vulnerabilities[].severity`) e **reprova** se qualquer severidade for `High` ou `Critical` (comparação sem distinguir maiúsculas). Moderate/Low: apenas reportadas. Também reprova se o comando falhar de fato (JSON inválido, restore com erro, ou código de saída ≠ 0 por falha de execução — distinto de "listou vulnerabilidades e saiu 0"). A1 continua sendo a barreira no restore: NU1903/NU1904 (e NU1900) como erro (https://learn.microsoft.com/en-us/nuget/concepts/auditing-packages). Evidência: arquivo JSON sanitizado, sem valores de ambiente |
+| A5 | `dotnet list package --vulnerable --include-transitive --format json --output-version 1` (no SDK 10: também `dotnet package list` com os mesmos argumentos; https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-package-list) | Evidência independente do A1. **O código de saída do comando, por si só, não decide a reprovação:** a documentação oficial (Learn) **não declara** código de saída não-zero quando há vulnerabilidades; o repositório oficial `dotnet/sdk` (issue #16852) relata saída **0** mesmo com pacotes vulneráveis. **Medido pelo ARQ em 26/11/2026** (SDK 10.0.404, runtime 10.0.15, pacote de controle Newtonsoft.Json 9.0.1, severidade High): `dotnet list package --vulnerable --include-transitive` (console e `--format json --output-version 1`) e `dotnet package list ...` saem com **código 0** e listam a vulnerabilidade; o `restore` com `WarningsAsErrors=NU1903;NU1904` sai com **código 1** (`error NU1903`). Evidência: `07-agentes/07-arq/evidencias-lacunas-pt-0001/05-nuget-audit-exit-codes.txt`. O JSON confirma o esquema `projects[].frameworks[].topLevelPackages[].vulnerabilities[].severity` (`advisoryurl`). O script **analisa o JSON** (`projects[].frameworks[].topLevelPackages[]` e `transitivePackages[]`, campo `vulnerabilities[].severity`) e **reprova** se qualquer severidade for `High` ou `Critical` (comparação sem distinguir maiúsculas). Moderate/Low: apenas reportadas. Também reprova se o comando falhar de fato (JSON inválido, restore com erro, ou código de saída ≠ 0 por falha de execução — distinto de "listou vulnerabilidades e saiu 0"). A1 continua sendo a barreira no restore: NU1903/NU1904 (e NU1900) como erro (https://learn.microsoft.com/en-us/nuget/concepts/auditing-packages). Evidência: arquivo JSON sanitizado, sem valores de ambiente |
 
 **Web (`apps/portal-web`)**
 | # | Passo | Critério |
@@ -58,3 +58,6 @@ Mesma estrutura e mesmos critérios (instalação reproduzível, lint, testes co
 Esclarecimentos pedidos pela QA, sem mudar a decisão de fundo (verify-local, 80% de linhas, SCA alta/crítica):
 - A5: critério de falha por **parse do JSON** oficial (`--format json --output-version 1`); o código de saída **não** é o oráculo de vulnerabilidade.
 - W3: pacote e opção de limiar fechados com fonte oficial (`@vitest/coverage-v8`, MIT; `coverageThresholds.lines = 80`).
+
+## Revisão v1.2 (26/11/2026 15:54)
+A5: o código de saída 0 com vulnerabilidade deixou de ser relato e passou a ser **medido** (SDK 10.0.404); o critério de falha (parse do JSON, High/Critical) e a decisão de fundo não mudam.
