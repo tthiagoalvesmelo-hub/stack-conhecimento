@@ -1,22 +1,22 @@
 # Protocolo de Memória da Stack e regras de leitura/escrita
 
-> Versão 1.1 · 26/11/2026 · gerado a partir dos Prompts 01–04 da Stack Multiagentes (Prompt 04, Anexo A, tem prioridade).
-> v1.1 (TASK-0011, DOC) — **VIGENTE** conforme AH-0002 (aprovada em 26/11/2026 14:45 America/Sao_Paulo; texto literal transcrito pelo ORQ: “Aprovo AH-0001 e também AH-0002”; sem condições; merge em main: 3755fc6): desdobra a matriz 7.1 em `06-qualidade` (pareceres CR-nnnn: A = CR, E = ARQ), cria a linha de reserva de IDs/CONF e a regra EL-08.
+> Versão 1.2 · 26/11/2026 · gerado a partir dos Prompts 01–04 da Stack Multiagentes (Prompt 04, Anexo A, tem prioridade).
+> v1.2 (ORQ, AH-0004) — **VIGENTE** conforme AH-0004 (aprovada em 26/11/2026 15:29 America/Sao_Paulo; texto literal transcrito pelo ORQ: “Aprovo AH-0004”; sem condições): PRs reais no GitHub no lugar do PR local; git pull antes de editar; worktree própria por agente; espelho local sincronizado com origin; repositórios públicos (proibido segredo/dado real). A matriz 7.1 da v1.1 (AH-0002, merge 3755fc6) permanece válida no que não foi alterado.
 
 ## 1. Protocolo de Memória (copiado nos 16 PROMPT.md)
 
 ```
 PROTOCOLO DE MEMÓRIA DA STACK — COPIAR PARA O CONTEXTO GLOBAL
 FONTES DE VERDADE:
-- Conhecimento permanente e técnico: repositório Git “stack-conhecimento”. FASE ATUAL: a fonte de verdade é o repositório Git LOCAL em /workspace/stack-memoria/stack-conhecimento (sem remoto até o GitHub ser conectado; depois, o GitHub passa a ser a cópia principal e a pasta local, o espelho de trabalho). Pastas: 00-memoria, 01-institucional, 02-tecnica, 03-operacional, 04-incidentes, 05-releases, 06-qualidade, 07-agentes, 08-arquivo, modelos.
+- Conhecimento permanente e técnico: repositório Git “stack-conhecimento”. FASE ATUAL (AH-0004): a cópia principal é o repositório remoto no GitHub (https://github.com/tthiagoalvesmelo-hub/stack-conhecimento); a pasta local /workspace/stack-memoria/stack-conhecimento é o espelho de trabalho, mantido sincronizado com origin. O código do Portal fica em https://github.com/tthiagoalvesmelo-hub/portal (espelho local /workspace/projetos/portal). Os dois repositórios são PÚBLICOS: proibido segredo, credencial ou dado real em commit. Pastas: 00-memoria, 01-institucional, 02-tecnica, 03-operacional, 04-incidentes, 05-releases, 06-qualidade, 07-agentes, 08-arquivo, modelos.
 - Estado operacional (demandas, US, TASK, status, bloqueios): planilha “Stack Multiagentes — Operação” (Google Sheets; na fase atual, espelho CSV em /workspace/stack-memoria/planilha-operacao/) para o status operacional, e 03-operacional/demandas/<ID>/contexto.yaml para o contexto consolidado. Só o Orquestrador grava estado, etapa, tarefas e aprovações (G0–G8).
 - Sua memória nativa: apenas conhecimento da sua especialidade, preferências de trabalho e ponteiros (ID + caminho + versão). Nunca a única cópia de algo que outro agente precise.
 ANTES DE QUALQUER ATIVIDADE (RECUPERAÇÃO DE CONTEXTO):
 - 1) Identifique a demanda (DEM/INC) e a TASK; 2) consulte o institucional pertinente; 3) leia contexto.yaml e o histórico da demanda; 4) identifique ADRs e decisões relacionadas; 5) consulte a documentação técnica aplicável; 6) veja atividades anteriores; 7) verifique bloqueios e dependências; 8) só então execute.
-- Sempre atualize antes de ler ou editar: com remoto, git pull; sem remoto (fase atual), confira git status e git log e releia o arquivo no momento da edição, porque outros agentes escrevem na mesma pasta.
+- Sempre atualize antes de ler ou editar: git pull antes de editar (espelho local sincronizado com origin); confira git status e git log e releia o arquivo no momento da edição. Cada agente trabalha em worktree própria; o clone principal permanece em main.
 - Se faltar informação, NÃO invente: registre em pendencias_contexto e peça ao dono da informação.
 AO ESCREVER:
-- Escreva apenas nas áreas da sua alçada (matriz de leitura/escrita). Áreas protegidas: por PR aprovado pelo dono (fase atual, sem GitHub: PR local = ramo doc/<ID>-slug + MSG-COL ao dono, que aprova com merge --no-ff); você não aprova sua própria alteração crítica.
+- Escreva apenas nas áreas da sua alçada (matriz de leitura/escrita). Áreas protegidas: por PR real no GitHub (ramo doc/<ID>-slug ou feat/<ID>-slug, PR aberto pelo autor, revisão do CR quando aplicável, merge pelo dono da área); quem produz não aprova. Com uma única conta GitHub, a ferramenta não separa autor e aprovador — a regra segue garantida pelo protocolo (revisão do CR + merge pelo dono), não pelo GitHub.
 - Use os modelos da pasta “modelos/”, o frontmatter padrão (id, versao, status, dono, autores, datas, revisar_ate, relacionados) e IDs do padrão da Stack (DEM, INC, REQ, RN, US, TASK, EF, ET, ADR, DEC, BUG, REL, CR, PQ, PT, CT, RB, KB, PRB, TD, CONF, AH, RM; CA-nn é local à US).
 - Nunca altere decisão estratégica ou ADR aceito de outro dono: proponha nova decisão. Históricos são append-only.
 - Commits e PRs citam os IDs e terminam com o trailer “Agente: <sua sigla>”.
@@ -74,7 +74,7 @@ A = dono (aprova o PR e responde pelo conteúdo) · E = escreve/propõe (via PR 
 | 04-incidentes / runbooks |  |  |  |  |  |  |  |  |  |  | E | A |  |  |  | E |
 | 05-releases |  |  |  |  |  |  |  |  |  |  |  | A | E |  | E |  |
 | 06-qualidade (planos, casos, BUG, PQ; exceto pareceres CR-nnnn) |  |  |  |  |  |  |  |  | E | E |  |  | A |  |  | E |
-| 06-qualidade / pareceres CR-nnnn (fase atual, sem GitHub) |  |  |  |  |  |  |  | E |  |  |  |  |  | A |  |  |
+| 06-qualidade / pareceres CR-nnnn |  |  |  |  |  |  |  | E |  |  |  |  |  | A |  |  |
 | 07-agentes/<sigla> | E | E | E | E | E | E | E | E | E | E | E | E | E | E | E | E |
 | 00-memoria, modelos, skills (curadoria) | E |  | E |  |  |  |  | E |  |  |  |  |  |  | A |  |
 | 00-memoria / registro-ids.yaml (só o contador do próprio prefixo) e conflitos/ (novo CONF) — ver EL-08 | E | E | E | E | E | E | E | E | E | E | E | E | E | E | A | E |
@@ -101,7 +101,7 @@ A = dono (aprova o PR e responde pelo conteúdo) · E = escreve/propõe (via PR 
 | 04-incidentes / runbooks |  |  |  |  |  |  |  |  |  |  | E | A |  |  |  | E |
 | 05-releases |  |  |  |  |  |  |  |  |  |  |  | A | E |  | E |  |
 | 06-qualidade (planos, casos, BUG, PQ; exceto pareceres CR-nnnn) |  |  |  |  |  |  |  |  | E | E |  |  | A |  |  | E |
-| 06-qualidade / pareceres CR-nnnn (fase atual, sem GitHub) |  |  |  |  |  |  |  | E |  |  |  |  |  | A |  |  |
+| 06-qualidade / pareceres CR-nnnn |  |  |  |  |  |  |  | E |  |  |  |  |  | A |  |  |
 | 07-agentes/<sigla> | E | E | E | E | E | E | E | E | E | E | E | E | E | E | E | E |
 | 00-memoria, modelos, skills (curadoria) | E |  | E |  |  |  |  | E |  |  |  |  |  |  | A |  |
 | 00-memoria / registro-ids.yaml (só o contador do próprio prefixo) e conflitos/ (novo CONF) — ver EL-08 | E | E | E | E | E | E | E | E | E | E | E | E | E | E | A | E |
@@ -118,7 +118,7 @@ Nota: nesta fase, as pastas de agente são `07-agentes/NN-sigla/`.
 | Especificações EF/ET | Versão v1, v2… no frontmatter; a demanda referencia a versão usada | Rascunho → Aprovada → Substituída |
 | Contexto da demanda | versao_contexto incrementada pelo Orquestrador; historico.md append-only | Segue os estados do ciclo de vida (Prompt 02) |
 | Releases | Tag Git por release e REL-nnnn ligando versões dos serviços/app | Planejada → Implantada → Revertida |
-| Ramificação | main protegida; ramos curtos doc/<ID>-slug; PR com revisão do dono; squash com mensagem contendo IDs | — |
+| Ramificação | main protegida; ramos curtos doc/<ID>-slug ou feat/<ID>-slug; PR real no GitHub, revisão do CR quando aplicável, merge pelo dono da área; mensagem contendo IDs | — |
 
 FRONTMATTER PADRÃO DE TODO DOCUMENTO
 ---
@@ -188,3 +188,4 @@ A memória não é repositório de segredos em texto aberto. Credenciais, senhas
 | 1.0 | 26/11/2026 | Geração inicial (Prompts 01–04) | Criação |
 | 1.1 | 2026-11-26 13:03 | DOC | Matriz 7.1 (duas cópias da tabela, mantidas idênticas): linha `06-qualidade / pareceres CR-nnnn` (A = CR, E = ARQ), linha `00-memoria / registro-ids.yaml e conflitos/` (E = todos, A = DOC) e regra EL-08. Dependente de AH-nnnn |
 | 1.1 (vigência) | 2026-11-26 14:45 | DOC | Registro de vigência da v1.1: AH-0002 aprovada (texto literal transcrito pelo ORQ: “Aprovo AH-0001 e também AH-0002”; sem condições). Merge 3755fc6. Banner atualizado de proposta para vigente. |
+| 1.2 | 2026-11-26 15:35 | ORQ | AH-0004: PRs reais no GitHub (doc/<ID>-slug ou feat/<ID>-slug; revisão do CR quando aplicável; merge pelo dono; quem produz não aprova); git pull antes de editar; worktree própria; espelho local sincronizado com origin; repositórios públicos (proibido segredo/dado real). Texto literal: “Aprovo AH-0004”. |

@@ -1,6 +1,6 @@
 # Matriz de aprovações
 
-> Versão 1.0 · 26/11/2026 · gerado a partir dos Prompts 01–04 da Stack Multiagentes (Prompt 04, Anexo A, tem prioridade).
+> Versão 1.1 · 26/11/2026 · gerado a partir dos Prompts 01–04 da Stack Multiagentes (Prompt 04, Anexo A, tem prioridade). v1.1 (ORQ, AH-0004): item 7 do procedimento de AH atualizado (GitHub conectado).
 
 ## Modos de validação
 
@@ -58,7 +58,7 @@ Procedimento de aprovação humana
 4. Thiago responde de forma explícita: “Aprovo AH-nnnn”, “Aprovo AH-nnnn com condição: …” ou “Nego AH-nnnn: …”. Silêncio, “ok” solto ou resposta ambígua não é aprovação.
 5. O Orquestrador transcreve a decisão (texto literal, data/hora America/Sao_Paulo, quem decidiu) na planilha e em aprovacoes.md e só então libera o DevOps.
 6. Validade: a AH vale para a versão e a janela descritas; mudou o artefato ou passou a validade (padrão 24 h), nova AH.
-7. Quando GitHub estiver configurado, recomenda-se também que a publicação em produção exija aprovação da conta pessoal do Thiago no ambiente de produção da pipeline (segunda barreira técnica, a confirmar).
+7. GitHub está conectado (AH-0004). Recomenda-se também que a publicação em produção exija aprovação da conta pessoal do Thiago no ambiente de produção da pipeline (segunda barreira técnica, a confirmar).
 
 > MODELO — MSG-AH (PEDIDO DE APROVAÇÃO HUMANA)
 > MSG-AH — PEDIDO DE APROVAÇÃO HUMANA

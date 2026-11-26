@@ -1,0 +1,95 @@
+# CODEOWNERS — stack-conhecimento
+# Vigência: AH-0004 (26/11/2026). Donos (A) derivados da matriz 7.1 de
+# 00-memoria/protocolo-memoria.md (duas cópias idênticas no protocolo).
+#
+# Lacuna: só existe a conta GitHub @tthiagoalvesmelo-hub. Os papéis da stack
+# (ORQ, CPO, PO, PMM, AN, AS, UX, ARQ, FS, MOB, DBA, OPS, QA, CR, DOC, SUP)
+# não têm contas próprias. Todas as áreas apontam para essa conta.
+# Com uma conta só, o GitHub não impede o autor de aprovar o próprio PR.
+# A regra "quem produz não aprova" é garantida pelo protocolo (revisão do CR
+# quando aplicável + merge pelo dono da área), não pela ferramenta.
+#
+# Convenção: a última regra que casa vence. Comentários indicam o papel dono
+# (A). Onde a matriz tem dois A, os dois papéis estão no comentário.
+
+# Padrão: curadoria do repositório de conhecimento (A = DOC). Cobre INDEX.md,
+# README.md, 08-arquivo/ (sem linha própria na matriz) e demais caminhos
+# não listados abaixo, até a DOC indicar outro dono.
+* @tthiagoalvesmelo-hub
+
+# 00-memoria, modelos e skills (skills vive em 00-memoria/skills): A = DOC
+/00-memoria/ @tthiagoalvesmelo-hub
+/modelos/ @tthiagoalvesmelo-hub
+
+# 01-institucional / produto e objetivos: A = CPO
+/01-institucional/produto/ @tthiagoalvesmelo-hub
+
+# 01-institucional / regras de negócio (RN): A = PO
+/01-institucional/regras-negocio/ @tthiagoalvesmelo-hub
+
+# 01-institucional / arquitetura, padrões, tecnologias: A = ARQ
+/01-institucional/arquitetura/ @tthiagoalvesmelo-hub
+/01-institucional/padroes/ @tthiagoalvesmelo-hub
+/01-institucional/tecnologias.md @tthiagoalvesmelo-hub
+# Sem linha própria na matriz; área mais próxima: arquitetura, padrões, tecnologias (A = ARQ)
+/01-institucional/integracoes/ @tthiagoalvesmelo-hub
+/01-institucional/microsservicos/ @tthiagoalvesmelo-hub
+/01-institucional/mobile/ @tthiagoalvesmelo-hub
+/01-institucional/portal-web/ @tthiagoalvesmelo-hub
+
+# 01-institucional / bancos e ambientes: A = DBA e OPS (ambos A na matriz)
+/01-institucional/bancos/ @tthiagoalvesmelo-hub
+/01-institucional/ambientes/ @tthiagoalvesmelo-hub
+
+# 01-institucional / segurança e LGPD: A = ARQ
+/01-institucional/seguranca/ @tthiagoalvesmelo-hub
+
+# 02-tecnica / ADR: A = ARQ
+/02-tecnica/adr/ @tthiagoalvesmelo-hub
+
+# 02-tecnica / contratos de API: A = ARQ
+/02-tecnica/contratos-api/ @tthiagoalvesmelo-hub
+
+# 02-tecnica / especificações EF/ET: A = AS
+/02-tecnica/especificacoes/ @tthiagoalvesmelo-hub
+
+# 02-tecnica / modelos de dados: A = DBA
+/02-tecnica/modelos-dados/ @tthiagoalvesmelo-hub
+
+# 02-tecnica / configurações e implantação: A = OPS
+/02-tecnica/configuracoes/ @tthiagoalvesmelo-hub
+/02-tecnica/implantacao/ @tthiagoalvesmelo-hub
+
+# 02-tecnica / débitos técnicos: A = ARQ
+/02-tecnica/debitos-tecnicos/ @tthiagoalvesmelo-hub
+
+# Sem linha própria na matriz; área mais próxima: arquitetura / contratos (A = ARQ)
+/02-tecnica/autenticacao/ @tthiagoalvesmelo-hub
+/02-tecnica/diagramas/ @tthiagoalvesmelo-hub
+/02-tecnica/servicos/ @tthiagoalvesmelo-hub
+
+# 03-operacional / contexto e histórico da demanda: A = ORQ
+# 03-operacional / US, REQ, critérios de aceite: A = PO
+# (ambos vivem sob demandas/; o dono do merge segue o tipo de artefato, pelo protocolo)
+/03-operacional/ @tthiagoalvesmelo-hub
+
+# 04-incidentes / incidentes, KB, problemas: A = SUP
+/04-incidentes/incidentes/ @tthiagoalvesmelo-hub
+/04-incidentes/base-conhecimento/ @tthiagoalvesmelo-hub
+/04-incidentes/problemas/ @tthiagoalvesmelo-hub
+
+# 04-incidentes / runbooks: A = OPS
+/04-incidentes/runbooks/ @tthiagoalvesmelo-hub
+
+# 05-releases: A = OPS
+/05-releases/ @tthiagoalvesmelo-hub
+
+# 06-qualidade (planos, casos, BUG, PQ; exceto pareceres CR-nnnn): A = QA
+/06-qualidade/ @tthiagoalvesmelo-hub
+
+# 06-qualidade / pareceres CR-nnnn: A = CR (E = ARQ)
+/06-qualidade/pareceres/ @tthiagoalvesmelo-hub
+
+# 07-agentes/<sigla>: a matriz não define dono A; todos têm E na própria pasta.
+# O merge de alteração na pasta de um agente segue o protocolo (quem produz não aprova).
+/07-agentes/ @tthiagoalvesmelo-hub
