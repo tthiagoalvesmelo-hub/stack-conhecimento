@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 17
-atualizado_em: "2026-11-26T12:57-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
+versao_contexto: 18
+atualizado_em: "2026-11-26T12:58-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -25,7 +25,7 @@ componentes: ["API base do Portal Web (a criar)", "Portal Web — tela de status
 microsservicos_impactados: []
 apis: ["GET /health — contrato interno, sem autenticação (ADR-0003 proposto)"]
 bancos: []
-decisoes: [DEC-PO-0001, DEC-PO-0002, DEC-PO-0003, DEC-PO-0004, DEC-PO-0005, DEC-PO-0006, DEC-ARQ-0001, DEC-ARQ-0002, DEC-ARQ-0003, DEC-ARQ-0004 (condicionada ao ADR-0001), DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, ADR-0001 (proposto), ADR-0002 (proposto), ADR-0003 (proposto)]
+decisoes: [DEC-PO-0001, DEC-PO-0002, DEC-PO-0003, DEC-PO-0004, DEC-PO-0005, DEC-PO-0006, DEC-PO-0007, DEC-ARQ-0001, DEC-ARQ-0002, DEC-ARQ-0003, DEC-ARQ-0004 (condicionada ao ADR-0001), DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, ADR-0001 (proposto), ADR-0002 (proposto), ADR-0003 (proposto)]
 prototipos:
   - {ref: 07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/prototipo-tela-status.html, versao: "1.0 em revisão", commit: 1290f25}
   - {ref: 07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/especificacao-interface-tela-status.md, id: UX-ESPEC-DEM-2026-001-TASK-0004, versao: "1.0 em revisão", commit: 1290f25, validacao_po: "Aprovado com ressalvas (DEC-PO-0005; validacao-po-prototipo-task-0004.md v1.0; commit af208f2)"}
@@ -42,7 +42,7 @@ tarefas:
   - {id: TASK-0008, agente: FS, estado: "Aguardando dependências"}   # A5 implementação; depende de G2, G3 e TASK-0004
   - {id: TASK-0009, agente: CR, estado: "Aguardando dependências"}   # A6 Code Review (G4)
   - {id: TASK-0010, agente: QA, estado: "Aguardando dependências"}   # A4b/A7 plano de testes, testes e PQ (G5)
-  - {id: TASK-0011, agente: DOC, estado: "Aguardando dependências", estimativa: "12,5 h (11–14 h): incr. A 7 h sem dependência da TASK-0008; incr. B 5,5 h após TASK-0008", parecer_g2: "rascunhos/doc/MSG-RET-ORQ-TASK-0011-parecer-g2.md (sem commit)"}   # A8 documentação, paralela à TASK-0010
+  - {id: TASK-0011, agente: DOC, estado: "Em desenvolvimento (incremento A; DEC-PO-0007; DoR verificada: escopo, estimativa, critério e dono definidos, sem dependência aberta); incremento B aguarda TASK-0008", estimativa: "12,5 h (11–14 h): incr. A 7 h sem dependência da TASK-0008; incr. B 5,5 h após TASK-0008", parecer_g2: "rascunhos/doc/MSG-RET-ORQ-TASK-0011-parecer-g2.md (sem commit)"}   # A8 documentação, paralela à TASK-0010
   - {id: TASK-0012, agente: OPS, estado: "Aguardando dependências"}   # A9 execução local, smoke test e rollback simples
 resultados: []
 testes:
@@ -68,7 +68,7 @@ pendencias_contexto:
   - {item: "FS (b): teste de tela em navegador exigiria ADR/dependência nova?", dono: ARQ}
   - {item: "Texto narrativo da US-0002 ainda cita público não definido (fechado na DEC-PO-0002) — não afeta CA", dono: PO}
   - {item: "Confirmar procedimento operacional da DEC-ARQ-0003 (onde vive o script, evidência sem segredo, reexecução pelo CR); calibrar cobertura 80% com QA no G5", dono: OPS/QA}
-  - {item: "L-CR2: DOC confirmou (padrão documental) 06-qualidade/pareceres/CR-nnnn-<slug>.md, ponteiro na Evidência da TASK-0009, ajuste de convenção/modelo/README e desdobramento da matriz 7.1 (CR = A em pareceres CR) — implementação no incremento A da TASK-0011, antes do G4; liberação antecipada do incremento A depende do PO (G2); ciência QA/CR", dono: DOC/PO}
+  - {item: "L-CR2: DOC confirmou (padrão documental) 06-qualidade/pareceres/CR-nnnn-<slug>.md, ponteiro na Evidência da TASK-0009, ajuste de convenção/modelo/README e desdobramento da matriz 7.1 (CR = A em pareceres CR) — implementação no incremento A da TASK-0011, antes do G4; incremento A liberado pelo PO (DEC-PO-0007, 26/11 12:58) e atribuído à DOC; concluir antes do G4; ciência QA/CR", dono: DOC}
   - {item: "CONF-0001: lado PO resolvido (textos v1.1 citam R3); fechamento formal", dono: DOC}
   - {item: "Valores de PORTAL_WEB_PORT e PORTAL_API_ALLOWED_ORIGIN (L-06 residual)", dono: OPS/FS}
   - {item: "L-09: modelos de EF/ET/contrato e INDEX.md inexistentes", dono: DOC}
