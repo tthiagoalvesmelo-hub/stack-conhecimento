@@ -1,0 +1,17 @@
+padrões encontrados: 3
+semver  "1.0.0"                                  true
+semver  "1.0.0\n"                                false
+semver  "0.2.0-rc.1"                             true
+semver  "1.0.0+b"                                false
+semver  "01.0.0"                                 false
+semver  "1.0.0-01"                               false
+ts      "2026-11-26T15:30:00.123Z"               true
+ts      "2026-11-26T15:30:00.123Z\n"             false
+ts      "2026-11-26T15:30:00Z"                   false
+ts      "2026-11-26T15:30:00.123+00:00"          false
+uuid    "123e4567-e89b-42d3-a456-426614174000"   true
+uuid    "123E4567-E89B-42D3-A456-426614174000"   false
+uuid    "123e4567-e89b-42d3-a456-426614174000\n" false
+toISOString() atende ao padrão em 100000 de 100000 amostras
+crypto.randomUUID() atende ao padrão de X-Request-Id: true
+Date(2026-02-31) é inválida? false
