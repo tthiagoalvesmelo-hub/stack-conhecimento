@@ -25,7 +25,7 @@ sequencial_global:
   PRB: 0
   TD: 0
   CONF: 1
-  AH: 2
+  AH: 3
   RM: 1
   UX: 1   # UX-0001 reservado (L-UX-01, convencao-ids v1.2); alias do artefato UX-ESPEC-DEM-2026-001-TASK-0004, a aplicar pelo UX após o merge
 decisoes_por_sigla:   # DEC-<SIGLA>-nnnn

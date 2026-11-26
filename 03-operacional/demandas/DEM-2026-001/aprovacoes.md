@@ -22,3 +22,4 @@ Demanda: DEM-2026-001 [TESTE] · Classe de risco: R3 (DEC-ARQ-0001) · Fluxo: 01
 
 ## Observações
 - Aprovação de pedido de urgência para pular gate: não existe; registrar e escalar.
+| AH-0003 | Adotar como diretriz institucional (01-institucional/tecnologias.md, dono ARQ): APIs de backend do Portal Web em C#/.NET (versão LTS vigente, a confirmar pelo ARQ em fonte oficial) e front-end do Portal Web em Angular (versão estável mais recente, a confirmar pelo ARQ); a AH-0001 (Node.js 24 + Fastify 5) fica substituída para a DEM-2026-001, com ADR-0001 refeito pelo ARQ sem nova AH se seguir a diretriz; plano de capacitação dos agentes envolvidos | arquitetura (alto impacto, institucional) | 26/11/2026 14:52 | (aguardando) | | | | 24 h |
