@@ -3,10 +3,10 @@ id: ET-0001
 titulo: "Especificação técnica de GET /health da portal-api (contrato interno, liveness)"
 tipo: et
 versao: 1.4
-status: em-revisao
+status: aprovado
 dono: AS
 autores: [AS]
-aprovado_por: null
+aprovado_por: "ARQ — Ricardo Almeida (G3/R1, 26/11 15:23; ebb5f22)"
 criado_em: 2026-11-26T12:27-03:00
 atualizado_em: 2026-11-26T15:16-03:00
 revisar_ate: 2027-02-26
