@@ -2,15 +2,15 @@
 id: DEC-ARQ-0011
 titulo: "Confirmação formal da L-12: gancho de teste do HTTP 500 (e do 503) por WebApplicationFactory, fora do OpenAPI"
 tipo: dec
-versao: 1.0
+versao: 1.1
 status: vigente
 dono: ARQ
 autores: [ARQ]
 aprovado_por: ARQ
 criado_em: 2026-11-26T15:06-03:00
-atualizado_em: 2026-11-26T15:06-03:00
+atualizado_em: 2026-11-26T15:23-03:00
 revisar_ate: 2027-02-26
-relacionados: [DEM-2026-001, TASK-0007, TASK-0008, TASK-0010, ET-0001, US-0001, ADR-0001, ADR-0003, DEC-ARQ-0002, DEC-ARQ-0007, AH-0003, L-12, L-05]
+relacionados: [DEM-2026-001, TASK-0007, TASK-0008, TASK-0010, ET-0001, US-0001, ADR-0001, ADR-0003, DEC-ARQ-0002, DEC-ARQ-0007, DEC-PO-0009, AH-0003, L-12, L-05]
 substitui: null
 substituido_por: null
 ---
@@ -36,3 +36,13 @@ substituido_por: null
 
 ## Verificação e responsabilidade
 FS implementa; QA testa (TASK-0010); CR inclui no checklist do G4 "nenhum gancho de falha na composição de produção"; ARQ reconfirma na 2ª aprovação do G4.
+
+## Esclarecimento v1.1 (26/11/2026) — autoria dos testes e dependência da fase PT+CT
+**Não altera** a decisão da L-12 (itens 1–7: mecanismo, proibições, fora do OpenAPI, os 6 casos obrigatórios). Apenas esclarece a frase "QA escreve/planeja" do item 6 e o parágrafo "Verificação e responsabilidade", a pedido do PO (MSG-COL 15:20) e em linha com a DEC-PO-0009:
+
+**Opção A (adotada):**
+- O **FS escreve e mantém** o código dos testes automatizados na **TASK-0008**: xUnit / `WebApplicationFactory` (os 6 casos do item 6, os itens PV do ADR-0001 v2 D8, R2 e R5) e `ng test` / Vitest do Portal.
+- A **QA especifica** PT/CT e oráculos **antes do PR**, **verifica** a suíte e **executa** os testes black-box e manuais na **TASK-0010**. Não escreve o código da suíte automatizada nesta demanda.
+- A opção B (QA escreve o código) **não** é adotada.
+
+**Dependência da fase PT+CT da TASK-0010:** o ARQ **concorda tecnicamente** que essa fase passa a depender de **"G3 + R1"** (e não do G4). Motivo: a R3 do G3 exige que os casos PV existam como teste obrigatório **antes da entrada no G4**; a especificação (QA) e o código (FS) precisam estar prontos após a R1. A **execução** da suíte e o PQ **continuam após o G4**. A decisão de planejamento é do PO (DEC-PO-0009); este parágrafo é concordância técnica do ARQ.
