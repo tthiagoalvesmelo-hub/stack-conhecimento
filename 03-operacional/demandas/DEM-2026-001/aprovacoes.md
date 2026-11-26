@@ -1,10 +1,10 @@
 # aprovacoes.md — DEM-2026-001 [TESTE]
 
-Demanda: DEM-2026-001 [TESTE] · Classe de risco: R1 (proposta) · Fluxo: 02 (proposto)
+Demanda: DEM-2026-001 [TESTE] · Classe de risco: R2 (padrão; ARQ confirma) · Fluxo: 01 (confirmado CPO)
 
 | Gate | Validador | Modo (automatizada / manual pelo agente / AH) | Resultado (Aprovado / Aprovado com observações / Reprovado) | Evidência (CR-/PQ-/pipeline/doc + versão) | Data/hora (America/Sao_Paulo) | Registrado por |
 |---|---|---|---|---|---|---|
-| G0 Entrada confirmada | CPO | | | | | ORQ |
+| G0 Entrada confirmada | CPO | manual pelo agente | Aprovado | MSG-RET CPO TASK-0001 (26/11 12:11) | 26/11/2026 12:11 | ORQ |
 | G1 Escopo/proposta consolidados | Responsável do fluxo | | | | | ORQ |
 | G2 Planejamento aprovado | PO / ARQ | | | | | ORQ |
 | G3 Contratos e dados aprovados | ARQ · DBA | | | | | ORQ |

@@ -2,19 +2,19 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 1
-atualizado_em: "2026-11-26T12:12-03:00"
+versao_contexto: 2
+atualizado_em: "2026-11-26T12:15-03:00"
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
-fluxo_origem: "02"                  # PROPOSTO pelo ORQ; CPO confirma
-responsavel_fluxo: ARQ              # PROPOSTO; CPO confirma
-prioridade: Normal                  # PROPOSTA; PO/CPO pontuam
+fluxo_origem: "01"                  # confirmado CPO 26/11 12:11 (ajustado de 02)
+responsavel_fluxo: PO               # confirmado CPO; ARQ colaborador obrigatório na análise técnica
+prioridade: Normal                  # confirmada CPO
 pontuacao: null
 severidade: null
-classe_risco: R1                    # PROPOSTA; Arquiteto Líder confirma
-tipo_demanda: "Funcionalidade nova" # PROPOSTO; CPO confirma
-estado: "Recebida"
+classe_risco: R2                    # padrão da tabela p/ Funcionalidade nova (R3 se novo serviço); R1 proposto pelo ORQ descartado; ARQ confirma
+tipo_demanda: "Funcionalidade nova" # confirmado CPO
+estado: "Em análise"
 etapa: A
 objetivo: "Disponibilizar GET /health na API base do Portal Web (status, versão, timestamp) e uma tela simples no Portal que exiba esse status."
 descricao_funcional: ""
@@ -28,16 +28,22 @@ bancos: []
 decisoes: []
 prototipos: []
 historias: []
-tarefas: []
+tarefas:
+  - {id: TASK-0001, agente: CPO, estado: "Concluída"}
+  - {id: TASK-0002, agente: PO, estado: "Em andamento"}
+  - {id: TASK-0003, agente: ARQ, estado: "Em andamento"}
 resultados: []
 testes: []
-aprovacoes: {}
+aprovacoes: {G0: "CPO 26/11"}
+roadmap: RM-0001   # proposto pela CPO; registro na aba Roadmap pela CPO
 ah: []
 implantacao: []
 documentacao: []
 bloqueios: []
 riscos: []
 pendencias_contexto:
+  - {item: "Visão e objetivos estratégicos ausentes em 01-institucional/produto; alinhamento desta demanda é à validação da esteira", dono: CPO}
+  - {item: "Confirmação explícita da classe de risco (R2 padrão; R3 se novo serviço) com motivo se abaixo de R2", dono: ARQ}
   - {item: "Stack tecnológica (linguagem, framework, runtime) da API e do Portal — premissa a confirmar", dono: ARQ}
   - {item: "Ambientes (dev/hml) e forma de execução no teste — não existem; premissa de teste: execução local em /workspace/projetos/", dono: OPS}
   - {item: "Formato do campo 'versão' (origem: build, semver manual?)", dono: ARQ}
