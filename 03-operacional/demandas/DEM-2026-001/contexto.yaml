@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 6
-atualizado_em: "2026-11-26T12:33-03:00"
+versao_contexto: 7
+atualizado_em: "2026-11-26T12:36-03:00"
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -20,12 +20,12 @@ objetivo: "Disponibilizar GET /health na API base do Portal Web (status, versão
 descricao_funcional: ""
 regras_negocio: [RN-0001, RN-0002]   # v1.0 em revisão
 requisitos_funcionais: [REQ-0001, REQ-0002, REQ-0003, REQ-0004]   # v1.0 em revisão; REQ-0004 segurança/LGPD
-requisitos_nao_funcionais: []
+requisitos_nao_funcionais: ["p95 ≤ 100 ms local (indicativo, não-SLO)", "tempo limite do cliente 5 s sem retry (DEC-AS-0001)", "tolerância timestamp ±5 s (DEC-AS-0002)"]
 componentes: ["API base do Portal Web (a criar)", "Portal Web — tela de status (a criar)"]
 microsservicos_impactados: []
 apis: ["GET /health — contrato interno, sem autenticação (ADR-0003 proposto)"]
 bancos: []
-decisoes: [DEC-PO-0001, DEC-PO-0002, DEC-PO-0003, DEC-ARQ-0001, ADR-0001 (proposto), ADR-0002 (proposto), ADR-0003 (proposto)]
+decisoes: [DEC-PO-0001, DEC-PO-0002, DEC-PO-0003, DEC-ARQ-0001, DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, ADR-0001 (proposto), ADR-0002 (proposto), ADR-0003 (proposto)]
 prototipos:
   - {ref: 07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/prototipo-tela-status.html, versao: "1.0 em revisão", commit: 1290f25}
   - {ref: 07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/especificacao-interface-tela-status.md, id: UX-ESPEC-DEM-2026-001-TASK-0004, versao: "1.0 em revisão", commit: 1290f25, validacao_po: pendente}
@@ -36,7 +36,7 @@ tarefas:
   - {id: TASK-0003, agente: ARQ, estado: "Parcial"}   # A0; commits 7893133, 362ea35, 07cdf27; stack depende de AH-0001
   - {id: TASK-0004, agente: UX, estado: "Concluída"}   # A1 protótipo; commit 1290f25; validação do PO pendente (insumo DoR/TASK-0008)
   - {id: TASK-0005, agente: QA, estado: "Concluída"}   # favorável com ressalvas ao G1 (13 testáveis, 5 ajustes); commit 80e9184
-  - {id: TASK-0006, agente: AS, estado: "Em andamento"}   # A2 EF/ET e OpenAPI sob premissa (ADR-0003); G3 só após AH-0001
+  - {id: TASK-0006, agente: AS, estado: "Concluída"}   # EF-0001/ET-0001 v1.1 (950ebff, d836bc6); OpenAPI no ramo doc/ET-0001-contrato-portal-api-health (2b9fa2e) aguardando merge do ARQ
   - {id: TASK-0007, agente: ARQ, estado: "Aguardando dependências"}   # A3 aprovação do contrato (G3); depende de TASK-0006
   - {id: TASK-0008, agente: FS, estado: "Aguardando dependências"}   # A5 implementação; depende de G2, G3 e TASK-0004
   - {id: TASK-0009, agente: CR, estado: "Aguardando dependências"}   # A6 Code Review (G4)
@@ -50,13 +50,19 @@ aprovacoes: {G0: "CPO 26/11"}
 roadmap: RM-0001   # proposto pela CPO; registro na aba Roadmap pela CPO
 ah: [AH-0001]   # arquitetura (stack base ADR-0001) — Solicitada 26/11 12:27
 implantacao: []
-documentacao: []
+documentacao:
+  - {ref: 02-tecnica/especificacoes/EF-0001-health-check-portal-api.md, versao: "1.1 em revisão"}
+  - {ref: 02-tecnica/especificacoes/ET-0001-health-check-portal-api.md, versao: "1.1 em revisão"}
+  - {ref: 02-tecnica/contratos-api/portal-api/openapi.yaml, versao: "1.0.0 proposto", ramo: doc/ET-0001-contrato-portal-api-health, commit: 2b9fa2e}
 bloqueios: []
 riscos:
   - {id: RK-1, descricao: "Stack sem confirmação atrasa AS/FS/OPS", P_x_I: "3x2=6 (alto)", dono: ORQ/ARQ, mitigacao: "AH-0001; AS redige contrato sob premissa; FS só após aceitação", status: aberto}
   - {id: RK-2, descricao: "Exposição fora da rede interna vira contrato público", P_x_I: "1x3=3", dono: ARQ, mitigacao: "condição no ADR-0003; reabre R3/N3 + AH", status: aberto}
   - {id: RK-3, descricao: "Cadeia de suprimentos npm (Fastify)", P_x_I: "1x2=2", dono: ARQ, mitigacao: "lockfile, npm ci (ver MSG-RET TASK-0003)", status: aberto}
 pendencias_contexto:
+  - {item: "CONF-0001: US-0001, US-0002 e REQ-0004 citam R2; vigente R3 (DEC-ARQ-0001)", dono: PO}
+  - {item: "L-01..L-07 do contrato (erro, HEAD/OPTIONS, X-Request-Id, 404, 503/Retry-After, origem do Portal, confirmar DEC-AS) e merge do ramo do contrato", dono: ARQ}
+  - {item: "L-09: modelos de EF/ET/contrato e INDEX.md inexistentes", dono: DOC}
   - {item: "Responder os 5 ajustes da QA (US-0001 CA-04/CA-06; US-0002 CA-03/CA-04; REQ-0001) e decidir se o caminho 503/unavailable entra no aceite (alt. A) ou fica para nova US (alt. B)", dono: PO}
   - {item: "Tolerância do timestamp (±5 s) e tempo limite do cliente (5 s) na ET", dono: AS}
   - {item: "Validação do protótipo/spec UX v1.0 e decisão RE-01..RE-05 (inclui 503 ocultar versão/timestamp)", dono: PO}
