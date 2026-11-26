@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 15
-atualizado_em: "2026-11-26T13:03-03:00"
+versao_contexto: 16
+atualizado_em: "2026-11-26T13:06-03:00"
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -64,7 +64,9 @@ riscos:
   - {id: RK-3, descricao: "Cadeia de suprimentos npm (Fastify)", P_x_I: "1x2=2", dono: ARQ, mitigacao: "lockfile, npm ci (ver MSG-RET TASK-0003)", status: aberto}
 pendencias_contexto:
   - {item: "P-QA-01..05 (entrada na execução da TASK-0010): ferramenta/método local de varredura R3 e de p95 (PS-08)", dono: OPS/ARQ}
-  - {item: "P-QA: gancho de fábrica de teste para 500 (CA-09), análogo ao 503 da ET-0001 §7.2", dono: FS/AS/ARQ}
+  - {item: "Gancho de fábrica para 500 (CA-09): FS propõe injeção só na fábrica (como o 503); AS espelhar ET §7.2 em §7.4/§11; ARQ confirmar no G3 extensão da L-05 e fora da superfície do OpenAPI", dono: AS/ARQ}
+  - {item: "FS (b): teste de tela em navegador exigiria ADR/dependência nova?", dono: ARQ}
+  - {item: "Texto narrativo da US-0002 ainda cita público não definido (fechado na DEC-PO-0002) — não afeta CA", dono: PO}
   - {item: "Confirmar procedimento operacional da DEC-ARQ-0003 (onde vive o script, evidência sem segredo, reexecução pelo CR); calibrar cobertura 80% com QA no G5", dono: OPS/QA}
   - {item: "L-CR2: local de registro do CR-nnnn sem GitHub (proposta CR: 06-qualidade/pareceres/CR-nnnn.md com ponteiro no Tarefas.csv)", dono: DOC/ORQ}
   - {item: "CONF-0001: lado PO resolvido (textos v1.1 citam R3); fechamento formal", dono: DOC}
