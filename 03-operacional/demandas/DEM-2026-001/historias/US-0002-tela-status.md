@@ -2,13 +2,13 @@
 id: US-0002
 titulo: "Ver o status da API em uma tela simples do Portal Web"
 tipo: us
-versao: 1.2
+versao: 1.3
 status: vigente
 dono: PO
 autores: [PO]
 aprovado_por: PO (G1, DEM-2026-001)
 criado_em: 2026-11-26T12:19-03:00
-atualizado_em: 2026-11-26T12:41-03:00
+atualizado_em: 2026-11-26T13:10-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0002, TASK-0003, TASK-0004, TASK-0005, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, US-0001, ADR-0003, DEC-PO-0002, DEC-PO-0005, DEC-PO-0006]
 substitui: null
@@ -16,6 +16,8 @@ substituido_por: null
 ---
 
 > **Vigente desde 26/11/2026 12:41 (America/Sao_Paulo)** — promovido pelo PO após o G1 (Aprovado com observações, aprovacoes.md, commit b083eef). **Ressalva (condição 1 do G1):** formatos, 503/405/500, tempo limite de 5 s e “sem login” dependem dos ADR-0002/0003 ainda propostos; se mudarem no G3, o PO reabre os CA afetados. Implementação depende da AH-0001.
+>
+> **v1.3** (26/11/2026 13:10, America/Sao_Paulo) — revisão editorial: o texto da história e a premissa de público registram a confirmação da CPO (DEC-PO-0002). Os critérios de aceite e o status **vigente** não mudam; a ressalva (1) do G1 permanece.
 
 # US-0002 — Ver o status da API em uma tela simples do Portal Web
 
@@ -23,7 +25,7 @@ substituido_por: null
 > **Versão 1.1** (26/11/2026, America/Sao_Paulo): incorpora premissas do ADR-0003 proposto, a validação do protótipo (DEC-PO-0005, Aprovado com ressalvas) e os ajustes de testabilidade da QA (TASK-0005, DEC-PO-0006). Status **em-revisao**: prontos para o G1; a promoção a vigente fica para o G1.
 
 ## História
-**Como** operador/equipe técnica interna (premissa de teste — público da tela não definido pela CPO, DEC-PO-0002),
+**Como** operador/equipe técnica interna (DEC-PO-0002, confirmado pela CPO em 26/11/2026 12:36),
 **quero** abrir uma tela simples no Portal Web que mostre o status da API (status, versão e timestamp),
 **para** verificar a saúde da API sem precisar chamar o endpoint manualmente e perceber de imediato quando ela está indisponível.
 
@@ -35,7 +37,7 @@ Torna o sinal de US-0001 visível a pessoas e valida a integração Portal ↔ A
 - Fora: histórico de status, gráficos, alertas, notificações, múltiplos serviços, Mobile, atualização automática (polling — RE-04, demanda futura); qualquer solução visual, de navegação ou de acesso além do comportamento aqui definido (UX/UI e ARQ).
 
 ## Premissas (até confirmação do dono)
-- Público = operador/equipe técnica interna (DEC-PO-0002; lacuna da CPO).
+- Público = operador/equipe técnica interna (DEC-PO-0002, confirmado pela CPO em 26/11/2026 12:36; exposição a clientes ou usuários finais é nova decisão da CPO).
 - Tela sem login nesta demanda (L5, ADR-0003 proposto).
 - Tempo limite da consulta: orientação de 5 s, a fechar na ET (L6, AS/ARQ).
 - Formatos de `status`/`version`/`timestamp` e valores `"ok"` / `"unavailable"`: premissa dos ADR-0002/0003 propostos (ver US-0001).
