@@ -3,19 +3,21 @@ id: DEC-ARQ-0003
 titulo: "Substituto local do pré-requisito 'CI verde' (L-CR1) na fase de testes"
 tipo: dec
 versao: 1.0
-status: vigente
+status: substituida
 dono: ARQ
 autores: [ARQ]
 aprovado_por: ARQ
 criado_em: 2026-11-26T12:50-03:00
-atualizado_em: 2026-11-26T12:50-03:00
+atualizado_em: 2026-11-26T15:03-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0008, TASK-0009, TASK-0012, ADR-0001, DEC-ARQ-0004, L-CR1]
 substitui: null
-substituido_por: null
+substituido_por: DEC-ARQ-0007
 ---
 
 # DEC-ARQ-0003 — Substituto local do “CI verde” (L-CR1)
+
+> **SUBSTITUÍDA pela DEC-ARQ-0007** em 26/11/2026 (AH-0003: stack C#/.NET + Angular; ADR-0001 v2). O texto abaixo é preservado como histórico da stack Node/Fastify (AH-0001 substituída) e **não vale mais**.
 
 > [TESTE] Fase de testes internos; nada vai à produção. O ADR-0001 D5 (ainda PROPOSTO, AH-0001) exclui CI/CD nesta fase. O PROMPT exige “CI verde” (build, testes, análise estática, varredura) como pré-requisito do G4. Esta DEC define o **substituto local e reproduzível**. Não é N3 (sem pipeline, sem custo, sem produção). **Não bloqueia a decisão do G2**; bloqueia a **entrada no G4** e deve estar cumprida no PR da TASK-0008.
 

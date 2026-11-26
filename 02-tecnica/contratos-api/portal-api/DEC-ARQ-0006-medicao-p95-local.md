@@ -3,19 +3,21 @@ id: DEC-ARQ-0006
 titulo: "Medição do p95 indicativo local (TASK-0010), condicionada ao ADR-0001"
 tipo: dec
 versao: 1.0
-status: vigente
+status: substituida
 dono: ARQ
 autores: [ARQ]
 aprovado_por: ARQ
 criado_em: 2026-11-26T13:10-03:00
-atualizado_em: 2026-11-26T13:10-03:00
+atualizado_em: 2026-11-26T15:03-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0010, TASK-0012, ADR-0001, ADR-0003, AH-0001]
 substitui: null
-substituido_por: null
+substituido_por: DEC-ARQ-0010
 ---
 
 # DEC-ARQ-0006 — Medição do p95 indicativo ≤ 100 ms (local)
+
+> **SUBSTITUÍDA pela DEC-ARQ-0010** em 26/11/2026 (AH-0003: stack C#/.NET + Angular; ADR-0001 v2). O texto abaixo é preservado como histórico da stack Node/Fastify (AH-0001 substituída) e **não vale mais**.
 
 > [TESTE] **Condicionada à aceitação do ADR-0001**. Sem dependência nova e sem custo. O alvo **não é SLO** e **não bloqueia** aceite funcional (ADR-0003 / ET-0001 RT-14).
 
