@@ -1,6 +1,7 @@
 # Protocolo de Memória da Stack e regras de leitura/escrita
 
-> Versão 1.0 · 26/11/2026 · gerado a partir dos Prompts 01–04 da Stack Multiagentes (Prompt 04, Anexo A, tem prioridade).
+> Versão 1.1 · 26/11/2026 · gerado a partir dos Prompts 01–04 da Stack Multiagentes (Prompt 04, Anexo A, tem prioridade).
+> v1.1 (TASK-0011, DOC) — **PROPOSTA DE MUDANÇA DE GOVERNANÇA (N3), dependente de AH-nnnn do Thiago**: desdobra a matriz 7.1 em `06-qualidade` (pareceres CR-nnnn: A = CR, E = ARQ), cria a linha de reserva de IDs/CONF e a regra EL-08. Só vale depois do merge, que exige a AH.
 
 ## 1. Protocolo de Memória (copiado nos 16 PROMPT.md)
 
@@ -50,6 +51,7 @@ PROTOCOLO COMPLETO, MATRIZ DE ESCRITA E MODELOS: /workspace/stack-memoria/stack-
 | EL-05 | Informação da memória individual que influencie outro agente é promovida para a área compartilhada no mesmo dia em que for produzida, e o agente afetado é avisado (MSG-COL). |
 | EL-06 | Proibido gravar segredos, tokens, senhas, dados pessoais não anonimizados ou dados de produção em qualquer camada de memória. |
 | EL-07 | O Orquestrador é o único que altera estado, etapa e aprovações no contexto da demanda; os demais agentes escrevem seus resultados, e o Orquestrador consolida. |
+| EL-08 | Reserva de ID: quem cria um artefato com ID (ou detecta um CONF) pode, **sem PR**, gravar apenas (i) o contador do seu prefixo em `00-memoria/registro-ids.yaml`, com `atualizado_em/por`, e (ii) um novo `CONF-nnnn` em `00-memoria/conflitos/`, em commit com o trailer “Agente: <sigla>”. Isso não concede escrita nas demais áreas de `00-memoria`, que seguem a matriz. Reserva fora desse escopo vai por MSG-COL à DOC. |
 
 ## 7.1 Matriz de escrita e aprovação por área
 A = dono (aprova o PR e responde pelo conteúdo) · E = escreve/propõe (via PR nas áreas protegidas) · vazio = somente leitura. Leitura liberada a todos, exceto a memória operacional (agentes da demanda e coordenação, ver RL-01). Siglas: ORQ = Orquestrador; demais conforme o Prompt 01.
@@ -71,9 +73,11 @@ A = dono (aprova o PR e responde pelo conteúdo) · E = escreve/propõe (via PR 
 | 04-incidentes / incidentes, KB, problemas |  |  |  |  |  |  |  | E | E | E | E | E |  |  | E | A |
 | 04-incidentes / runbooks |  |  |  |  |  |  |  |  |  |  | E | A |  |  |  | E |
 | 05-releases |  |  |  |  |  |  |  |  |  |  |  | A | E |  | E |  |
-| 06-qualidade (planos, casos, BUG, PQ) |  |  |  |  |  |  |  |  | E | E |  |  | A |  |  | E |
+| 06-qualidade (planos, casos, BUG, PQ; exceto pareceres CR-nnnn) |  |  |  |  |  |  |  |  | E | E |  |  | A |  |  | E |
+| 06-qualidade / pareceres CR-nnnn (fase atual, sem GitHub) |  |  |  |  |  |  |  | E |  |  |  |  |  | A |  |  |
 | 07-agentes/<sigla> | E | E | E | E | E | E | E | E | E | E | E | E | E | E | E | E |
 | 00-memoria, modelos, skills (curadoria) | E |  | E |  |  |  |  | E |  |  |  |  |  |  | A |  |
+| 00-memoria / registro-ids.yaml (só o contador do próprio prefixo) e conflitos/ (novo CONF) — ver EL-08 | E | E | E | E | E | E | E | E | E | E | E | E | E | E | A | E |
 
 ### Matriz de escrita e aprovação por área
 
@@ -96,9 +100,11 @@ A = dono (aprova o PR e responde pelo conteúdo) · E = escreve/propõe (via PR 
 | 04-incidentes / incidentes, KB, problemas |  |  |  |  |  |  |  | E | E | E | E | E |  |  | E | A |
 | 04-incidentes / runbooks |  |  |  |  |  |  |  |  |  |  | E | A |  |  |  | E |
 | 05-releases |  |  |  |  |  |  |  |  |  |  |  | A | E |  | E |  |
-| 06-qualidade (planos, casos, BUG, PQ) |  |  |  |  |  |  |  |  | E | E |  |  | A |  |  | E |
+| 06-qualidade (planos, casos, BUG, PQ; exceto pareceres CR-nnnn) |  |  |  |  |  |  |  |  | E | E |  |  | A |  |  | E |
+| 06-qualidade / pareceres CR-nnnn (fase atual, sem GitHub) |  |  |  |  |  |  |  | E |  |  |  |  |  | A |  |  |
 | 07-agentes/<sigla> | E | E | E | E | E | E | E | E | E | E | E | E | E | E | E | E |
 | 00-memoria, modelos, skills (curadoria) | E |  | E |  |  |  |  | E |  |  |  |  |  |  | A |  |
+| 00-memoria / registro-ids.yaml (só o contador do próprio prefixo) e conflitos/ (novo CONF) — ver EL-08 | E | E | E | E | E | E | E | E | E | E | E | E | E | E | A | E |
 
 Nota: nesta fase, as pastas de agente são `07-agentes/NN-sigla/`.
 
@@ -175,3 +181,9 @@ A memória não é repositório de segredos em texto aberto. Credenciais, senhas
 | Retenção | Demandas concluídas: movidas para 08-arquivo/ e mantidas; evidências com dados operacionais: sanitizadas; prazos formais de retenção definidos na Etapa 4 — Governança (a confirmar). | Documentação |
 | Recuperação de dados | Repositório remoto no GitHub = cópia principal; o clone no computador compartilhado é descartável e recriável; Pages/Library são visões regeneráveis. | DevOps |
 | Prevenção de alterações não autorizadas | PR com aprovação do dono, proteção da main, ADR imutável, histórico append-only e verificação semanal de diffs em áreas protegidas por rotina. | Arquiteto / Documentação |
+
+## Histórico de versões do protocolo
+| Versão | Data/hora | Autor | Mudança |
+|---|---|---|---|
+| 1.0 | 26/11/2026 | Geração inicial (Prompts 01–04) | Criação |
+| 1.1 | 2026-11-26 13:03 | DOC | Matriz 7.1 (duas cópias da tabela, mantidas idênticas): linha `06-qualidade / pareceres CR-nnnn` (A = CR, E = ARQ), linha `00-memoria / registro-ids.yaml e conflitos/` (E = todos, A = DOC) e regra EL-08. Dependente de AH-nnnn |
