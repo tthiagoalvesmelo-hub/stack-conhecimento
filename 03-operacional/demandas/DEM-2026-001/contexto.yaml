@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 32
-atualizado_em: "2026-11-26T14:58-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
+versao_contexto: 33
+atualizado_em: "2026-11-26T15:12-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -14,7 +14,7 @@ pontuacao: 2.8                       # PO, DEC-PO-0004 (fatores ARQ 1/2/3); clas
 severidade: null
 classe_risco: R3                    # confirmada ARQ (DEC-ARQ-0001, 26/11 12:22): primeiro serviço + stack base
 tipo_demanda: "Funcionalidade nova" # confirmado CPO
-estado: "Aprovada para execução"   # após G2; AH-0003 aprovada 14:54 (C#/.NET + Angular; substitui AH-0001); ARQ refaz ADR-0001 antes do G3; PO reavalia plano G2 (ressalva b)
+estado: "Aprovada para execução"   # após G2 e G3 (aprovado com ressalvas 15:08); stack ADR-0001 v2.0 (.NET 10 LTS + Angular 22.3); TASK-0008 aguarda R1 (AS) e reavaliação do plano G2 (PO)
 etapa: C
 objetivo: "Disponibilizar GET /health na API base do Portal Web (status, versão, timestamp) e uma tela simples no Portal que exiba esse status."
 descricao_funcional: ""
@@ -34,12 +34,12 @@ plano_atividades: {ref: 03-operacional/demandas/DEM-2026-001/plano-atividades-g2
 tarefas:
   - {id: TASK-0001, agente: CPO, estado: "Concluída"}
   - {id: TASK-0002, agente: PO, estado: "Concluída"}   # commit 9bde637
-  - {id: TASK-0003, agente: ARQ, estado: "Reaberta (AH-0003: ADR-0001 v2 C#/.NET LTS + Angular; tecnologias.md)"}   # parecer G2 d1b0235; A0; commits 7893133, 362ea35, 07cdf27; stack depende de AH-0001
+  - {id: TASK-0003, agente: ARQ, estado: "Concluída"}   # parecer G2 d1b0235; A0; commits 7893133, 362ea35, 07cdf27; reaberta pela AH-0003 e concluída: ADR-0001 v2.0, tecnologias.md v1.1, DEC-ARQ-0007..0010 (7abc2b1, 7fa2b43; merge d40518e)
   - {id: TASK-0004, agente: UX, estado: "Concluída"}   # A1 protótipo; commit 1290f25; validado pelo PO com ressalvas (DEC-PO-0005)
   - {id: TASK-0005, agente: QA, estado: "Concluída"}   # favorável com ressalvas ao G1 (13 testáveis, 5 ajustes); commit 80e9184
   - {id: TASK-0006, agente: AS, estado: "Concluída"}   # EF-0001/ET-0001 v1.2 (3a41a2c); OpenAPI 1.0.0 proposto na main (cf660fb, merge ARQ); G3 pendente após AH-0001 [corrigido v19: comentário antigo citava ramo 2b9fa2e — apontado pelo OPS]
-  - {id: TASK-0007, agente: ARQ, estado: "Aguardando dependências (ADR-0001 v2 da TASK-0003)"}   # A3 aprovação do contrato (G3); depende de TASK-0006
-  - {id: TASK-0008, agente: FS, estado: "Aguardando dependências"}   # A5 implementação; AH-0001 OK; depende do G3
+  - {id: TASK-0007, agente: ARQ, estado: "Concluída"}   # G3 aprovado com ressalvas R1..R5 (7bc37ba; merge a271ac1)
+  - {id: TASK-0008, agente: FS, estado: "Aguardando dependências"}   # A5 implementação; G3 OK; aguarda R1 do G3 (ET-0001 v1.4, AS), plano G2 v1.2 (PO) e SDK .NET 10/Angular CLI (OPS)
   - {id: TASK-0009, agente: CR, estado: "Aguardando dependências"}   # A6 Code Review (G4)
   - {id: TASK-0010, agente: QA, estado: "Aguardando dependências"}   # A4b/A7 plano de testes, testes e PQ (G5)
   - {id: TASK-0011, agente: DOC, estado: "Em desenvolvimento (incremento A Parcial: merge b8e921b; matriz 7.1 aguarda AH-0002; UX-0001 reservado; DEC-PO-0007; DoR verificada: escopo, estimativa, critério e dono definidos, sem dependência aberta); incremento B aguarda TASK-0008", estimativa: "12,5 h (11–14 h): incr. A 7 h sem dependência da TASK-0008; incr. B 5,5 h após TASK-0008", parecer_g2: "rascunhos/doc/MSG-RET-ORQ-TASK-0011-parecer-g2.md (sem commit)"}   # A8 documentação, paralela à TASK-0010
@@ -64,7 +64,6 @@ riscos:
   - {id: RK-3, descricao: "Cadeia de suprimentos npm (Fastify)", P_x_I: "1x2=2", dono: ARQ, mitigacao: "lockfile, npm ci (ver MSG-RET TASK-0003)", status: aberto}
 pendencias_contexto:
   - {item: "P-QA-01..05: SAST/p95 decididos (DEC-ARQ-0005/0006); cobertura: QA confirma 80% de linhas no código alterado como entrada do G4 (ramos só reportados); calibração definitiva no G5 com a 1ª medição real", dono: QA}
-  - {item: "Gancho de fábrica para 500 (CA-09): AS registrou na ET-0001 v1.3 (bb3e08a) a L-12 (extensão da L-05 ao 500, fora do OpenAPI); ARQ confirmar no G3; forma concreta da fábrica depende da AH-0001", dono: ARQ}
   - {item: "FS (b): teste de tela em navegador exigiria ADR/dependência nova?", dono: ARQ}
   - {item: "Texto narrativo da US-0002 ainda cita público não definido (fechado na DEC-PO-0002) — não afeta CA", dono: PO}
   - {item: "Procedimento operacional da DEC-ARQ-0003 confirmado pelo OPS (scripts/verify-local.sh, evidência gitignorada e sanitizada, reexecução pelo CR; parecer OPS §6); falta calibrar cobertura 80% com QA no G5", dono: QA}
@@ -76,7 +75,6 @@ pendencias_contexto:
   - {item: "Conversão do ARQ recebida (458acb8: TASK-0003 1–3 h, TASK-0007 2–4 h, 2ª aprovação G4 1–2 h; planejamento 6,5 h → total em horas 78 h sem janela de 24 h); PO incorpora ao plano sem nova decisão", dono: PO}
   - {item: "Recorte de teste da tela (QA 26/11 13:15): sem ferramenta nova — node:test com fetch mockado + CT manual em Chromium da box; condição para a TASK-0008: separar a lógica de apresentação da manipulação do DOM", dono: FS}
   - {item: "Visão e objetivos estratégicos ausentes em 01-institucional/produto; alinhamento desta demanda é à validação da esteira", dono: CPO}
-  - {item: "AH-0001 aprovada (stack base ADR-0001): ARQ aceita ADR-0001/0002/0003 e conduz o G3 (TASK-0007)", dono: ARQ}
   - {item: "Ambientes (dev/hml) e forma de execução no teste — não existem; premissa de teste: execução local em /workspace/projetos/", dono: OPS}
 premissas_teste:
   - "Demanda fictícia de TESTE; nenhuma operação em produção; sem GitHub e sem Google Sheets (repositório git local + espelho CSV)."
