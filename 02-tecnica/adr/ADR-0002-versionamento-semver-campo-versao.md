@@ -3,12 +3,12 @@ id: ADR-0002
 titulo: "Versionamento semântico e origem do campo 'versão' do GET /health"
 tipo: adr
 versao: 1.1
-status: proposto
+status: aceito
 dono: ARQ
 autores: [ARQ]
-aprovado_por: null
+aprovado_por: ARQ (aceite técnico no G3; alçada N1/N2; sem AH adicional)
 criado_em: 2026-11-26T12:20-03:00
-atualizado_em: 2026-11-26T15:03-03:00
+atualizado_em: 2026-11-26T15:06-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0003, AH-0003, ADR-0001, ADR-0003, US-0001, REQ-0001, RN-0001]
 substitui: null
@@ -17,7 +17,7 @@ substituido_por: null
 
 # ADR-0002 — Versionamento semântico e origem do campo "versão"
 
-> [TESTE] **Status: PROPOSTO (v1.1).** O formato (SemVer) independe da stack; a **origem** mudou com a stack: de `package.json` (v1.0, Node, AH-0001 substituída) para a propriedade MSBuild `<Version>` do `.csproj` do `portal-api` (ADR-0001 v2, aceito, AH-0003). **Revisão no mesmo ID** porque a v1.0 nunca foi aceita (imutabilidade só após "Aceito"). **O aceite deste ADR é do G3 (TASK-0007)**, junto com o contrato; nesta versão só a origem, a verificação e as consequências mudam, não o formato nem a regra de incremento.
+> [TESTE] **Status: ACEITO (v1.1)** pelo ARQ no G3 (TASK-0007), em 26/11/2026. O formato (SemVer) independe da stack; a **origem** mudou com a stack: de `package.json` (v1.0, Node, AH-0001 substituída) para a propriedade MSBuild `<Version>` do `.csproj` do `portal-api` (ADR-0001 v2, aceito, AH-0003). **Revisão no mesmo ID** porque a v1.0 nunca foi aceita (imutabilidade só após "Aceito"). **O aceite foi dado no G3 (TASK-0007)**, junto com o contrato; nesta versão só a origem, a verificação e as consequências mudam, não o formato nem a regra de incremento.
 
 ## Contexto
 - A solicitação exige que `GET /health` retorne a **versão** da API. O PO exige (US-0001, CA-04) que a versão esteja "no formato definido" e seja "igual à versão registrada daquela execução", de modo que o QA consiga comparar os dois valores; RN-0001 proíbe detalhes internos na resposta.
@@ -55,7 +55,7 @@ Uma fonte única lida em tempo de inicialização elimina a divergência entre "
 - **Contrato (AS):** `version` com a expressão acima; `additionalProperties: false` no objeto de resposta.
 - **DevOps:** associa REL-nnnn à versão e à tag; plano de rollback = tag anterior.
 - **Dados/Mobile/Infra:** sem impacto.
-- **Nível de autonomia:** padrão de versionamento é da alçada do ARQ (N1); o aceite será dado no G3 (TASK-0007), com o ADR-0001 v2 já aceito. Quebras futuras em contrato público = N3.
+- **Nível de autonomia:** padrão de versionamento é da alçada do ARQ (N1); o aceite foi dado no G3 (TASK-0007), com o ADR-0001 v2 já aceito. Quebras futuras em contrato público = N3.
 
 ## Status
-Proposto → Aceito (somente o Arquiteto Líder aprova) → Substituído/Rejeitado. ADR aceito é imutável: para mudar, crie novo ADR com `substitui: ADR-0002`.
+Proposto → **Aceito (v1.1, 26/11/2026)** → Substituído/Rejeitado. ADR aceito é imutável: para mudar, crie novo ADR com `substitui: ADR-0002`.

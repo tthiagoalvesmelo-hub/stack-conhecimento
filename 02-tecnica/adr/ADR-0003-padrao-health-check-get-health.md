@@ -3,12 +3,12 @@ id: ADR-0003
 titulo: "Padrão de health-check e diretrizes do contrato GET /health"
 tipo: adr
 versao: 1.1
-status: proposto
+status: aceito
 dono: ARQ
 autores: [ARQ]
-aprovado_por: null
+aprovado_por: ARQ (aceite técnico no G3; alçada N1/N2; sem AH adicional)
 criado_em: 2026-11-26T12:20-03:00
-atualizado_em: 2026-11-26T15:03-03:00
+atualizado_em: 2026-11-26T15:06-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0003, AH-0003, DEC-ARQ-0002, ADR-0001, ADR-0002, US-0001, US-0002, REQ-0001, REQ-0003, REQ-0004, RN-0001, RN-0002]
 substitui: null
@@ -17,7 +17,7 @@ substituido_por: null
 
 # ADR-0003 — Padrão de health-check e diretrizes do contrato `GET /health`
 
-> [TESTE] **Status: PROPOSTO (v1.1).** Estas são **diretrizes arquiteturais**, não o contrato. O detalhamento (EF/ET e OpenAPI) é do Analista de Sistemas (AS) e a **validação do contrato (G3) é do ARQ**. **A troca de stack (AH-0003, ADR-0001 v2 C#/.NET + Angular) NÃO muda nenhuma decisão de contrato deste ADR** (200/503/405/500, `no-store`, CORS, formatos). Alterações da v1.1, todas editoriais ou de alinhamento: (a) `Allow: GET, HEAD` no 405, como já decidido na DEC-ARQ-0002 L-02 (a v1.0 dizia `Allow: GET` com HEAD tolerado); (b) a recomendação de CSP passa a valer para a hospedagem de produção do Portal Angular (ADR futuro); na fase de testes o Portal roda em `ng serve`; (c) referências à stack. **O aceite é do G3 (TASK-0007).**
+> [TESTE] **Status: ACEITO (v1.1)** pelo ARQ no G3 (TASK-0007), em 26/11/2026. Estas são **diretrizes arquiteturais**, não o contrato. O detalhamento (EF/ET e OpenAPI) é do Analista de Sistemas (AS) e a **validação do contrato (G3) é do ARQ**. **A troca de stack (AH-0003, ADR-0001 v2 C#/.NET + Angular) NÃO muda nenhuma decisão de contrato deste ADR** (200/503/405/500, `no-store`, CORS, formatos). Alterações da v1.1, todas editoriais ou de alinhamento: (a) `Allow: GET, HEAD` no 405, como já decidido na DEC-ARQ-0002 L-02 (a v1.0 dizia `Allow: GET` com HEAD tolerado); (b) a recomendação de CSP passa a valer para a hospedagem de produção do Portal Angular (ADR futuro); na fase de testes o Portal roda em `ng serve`; (c) referências à stack. **Aceite dado no G3 (TASK-0007).**
 
 ## Contexto
 - REQ-0001/US-0001: `GET /health` somente leitura, HTTP 200, com status, versão e timestamp. REQ-0004/RN-0001: nada sensível. RN-0002: indisponibilidade jamais aparece como saudável. US-0002: tela no Portal.
@@ -81,4 +81,4 @@ Mínimo que atende status, versão e timestamp, sem dado sensível e sem autenti
 - **Nível de autonomia:** contrato interno compatível = N2 (aprovação do ARQ no G3). Torna-se N3 se virar público.
 
 ## Status
-Proposto → Aceito (somente o Arquiteto Líder aprova) → Substituído/Rejeitado. ADR aceito é imutável: para mudar, crie novo ADR com `substitui: ADR-0003`.
+Proposto → **Aceito (v1.1, 26/11/2026)** → Substituído/Rejeitado. ADR aceito é imutável: para mudar, crie novo ADR com `substitui: ADR-0003`.
