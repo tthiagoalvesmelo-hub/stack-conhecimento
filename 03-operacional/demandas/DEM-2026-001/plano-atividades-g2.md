@@ -3,12 +3,12 @@ id: PLANO-DEM-2026-001-G2
 titulo: "Plano de atividades para o G2 — DEM-2026-001 [TESTE]"
 tipo: plano
 versao: 1.1
-status: em-revisao
+status: vigente
 dono: PO
 autores: [PO]
-aprovado_por: null
+aprovado_por: "PO (G2 Aprovado com observações, DEM-2026-001; registrado pelo ORQ em aprovacoes.md, 2ad1838)"
 criado_em: 2026-11-26T12:50-03:00
-atualizado_em: 2026-11-26T13:10-03:00
+atualizado_em: 2026-11-26T13:06-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, RM-0001, G1, G2, TASK-0003, TASK-0004, TASK-0005, TASK-0006, TASK-0007, TASK-0008, TASK-0009, TASK-0010, TASK-0011, TASK-0012, US-0001, US-0002, REQ-0001, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, DEC-PO-0001, DEC-PO-0002, DEC-PO-0004, DEC-PO-0005, DEC-PO-0006, DEC-PO-0007, DEC-ARQ-0001, DEC-ARQ-0002, DEC-ARQ-0003, DEC-ARQ-0004, DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, ADR-0001, ADR-0002, ADR-0003, AH-0001, EF-0001, ET-0001]
 substitui: null
@@ -18,7 +18,7 @@ substituido_por: null
 # Plano de atividades para o G2 — DEM-2026-001 [TESTE]
 
 > Fase de testes internos; nada vai à produção. Fluxo 01, etapa C, estado "Em planejamento" (contexto.yaml v19, commit `ed35bdd`). G1 registrado em 26/11/2026 12:38 (America/Sao_Paulo) como **Aprovado com observações** (commit `b083eef`).
-> Este documento **não** altera estado, etapa, gates, `contexto.yaml`, `aprovacoes.md` nem `Tarefas.csv` (só o ORQ). **Status: em-revisao** — o ciclo do protocolo (Rascunho → Em revisão → Vigente) só admite **vigente** depois que o G2 for decidido e o ORQ o registrar. Esta v1.1 é a referência para essa decisão; `aprovado_por` permanece vazio até lá.
+> Este documento **não** altera estado, etapa, gates, `contexto.yaml`, `aprovacoes.md` nem `Tarefas.csv` (só o ORQ). **Status: vigente** desde 26/11/2026 13:06 (America/Sao_Paulo): o G2 foi decidido pelo PO como **Aprovado com observações** (a)–(e) e registrado pelo ORQ em aprovacoes.md (commit `2ad1838`). O conteúdo é o mesmo da v1.1 em revisão (`053a2d4`); mudaram só o status e `aprovado_por`.
 > **Estimativas:** nenhuma foi inventada. Todas vêm dos pareceres de planejamento e já estão no Tarefas.csv (verificação do ORQ, 26/11 12:59). A estimativa é de quem executa; a decisão técnica é do ARQ.
 
 ## 1. Premissas e restrições (G1 e R3)
