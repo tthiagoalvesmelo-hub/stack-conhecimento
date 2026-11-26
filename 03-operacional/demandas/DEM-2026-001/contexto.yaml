@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 29
-atualizado_em: "2026-11-26T14:46-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
+versao_contexto: 30
+atualizado_em: "2026-11-26T14:52-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -14,7 +14,7 @@ pontuacao: 2.8                       # PO, DEC-PO-0004 (fatores ARQ 1/2/3); clas
 severidade: null
 classe_risco: R3                    # confirmada ARQ (DEC-ARQ-0001, 26/11 12:22): primeiro serviço + stack base
 tipo_demanda: "Funcionalidade nova" # confirmado CPO
-estado: "Aprovada para execução"   # após G2; AH-0001 e AH-0002 aprovadas 26/11 14:45; G3 (TASK-0007) liberado; TASK-0008 aguarda G3; preparação da TASK-0012 liberada
+estado: "Aprovada para execução"   # após G2; AH-0001/0002 aprovadas 14:45; diretriz de tecnologia (C#/.NET + Angular) recebida via Jarvis 14:49 conflita com AH-0001 → TASK-0007/0012 suspensas até decisão da AH-0003
 etapa: C
 objetivo: "Disponibilizar GET /health na API base do Portal Web (status, versão, timestamp) e uma tela simples no Portal que exiba esse status."
 descricao_funcional: ""
@@ -38,19 +38,19 @@ tarefas:
   - {id: TASK-0004, agente: UX, estado: "Concluída"}   # A1 protótipo; commit 1290f25; validado pelo PO com ressalvas (DEC-PO-0005)
   - {id: TASK-0005, agente: QA, estado: "Concluída"}   # favorável com ressalvas ao G1 (13 testáveis, 5 ajustes); commit 80e9184
   - {id: TASK-0006, agente: AS, estado: "Concluída"}   # EF-0001/ET-0001 v1.2 (3a41a2c); OpenAPI 1.0.0 proposto na main (cf660fb, merge ARQ); G3 pendente após AH-0001 [corrigido v19: comentário antigo citava ramo 2b9fa2e — apontado pelo OPS]
-  - {id: TASK-0007, agente: ARQ, estado: "Aprovada para execução"}   # A3 aprovação do contrato (G3); depende de TASK-0006
+  - {id: TASK-0007, agente: ARQ, estado: "Bloqueada (suspensa 14:52: diretriz de tecnologia; aguarda AH-0003)"}   # A3 aprovação do contrato (G3); depende de TASK-0006
   - {id: TASK-0008, agente: FS, estado: "Aguardando dependências"}   # A5 implementação; AH-0001 OK; depende do G3
   - {id: TASK-0009, agente: CR, estado: "Aguardando dependências"}   # A6 Code Review (G4)
   - {id: TASK-0010, agente: QA, estado: "Aguardando dependências"}   # A4b/A7 plano de testes, testes e PQ (G5)
   - {id: TASK-0011, agente: DOC, estado: "Em desenvolvimento (incremento A Parcial: merge b8e921b; matriz 7.1 aguarda AH-0002; UX-0001 reservado; DEC-PO-0007; DoR verificada: escopo, estimativa, critério e dono definidos, sem dependência aberta); incremento B aguarda TASK-0008", estimativa: "12,5 h (11–14 h): incr. A 7 h sem dependência da TASK-0008; incr. B 5,5 h após TASK-0008", parecer_g2: "rascunhos/doc/MSG-RET-ORQ-TASK-0011-parecer-g2.md (sem commit)"}   # A8 documentação, paralela à TASK-0010
-  - {id: TASK-0012, agente: OPS, estado: "Aprovada para execução (preparação; G6/G7 após G5)", estimativa: "prep. 8 h (6–10) + G6/G7 5 h (4–7) + 24 h observação", parecer_g2: "rascunhos/ops/DEM-2026-001-TASK-0012-parecer-g2.md v1.0 (sem commit)"}   # A9 execução local, smoke test e rollback simples
+  - {id: TASK-0012, agente: OPS, estado: "Bloqueada (preparação suspensa 14:52: diretriz de tecnologia; aguarda AH-0003)", estimativa: "prep. 8 h (6–10) + G6/G7 5 h (4–7) + 24 h observação", parecer_g2: "rascunhos/ops/DEM-2026-001-TASK-0012-parecer-g2.md v1.0 (sem commit)"}   # A9 execução local, smoke test e rollback simples
 resultados: []
 testes:
   - {ref: 06-qualidade/pareceres/parecer-planejamento-g2-task-0010.md, id: PARECER-G2-DEM-2026-001-TASK-0010, versao: "1.0", commit: 40c8ace, estimativa: "20 h (16–23 h)"}
   - {ref: 06-qualidade/pareceres/analise-testabilidade-task-0005.md, id: ANALISE-TESTABILIDADE-DEM-2026-001-TASK-0005, versao: "1.0", commit: 80e9184, resultado_pre_g1: "favorável com ressalvas"}
 aprovacoes: {G0: "CPO 26/11", G1: "PO 26/11 12:38 — Aprovado com observações (condições 1–3 em aprovacoes.md)", G2: "PO 26/11 13:05 — Aprovado com observações (a)–(e) em aprovacoes.md; PLANO-DEM-2026-001-G2 v1.1 (053a2d4)"}
 roadmap: RM-0001   # registrado pela CPO no Roadmap.csv (Em andamento, Normal, dono CPO), DEM-2026-001 vinculada
-ah: [AH-0001, AH-0002]   # ambas Aprovadas 26/11 14:45 — literal: "Aprovo AH-0001 e também AH-0002" (Thiago, chat do ORQ)
+ah: [AH-0001, AH-0002, AH-0003]   # AH-0003 Solicitada 14:52 (diretriz C#/.NET + Angular; substitui AH-0001) — ambas Aprovadas 26/11 14:45 — literal: "Aprovo AH-0001 e também AH-0002" (Thiago, chat do ORQ)
 implantacao: []
 documentacao:
   - {ref: 02-tecnica/especificacoes/EF-0001-health-check-portal-api.md, versao: "1.2 em revisão", commit: 3a41a2c}
