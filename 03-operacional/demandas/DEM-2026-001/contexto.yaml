@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 13
-atualizado_em: "2026-11-26T12:58-03:00"
+versao_contexto: 14
+atualizado_em: "2026-11-26T13:00-03:00"
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -46,6 +46,7 @@ tarefas:
   - {id: TASK-0012, agente: OPS, estado: "Aguardando dependências"}   # A9 execução local, smoke test e rollback simples
 resultados: []
 testes:
+  - {ref: 06-qualidade/pareceres/parecer-planejamento-g2-task-0010.md, id: PARECER-G2-DEM-2026-001-TASK-0010, versao: "1.0", commit: 40c8ace, estimativa: "20 h (16–23 h)"}
   - {ref: 06-qualidade/pareceres/analise-testabilidade-task-0005.md, id: ANALISE-TESTABILIDADE-DEM-2026-001-TASK-0005, versao: "1.0", commit: 80e9184, resultado_pre_g1: "favorável com ressalvas"}
 aprovacoes: {G0: "CPO 26/11", G1: "PO 26/11 12:38 — Aprovado com observações (condições 1–3 em aprovacoes.md)"}
 roadmap: RM-0001   # registrado pela CPO no Roadmap.csv (Em andamento, Normal, dono CPO), DEM-2026-001 vinculada
@@ -61,6 +62,8 @@ riscos:
   - {id: RK-2, descricao: "Exposição fora da rede interna vira contrato público", P_x_I: "1x3=3", dono: ARQ, mitigacao: "condição no ADR-0003; reabre R3/N3 + AH", status: aberto}
   - {id: RK-3, descricao: "Cadeia de suprimentos npm (Fastify)", P_x_I: "1x2=2", dono: ARQ, mitigacao: "lockfile, npm ci (ver MSG-RET TASK-0003)", status: aberto}
 pendencias_contexto:
+  - {item: "P-QA-01..05 (entrada na execução da TASK-0010): ferramenta/método local de varredura R3 e de p95 (PS-08)", dono: OPS/ARQ}
+  - {item: "P-QA: gancho de fábrica de teste para 500 (CA-09), análogo ao 503 da ET-0001 §7.2", dono: FS/AS/ARQ}
   - {item: "L-CR1: substituto local do CI (ADR-0001 D5 exclui CI/CD) e L-CR3: lint/análise estática — por DEC-ARQ, antes do PR da TASK-0008 (bloqueia entrada no G4, não o G2)", dono: ARQ/OPS}
   - {item: "L-CR2: local de registro do CR-nnnn sem GitHub (proposta CR: 06-qualidade/pareceres/CR-nnnn.md com ponteiro no Tarefas.csv)", dono: DOC/ORQ}
   - {item: "CONF-0001: lado PO resolvido (textos v1.1 citam R3); fechamento formal", dono: DOC}
