@@ -2,18 +2,20 @@
 id: US-0001
 titulo: "Consultar o status da API pelo endpoint GET /health"
 tipo: us
-versao: 1.1
-status: em-revisao
+versao: 1.2
+status: vigente
 dono: PO
 autores: [PO]
-aprovado_por: null
+aprovado_por: PO (G1, DEM-2026-001)
 criado_em: 2026-11-26T12:18-03:00
-atualizado_em: 2026-11-26T12:32-03:00
+atualizado_em: 2026-11-26T12:41-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0002, TASK-0003, TASK-0005, REQ-0001, REQ-0004, RN-0001, US-0002, ADR-0002, ADR-0003, DEC-ARQ-0001, DEC-PO-0004, DEC-PO-0006]
 substitui: null
 substituido_por: null
 ---
+
+> **Vigente desde 26/11/2026 12:41 (America/Sao_Paulo)** — promovido pelo PO após o G1 (Aprovado com observações, aprovacoes.md, commit b083eef). **Ressalva (condição 1 do G1):** formatos, 503/405/500, tempo limite de 5 s e “sem login” dependem dos ADR-0002/0003 ainda propostos; se mudarem no G3, o PO reabre os CA afetados. Implementação depende da AH-0001.
 # US-0001 — Consultar o status da API pelo endpoint GET /health
 
 > [TESTE] DEM-2026-001 · Fluxo 01 · Prioridade Normal (CPO, G0; DEC-PO-0004, pontuação 2,8) · Classe de risco **R3** (DEC-ARQ-0001) · Tipo: Funcionalidade nova.

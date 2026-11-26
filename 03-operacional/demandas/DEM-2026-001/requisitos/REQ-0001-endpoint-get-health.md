@@ -3,18 +3,20 @@ id: REQ-0001
 titulo: "Endpoint GET /health retorna status, versão e timestamp (200 e 503)"
 tipo: req
 subtipo: funcional
-versao: 1.1
-status: em-revisao
+versao: 1.2
+status: vigente
 dono: PO
 autores: [PO]
-aprovado_por: null
+aprovado_por: PO (G1, DEM-2026-001)
 criado_em: 2026-11-26T12:16-03:00
-atualizado_em: 2026-11-26T12:32-03:00
+atualizado_em: 2026-11-26T12:41-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0002, TASK-0005, US-0001, RN-0001, ADR-0003, DEC-PO-0006]
 substitui: null
 substituido_por: null
 ---
+
+> **Vigente desde 26/11/2026 12:41 (America/Sao_Paulo)** — promovido pelo PO após o G1 (Aprovado com observações, aprovacoes.md, commit b083eef). **Ressalva (condição 1 do G1):** formatos, 503/405/500, tempo limite de 5 s e “sem login” dependem dos ADR-0002/0003 ainda propostos; se mudarem no G3, o PO reabre os CA afetados. Implementação depende da AH-0001.
 
 # REQ-0001 — Endpoint GET /health
 
