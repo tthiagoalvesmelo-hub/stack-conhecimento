@@ -2,22 +2,22 @@
 id: INDEX
 titulo: "Índice do repositório stack-conhecimento"
 tipo: indice
-versao: 1.4
+versao: 1.5
 status: vigente
 dono: DOC
 autores: [DOC]
 aprovado_por: DOC
 criado_em: 2026-11-26T13:02-03:00
-atualizado_em: 2026-11-26T15:15-03:00
+atualizado_em: 2026-11-26T15:42-03:00
 revisar_ate: 2027-02-26
-relacionados: [DEM-2026-001, TASK-0011, L-09, L-UX-01, EF-0001, ET-0001, CONF-0001, UX-0001, AH-0002, AH-0003, L-CR2, ADR-0001, DEC-ARQ-0007, DEC-CPO-0001, DEC-PO-0008, RM-0002]
+relacionados: [DEM-2026-001, TASK-0011, L-09, L-UX-01, EF-0001, ET-0001, CONF-0001, UX-0001, AH-0002, AH-0003, AH-0004, L-CR2, ADR-0001, DEC-ARQ-0007, DEC-CPO-0001, DEC-PO-0008, RM-0002]
 substitui: null
 substituido_por: null
 ---
 
 # INDEX — stack-conhecimento
 
-> Versão 1.4 · 2026-11-26 15:15 (America/Sao_Paulo) · DOC (stack .NET 10 LTS + Angular 22.3, AH-0003; protocolo-memoria v1.1 vigente). Estado do Git no commit-base `b57eaa1` (main no ponto do ramo). Os campos Versão/Status/Último commit vêm do frontmatter e do `git log` dos arquivos. **Em caso de divergência, o arquivo e o histórico do Git prevalecem sobre este índice** (um índice é só ponteiro: ID + caminho + versão, ver `00-memoria/fontes-de-verdade.md`). Quem cria ou muda um documento atualiza este índice (DoD: “contexto.yaml e INDEX atualizados”).
+> Versão 1.5 · 2026-11-26 15:42 (America/Sao_Paulo) · DOC (AH-0004: PRs reais no GitHub; protocolo-memoria v1.2 vigente). Estado do Git no commit-base `f650d64` (documentos alinhados) + este commit do índice. Os campos Versão/Status/Último commit vêm do frontmatter e do `git log` dos arquivos. **Em caso de divergência, o arquivo e o histórico do Git prevalecem sobre este índice** (um índice é só ponteiro: ID + caminho + versão, ver `00-memoria/fontes-de-verdade.md`). Quem cria ou muda um documento atualiza este índice (DoD: “contexto.yaml e INDEX atualizados”).
 
 ## Como usar
 1. Recuperação de contexto: `00-memoria/skills/recuperar-contexto/SKILL.md` (passo 5 aponta para este índice).
@@ -33,7 +33,7 @@ substituido_por: null
 | `03-operacional/` | Demandas (contexto.yaml, historico.md, aprovacoes.md, requisitos, histórias), snapshots, quadro | ORQ |
 | `04-incidentes/` | Incidentes, problemas, runbooks, base de conhecimento | SUP |
 | `05-releases/` | REL-nnnn (com tag Git) | OPS |
-| `06-qualidade/` | Planos e casos de teste, defeitos, pareceres (`PQ-nnnn`, `CR-nnnn`, análises) | QA (pareceres CR-nnnn em `pareceres/`: A = CR, E = ARQ; protocolo-memoria v1.1, AH-0002) |
+| `06-qualidade/` | Planos e casos de teste, defeitos, pareceres (`PQ-nnnn`, `CR-nnnn`, análises) | QA (pareceres CR-nnnn em `pareceres/`: A = CR, E = ARQ; matriz 7.1 do protocolo-memoria v1.1, confirmada na v1.2, AH-0002/AH-0004) |
 | `07-agentes/NN-sigla/` | PROMPT.md e notas compartilháveis de cada agente | cada agente / DOC |
 | `08-arquivo/` | Demandas e documentos encerrados ou obsoletos | DOC / ORQ |
 | `modelos/` | Modelos de documentos e mensagens | DOC |
@@ -43,10 +43,10 @@ Fora do Git, em `/workspace/stack-memoria/`: `planilha-operacao/` (espelho CSV d
 ## 2. Memória e governança (`00-memoria/`)
 | Arquivo | Último commit |
 |---|---|
-| `00-memoria/protocolo-memoria.md` (v1.1 vigente, AH-0002) | 8ead493 |
-| `00-memoria/convencao-ids.md` (v1.3) | c91b7ec |
+| `00-memoria/protocolo-memoria.md` (v1.2 vigente, AH-0004) | 27eb1e1 |
+| `00-memoria/convencao-ids.md` (v1.4) | f650d64 |
 | `00-memoria/fontes-de-verdade.md` | 55b315d |
-| `00-memoria/glossario.md` | 55b315d |
+| `00-memoria/glossario.md` (v1.1) | f650d64 |
 | `00-memoria/registro-ids.yaml` | a20fe82 |
 
 Conflitos (`00-memoria/conflitos/`):
@@ -63,7 +63,7 @@ Governança (`00-memoria/governanca/`):
 | `00-memoria/governanca/criterios-classificacao.md` | — | — | — | — | 55b315d |
 | `00-memoria/governanca/dor-dod.md` | — | — | — | — | 55b315d |
 | `00-memoria/governanca/estado-operacional.md` | GOV-ESTADO | 1.0 | vigente | ORQ | 55b315d |
-| `00-memoria/governanca/matriz-aprovacoes.md` | — | — | — | — | 55b315d |
+| `00-memoria/governanca/matriz-aprovacoes.md` (v1.1, AH-0004; sem frontmatter padrão) | — | — | — | — | 27eb1e1 |
 | `00-memoria/governanca/mudancas-padrao.md` | GOV-MUDANCAS-PADRAO | 1.0 | vigente | ORQ | 55b315d |
 | `00-memoria/governanca/politica-autonomia.md` | — | — | — | — | 55b315d |
 
@@ -126,7 +126,7 @@ Contexto consolidado (fonte de verdade do contexto): `03-operacional/demandas/DE
 | `06-qualidade/pareceres/analise-testabilidade-task-0005.md` | ANALISE-TESTABILIDADE-DEM-2026-001-TASK-0005 | 1.0 | vigente | QA | 80e9184 |
 | `06-qualidade/pareceres/parecer-planejamento-g2-task-0010.md` | PARECER-G2-DEM-2026-001-TASK-0010 | 1.0 | vigente | QA | 40c8ace |
 
-Observação: pareceres CR-nnnn e PQ-nnnn ainda não existem (contadores CR: 0, PQ: 0 em `registro-ids.yaml`). Local do CR-nnnn na fase atual: `06-qualidade/pareceres/CR-nnnn-<slug>.md` (convencao-ids v1.3; matriz 7.1 vigente no protocolo-memoria v1.1, AH-0002: A = CR, E = ARQ).
+Observação: pareceres CR-nnnn e PQ-nnnn ainda não existem (contadores CR: 0, PQ: 0 em `registro-ids.yaml`). Local do CR-nnnn: `06-qualidade/pareceres/CR-nnnn-<slug>.md`, com ponteiro na Evidência da TASK de Code Review (convencao-ids v1.4; matriz 7.1, A = CR, E = ARQ). O protocolo v1.2 e a matriz de aprovações v1.1 não redefiniram esse local; a cláusula de “voltar a viver no PR” não foi aplicada (lacuna ORQ/CR).
 
 ## 6. Artefatos de UX e agentes (`07-agentes/`)
 - Entrega de UX da DEM-2026-001: `07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/` — especificação `UX-ESPEC-DEM-2026-001-TASK-0004` (alias **UX-0001**) v1.1 vigente, aprovada com ressalvas (DEC-PO-0005), e `prototipo-tela-status.html` v1.1 (tipo prototipo), commit `0e9a4af`. Prefixo `UX-nnnn` **vigente** (convenção v1.2, endosso do UX).
@@ -155,7 +155,7 @@ Observação: pareceres CR-nnnn e PQ-nnnn ainda não existem (contadores CR: 0, 
 | `11-ops` | AGT-OPS-NOTAS | 1.0 |
 | `12-qa` | AGT-QA-NOTAS | 1.0 |
 | `13-cr` | AGT-CR-NOTAS | 1.0 |
-| `14-doc` | AGT-DOC-NOTAS | 1.1 |
+| `14-doc` | AGT-DOC-NOTAS | 1.2 |
 | `15-sup` | AGT-SUP-NOTAS | 1.0 |
 
 Cada pasta tem também o `PROMPT.md` completo do agente.
@@ -181,7 +181,7 @@ Cada pasta tem também o `PROMPT.md` completo do agente.
 | `modelos/msg-sol.md` |
 | `modelos/nota-analise.md` |
 | `modelos/pacote-contexto.md` |
-| `modelos/parecer-cr.md` |
+| `modelos/parecer-cr.md` (v1.2; campos da v1.1; commit `f650d64`) |
 | `modelos/parecer-pq.md` |
 | `modelos/rca.md` |
 | `modelos/release.md` |

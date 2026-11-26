@@ -21,9 +21,9 @@ aprovacao_arq:              # pendente | dada + referência
 evidencia_verify_local:     # caminho do log reexecutado; sem segredo
 ---
 
-> **Modelo v1.1** · 26/11/2026 · DOC (TASK-0011, L-CR2). Acrescenta os campos de registro pedidos pelo CR (Eduardo Pires): `pr`, `ciclo`, `resultado`, `critico`, `aprovacao_arq`, `evidencia_verify_local`. Não altera as regras de mérito abaixo.
+> **Modelo v1.2** · 26/11/2026 · DOC (AH-0004). O local de registro permanece `06-qualidade/pareceres/CR-nnnn-<slug>.md` (o protocolo v1.2 e a matriz v1.1 não redefiniram esse local). v1.1 (TASK-0011, L-CR2): campos `pr`, `ciclo`, `resultado`, `critico`, `aprovacao_arq`, `evidencia_verify_local`. Não altera as regras de mérito abaixo.
 >
-> **Local de registro na fase atual (sem GitHub):** `06-qualidade/pareceres/CR-nnnn-<slug>.md`. Reserve o CR-nnnn em `00-memoria/registro-ids.yaml` antes de criar o arquivo (reserva do prefixo CR: o CR). Ponteiro (ID + versão + caminho + commit) na coluna **Evidência** da linha da TASK de Code Review no Tarefas.csv. Com o GitHub conectado, o parecer volta a ser registrado no PR (link na TASK). Esta nota e o frontmatter não alteram as regras de mérito abaixo.
+> **Local de registro:** `06-qualidade/pareceres/CR-nnnn-<slug>.md`. Reserve o CR-nnnn em `00-memoria/registro-ids.yaml` antes de criar o arquivo (reserva do prefixo CR: o CR). Ponteiro (ID + versão + caminho + commit) na coluna **Evidência** da linha da TASK de Code Review no Tarefas.csv. Esta nota e o frontmatter não alteram as regras de mérito abaixo.
 
 # Parecer de Code Review CR-nnnn — MODELO
 

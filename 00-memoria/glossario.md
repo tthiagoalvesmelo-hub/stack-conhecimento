@@ -1,6 +1,6 @@
 # Glossário
 
-> Versão 1.0 · 26/11/2026 · gerado a partir dos Prompts 01–04 da Stack Multiagentes (Prompt 04, Anexo A, tem prioridade).
+> Versão 1.1 · 26/11/2026 · gerado a partir dos Prompts 01–04 da Stack Multiagentes (Prompt 04, Anexo A, tem prioridade). v1.1 (DOC, AH-0004): PR real no GitHub no lugar de “PR local”.
 
 
 | Termo | Significado |
@@ -16,4 +16,5 @@
 | SSOT | Fonte única de verdade |
 | Tipo A / B / C | Incidente operacional / técnico especializado / defeito de software |
 | Espelho CSV | Cópia da planilha em `planilha-operacao/`, uma aba por arquivo, usada até o conector do Google Sheets ser ativado |
-| PR local | Ramo `doc/<ID>-slug` + MSG-COL ao dono, que faz o merge, até o GitHub ser conectado |
+| PR | PR real no GitHub: ramo `doc/<ID>-slug` ou `feat/<ID>-slug`, PR aberto pelo autor, revisão do CR quando aplicável, merge pelo dono da área (protocolo-memoria v1.2, AH-0004) |
+| PR local | Termo anterior à AH-0004: ramo `doc/<ID>-slug` + MSG-COL ao dono, que fazia o merge. Substituído pelo PR real no GitHub |
