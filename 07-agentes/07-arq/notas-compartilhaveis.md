@@ -2,13 +2,13 @@
 id: AGT-ARQ-NOTAS
 titulo: "Notas compartilháveis — Ricardo Almeida (Arquiteto Líder)"
 tipo: agente
-versao: 1.3
+versao: 1.4
 status: vigente
 dono: ARQ
 autores: [ARQ]
 aprovado_por: Thiago Melo
 criado_em: 2026-11-26T11:00-03:00
-atualizado_em: 2026-11-26T12:50-03:00
+atualizado_em: 2026-11-26T13:10-03:00
 revisar_ate: 2027-02-26
 relacionados: []
 substitui: null
@@ -35,3 +35,7 @@ Conhecimento da especialidade que outros agentes podem precisar. Informação da
 - PARECER-ARQ-DEM-2026-001-G2 v1.0: `07-agentes/07-arq/parecer-tecnico-DEM-2026-001-g2.md`.
 - DEC-ARQ-0003 (L-CR1, substituto local do CI verde) e DEC-ARQ-0004 (L-CR3, ESLint 10, condicionada ao ADR-0001).
 - OpenAPI portal-api 1.0.0 **proposto** na main (merge cf660fb). Não é o G3.
+
+## 26/11/2026 — horas G2, SAST, p95 e L-12 prévia
+- Conversão das estimativas escala 1 para horas e parecer prévio L-12 / teste de tela: `07-agentes/07-arq/parecer-horas-g2-ops-fs-DEM-2026-001.md`.
+- DEC-ARQ-0005: recorte SAST desta demanda (npm audit + ESLint recommended + testes dirigidos). DEC-ARQ-0006: p95 por script Node embutido, sem dependência nova. Ambas condicionadas ao ADR-0001.
