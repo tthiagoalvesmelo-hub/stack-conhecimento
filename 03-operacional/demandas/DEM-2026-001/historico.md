@@ -13,3 +13,6 @@
 | 26/11/2026 12:23 | PO | DEC-PO-0001: duas US na mesma demanda; acionar UX/UI, AS, ARQ, FS, CR, QA, DOC e OPS (enxuto); não acionar AN, DBA, MOB e PMM (justificativas em analise-po-task-0002.md §4) | DEC-PO-0001 |
 | 26/11/2026 12:23 | PO | DEC-PO-0002: premissa de teste — público da tela de status = operador/equipe técnica interna, até a CPO definir (lacuna L2) | DEC-PO-0002 |
 | 26/11/2026 12:23 | PO | DEC-PO-0003: prioridade mantida em Normal (CPO, G0) apesar da pontuação provisória 2,4 (Baixa pela fórmula); ajuste manual justificado; reavaliar após os fatores do ARQ | DEC-PO-0003; analise-po-task-0002.md §6 |
+| 26/11/2026 12:17 | PO | MSG-RET TASK-0002 Concluída: US-0001/US-0002, REQ-0001..0004, RN-0001..0002, DEC-PO-0001..0003, atividades A0–A9, pontuação provisória 2,4 | commit 9bde637 (verificado pelo ORQ) |
+| 26/11/2026 12:20 | ORQ | TASK-0002 → Concluída; criadas TASK-0004..0012 conforme atividades do PO; contexto.yaml v3 | contexto.yaml v3 |
+| 26/11/2026 12:21 | ORQ | MSG-SOL TASK-0004 ao UX e TASK-0005 ao QA (Etapa B, paralelo); TASK-0006 (AS) aguarda formatos da TASK-0003 | TASK-0004, TASK-0005 |

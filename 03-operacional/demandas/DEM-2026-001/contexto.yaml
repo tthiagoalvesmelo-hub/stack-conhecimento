@@ -2,15 +2,15 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 2
-atualizado_em: "2026-11-26T12:15-03:00"
+versao_contexto: 3
+atualizado_em: "2026-11-26T12:20-03:00"
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
 fluxo_origem: "01"                  # confirmado CPO 26/11 12:11 (ajustado de 02)
 responsavel_fluxo: PO               # confirmado CPO; ARQ colaborador obrigatório na análise técnica
 prioridade: Normal                  # confirmada CPO
-pontuacao: null
+pontuacao: 2.4                       # provisória (PO, DEC-PO-0003): fórmula daria Baixa; mantida Normal por decisão da CPO no G0; fatores técnicos a confirmar pelo ARQ
 severidade: null
 classe_risco: R2                    # padrão da tabela p/ Funcionalidade nova (R3 se novo serviço); R1 proposto pelo ORQ descartado; ARQ confirma
 tipo_demanda: "Funcionalidade nova" # confirmado CPO
@@ -18,20 +18,29 @@ estado: "Em análise"
 etapa: A
 objetivo: "Disponibilizar GET /health na API base do Portal Web (status, versão, timestamp) e uma tela simples no Portal que exiba esse status."
 descricao_funcional: ""
-regras_negocio: []
-requisitos_funcionais: []
+regras_negocio: [RN-0001, RN-0002]   # v1.0 em revisão
+requisitos_funcionais: [REQ-0001, REQ-0002, REQ-0003, REQ-0004]   # v1.0 em revisão; REQ-0004 segurança/LGPD
 requisitos_nao_funcionais: []
 componentes: ["API base do Portal Web (a criar)", "Portal Web — tela de status (a criar)"]
 microsservicos_impactados: []
 apis: ["GET /health (proposto na solicitação)"]
 bancos: []
-decisoes: []
+decisoes: [DEC-PO-0001, DEC-PO-0002, DEC-PO-0003]
 prototipos: []
-historias: []
+historias: [US-0001, US-0002]   # v1.0 em revisão; 6 CA cada; analise-po-task-0002.md
 tarefas:
   - {id: TASK-0001, agente: CPO, estado: "Concluída"}
-  - {id: TASK-0002, agente: PO, estado: "Em andamento"}
-  - {id: TASK-0003, agente: ARQ, estado: "Em andamento"}
+  - {id: TASK-0002, agente: PO, estado: "Concluída"}   # commit 9bde637
+  - {id: TASK-0003, agente: ARQ, estado: "Em andamento"}   # A0
+  - {id: TASK-0004, agente: UX, estado: "Em andamento"}   # A1 protótipo (saudável/carregando/erro)
+  - {id: TASK-0005, agente: QA, estado: "Em andamento"}   # A4a revisão de testabilidade dos CA (antes do G1)
+  - {id: TASK-0006, agente: AS, estado: "Aguardando dependências"}   # A2 EF/ET e contrato; depende de TASK-0003
+  - {id: TASK-0007, agente: ARQ, estado: "Aguardando dependências"}   # A3 aprovação do contrato (G3); depende de TASK-0006
+  - {id: TASK-0008, agente: FS, estado: "Aguardando dependências"}   # A5 implementação; depende de G2, G3 e TASK-0004
+  - {id: TASK-0009, agente: CR, estado: "Aguardando dependências"}   # A6 Code Review (G4)
+  - {id: TASK-0010, agente: QA, estado: "Aguardando dependências"}   # A4b/A7 plano de testes, testes e PQ (G5)
+  - {id: TASK-0011, agente: DOC, estado: "Aguardando dependências"}   # A8 documentação, paralela à TASK-0010
+  - {id: TASK-0012, agente: OPS, estado: "Aguardando dependências"}   # A9 execução local, smoke test e rollback simples
 resultados: []
 testes: []
 aprovacoes: {G0: "CPO 26/11"}
@@ -42,6 +51,9 @@ documentacao: []
 bloqueios: []
 riscos: []
 pendencias_contexto:
+  - {item: "Público da tela de status (premissa DEC-PO-0002: operador/equipe técnica interna)", dono: CPO}
+  - {item: "Exposição do /health interna ou pública (pública => R3 + AH) e acesso à tela", dono: ARQ}
+  - {item: "Lacunas L1–L9 da análise do PO", dono: PO, ref: analise-po-task-0002.md}
   - {item: "Visão e objetivos estratégicos ausentes em 01-institucional/produto; alinhamento desta demanda é à validação da esteira", dono: CPO}
   - {item: "Confirmação explícita da classe de risco (R2 padrão; R3 se novo serviço) com motivo se abaixo de R2", dono: ARQ}
   - {item: "Stack tecnológica (linguagem, framework, runtime) da API e do Portal — premissa a confirmar", dono: ARQ}
