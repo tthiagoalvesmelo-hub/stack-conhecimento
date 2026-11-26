@@ -1,6 +1,6 @@
 # aprovacoes.md — DEM-2026-001 [TESTE]
 
-Demanda: DEM-2026-001 [TESTE] · Classe de risco: R2 (padrão; ARQ confirma) · Fluxo: 01 (confirmado CPO)
+Demanda: DEM-2026-001 [TESTE] · Classe de risco: R3 (DEC-ARQ-0001) · Fluxo: 01 (confirmado CPO)
 
 | Gate | Validador | Modo (automatizada / manual pelo agente / AH) | Resultado (Aprovado / Aprovado com observações / Reprovado) | Evidência (CR-/PQ-/pipeline/doc + versão) | Data/hora (America/Sao_Paulo) | Registrado por |
 |---|---|---|---|---|---|---|
@@ -17,6 +17,7 @@ Demanda: DEM-2026-001 [TESTE] · Classe de risco: R2 (padrão; ARQ confirma) · 
 ## Aprovações humanas (AH)
 | AH | Operação | Categoria | Pedido em | Decisão (texto literal do Thiago) | Decidido por | Decidido em | Condições | Validade |
 |---|---|---|---|---|---|---|---|---|
+| AH-0001 | Adotar stack base ADR-0001 (Node.js 24 LTS + Fastify 5 portal-api + Portal estático JS) em monorepo git local /workspace/projetos/portal/ | arquitetura | 26/11/2026 12:27 | (aguardando) | | | | 24 h |
 
 ## Observações
 - Aprovação de pedido de urgência para pular gate: não existe; registrar e escalar.

@@ -25,7 +25,7 @@ sequencial_global:
   PRB: 0
   TD: 0
   CONF: 0
-  AH: 0
+  AH: 1
   RM: 1
 decisoes_por_sigla:   # DEC-<SIGLA>-nnnn
   ORQ: 0
