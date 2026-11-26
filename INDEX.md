@@ -2,22 +2,22 @@
 id: INDEX
 titulo: "Índice do repositório stack-conhecimento"
 tipo: indice
-versao: 1.3
+versao: 1.4
 status: vigente
 dono: DOC
 autores: [DOC]
 aprovado_por: DOC
 criado_em: 2026-11-26T13:02-03:00
-atualizado_em: 2026-11-26T14:49-03:00
+atualizado_em: 2026-11-26T15:15-03:00
 revisar_ate: 2027-02-26
-relacionados: [DEM-2026-001, TASK-0011, L-09, L-UX-01, EF-0001, ET-0001, CONF-0001, UX-0001, AH-0002, L-CR2]
+relacionados: [DEM-2026-001, TASK-0011, L-09, L-UX-01, EF-0001, ET-0001, CONF-0001, UX-0001, AH-0002, AH-0003, L-CR2, ADR-0001, DEC-ARQ-0007, DEC-CPO-0001, DEC-PO-0008, RM-0002]
 substitui: null
 substituido_por: null
 ---
 
 # INDEX — stack-conhecimento
 
-> Versão 1.3 · 2026-11-26 14:49 (America/Sao_Paulo) · DOC (protocolo-memoria v1.1 vigente, AH-0002). Estado do Git no commit-base `939099a` (main no ponto do ramo). Os campos Versão/Status/Último commit vêm do frontmatter e do `git log` dos arquivos. **Em caso de divergência, o arquivo e o histórico do Git prevalecem sobre este índice** (um índice é só ponteiro: ID + caminho + versão, ver `00-memoria/fontes-de-verdade.md`). Quem cria ou muda um documento atualiza este índice (DoD: “contexto.yaml e INDEX atualizados”).
+> Versão 1.4 · 2026-11-26 15:15 (America/Sao_Paulo) · DOC (stack .NET 10 LTS + Angular 22.3, AH-0003; protocolo-memoria v1.1 vigente). Estado do Git no commit-base `b57eaa1` (main no ponto do ramo). Os campos Versão/Status/Último commit vêm do frontmatter e do `git log` dos arquivos. **Em caso de divergência, o arquivo e o histórico do Git prevalecem sobre este índice** (um índice é só ponteiro: ID + caminho + versão, ver `00-memoria/fontes-de-verdade.md`). Quem cria ou muda um documento atualiza este índice (DoD: “contexto.yaml e INDEX atualizados”).
 
 ## Como usar
 1. Recuperação de contexto: `00-memoria/skills/recuperar-contexto/SKILL.md` (passo 5 aponta para este índice).
@@ -47,7 +47,7 @@ Fora do Git, em `/workspace/stack-memoria/`: `planilha-operacao/` (espelho CSV d
 | `00-memoria/convencao-ids.md` (v1.3) | c91b7ec |
 | `00-memoria/fontes-de-verdade.md` | 55b315d |
 | `00-memoria/glossario.md` | 55b315d |
-| `00-memoria/registro-ids.yaml` | 50329b6 |
+| `00-memoria/registro-ids.yaml` | a20fe82 |
 
 Conflitos (`00-memoria/conflitos/`):
 
@@ -72,44 +72,52 @@ Skills de procedimento (`00-memoria/skills/`): `recuperar-contexto`, `atualizar-
 ## 3. Decisões, especificações e contrato — DEM-2026-001 [TESTE] (`GET /health`)
 | Item | ID | Versão | Status | Dono | Caminho | Commit |
 |---|---|---|---|---|---|---|
-| Especificação funcional | EF-0001 | 1.2 | em-revisao | AS | `02-tecnica/especificacoes/EF-0001-health-check-portal-api.md` | 3a41a2c |
-| Especificação técnica | ET-0001 | 1.3 | em-revisao | AS | `02-tecnica/especificacoes/ET-0001-health-check-portal-api.md` | bb3e08a |
-| Contrato OpenAPI | portal-api | 1.0.0 | **proposto** (G3/TASK-0007 pendente; depende da AH-0001) | ARQ aprova; AS autora | `02-tecnica/contratos-api/portal-api/openapi.yaml` | b3f13d6 (conteúdo); merge `cf660fb` na main |
+| Especificação funcional | EF-0001 | 1.3 | em-revisao | AS | `02-tecnica/especificacoes/EF-0001-health-check-portal-api.md` | ac391ea |
+| Especificação técnica | ET-0001 | 1.4 | em-revisao | AS | `02-tecnica/especificacoes/ET-0001-health-check-portal-api.md` | ac391ea |
+| Contrato OpenAPI | portal-api | 1.0.0 | **proposto** no arquivo (`status-documento: proposto`); G3 aprovado com ressalvas (R1: prosa da AS pendente; parecer G3 v1.0). Semântica mantida; `info.version` 1.0.0 | ARQ aprova; AS autora | `02-tecnica/contratos-api/portal-api/openapi.yaml` | b3f13d6 (conteúdo); merge `cf660fb` na main |
 | Conflito (fechado) | CONF-0001 | 1.1 | resolvido | DOC | `00-memoria/conflitos/CONF-0001-classe-de-risco-r2-vs-r3.md` | 771349e |
 
 ADR e decisões do ARQ (`02-tecnica/`):
 
 | Caminho | ID | Versão | Status | Dono | Último commit |
 |---|---|---|---|---|---|
-| `02-tecnica/adr/ADR-0001-stack-base-portal-api-e-web.md` | ADR-0001 | 1.0 | proposto | ARQ | 362ea35 |
-| `02-tecnica/adr/ADR-0002-versionamento-semver-campo-versao.md` | ADR-0002 | 1.0 | proposto | ARQ | 362ea35 |
-| `02-tecnica/adr/ADR-0003-padrao-health-check-get-health.md` | ADR-0003 | 1.0 | proposto | ARQ | 362ea35 |
+| `02-tecnica/adr/ADR-0001-stack-base-portal-api-e-web.md` | ADR-0001 | 2.0 | aceito | ARQ | 7abc2b1 |
+| `02-tecnica/adr/ADR-0002-versionamento-semver-campo-versao.md` | ADR-0002 | 1.1 | aceito | ARQ | 7bc37ba |
+| `02-tecnica/adr/ADR-0003-padrao-health-check-get-health.md` | ADR-0003 | 1.1 | aceito | ARQ | 7bc37ba |
 | `02-tecnica/contratos-api/portal-api/DEC-ARQ-0002-detalhes-contrato-health.md` | DEC-ARQ-0002 | 1.0 | vigente | ARQ | 15b3809 |
-| `02-tecnica/contratos-api/portal-api/DEC-ARQ-0003-substituto-ci-local.md` | DEC-ARQ-0003 | 1.0 | vigente | ARQ | d1b0235 |
-| `02-tecnica/contratos-api/portal-api/DEC-ARQ-0004-lint-analise-estatica.md` | DEC-ARQ-0004 | 1.0 | vigente | ARQ | d1b0235 |
+| `02-tecnica/contratos-api/portal-api/DEC-ARQ-0003-substituto-ci-local.md` | DEC-ARQ-0003 | 1.0 | substituida (por DEC-ARQ-0007) | ARQ | 7fa2b43 |
+| `02-tecnica/contratos-api/portal-api/DEC-ARQ-0004-lint-analise-estatica.md` | DEC-ARQ-0004 | 1.0 | substituida (por DEC-ARQ-0008) | ARQ | 7fa2b43 |
+| `02-tecnica/contratos-api/portal-api/DEC-ARQ-0005-sast-residual-task-0010.md` | DEC-ARQ-0005 | 1.0 | substituida (por DEC-ARQ-0009) | ARQ | 7fa2b43 |
+| `02-tecnica/contratos-api/portal-api/DEC-ARQ-0006-medicao-p95-local.md` | DEC-ARQ-0006 | 1.0 | substituida (por DEC-ARQ-0010) | ARQ | 7fa2b43 |
+| `02-tecnica/contratos-api/portal-api/DEC-ARQ-0007-verify-local-dotnet-angular.md` | DEC-ARQ-0007 | 1.0 | vigente | ARQ | 7fa2b43 |
+| `02-tecnica/contratos-api/portal-api/DEC-ARQ-0008-lint-analise-estatica-dotnet-angular.md` | DEC-ARQ-0008 | 1.0 | vigente | ARQ | 7fa2b43 |
+| `02-tecnica/contratos-api/portal-api/DEC-ARQ-0009-sast-sca-dotnet-angular.md` | DEC-ARQ-0009 | 1.0 | vigente | ARQ | 7fa2b43 |
+| `02-tecnica/contratos-api/portal-api/DEC-ARQ-0010-medicao-p95-dotnet-angular.md` | DEC-ARQ-0010 | 1.0 | vigente | ARQ | 7fa2b43 |
+| `02-tecnica/contratos-api/portal-api/DEC-ARQ-0011-l12-gancho-de-teste-500-aspnetcore.md` | DEC-ARQ-0011 | 1.0 | vigente | ARQ | 7bc37ba |
 
 Regras de negócio (`01-institucional/`):
 
 | Caminho | ID | Versão | Status | Dono | Último commit |
 |---|---|---|---|---|---|
-| `01-institucional/regras-negocio/RN-0001-healthcheck-informacao-nao-sensivel.md` | RN-0001 | 1.2 | vigente | PO | babb9fe |
-| `01-institucional/regras-negocio/RN-0002-indisponibilidade-nao-e-saudavel.md` | RN-0002 | 1.2 | vigente | PO | babb9fe |
-| `01-institucional/tecnologias.md` | INST-TECNOLOGIAS | 1.0 | rascunho | ARQ | 55b315d |
+| `01-institucional/regras-negocio/RN-0001-healthcheck-informacao-nao-sensivel.md` | RN-0001 | 1.3 | vigente | PO | a20fe82 |
+| `01-institucional/regras-negocio/RN-0002-indisponibilidade-nao-e-saudavel.md` | RN-0002 | 1.3 | vigente | PO | a20fe82 |
+| `01-institucional/tecnologias.md` | INST-TECNOLOGIAS | 1.1 | vigente | ARQ | 7abc2b1 |
+| `01-institucional/produto/decisoes/DEC-CPO-0001-priorizacao-capacitacao-dotnet-angular.md` | DEC-CPO-0001 | 1.0 | vigente | CPO | 1c1bdf6 |
 
 ## 4. Demanda DEM-2026-001 (`03-operacional/demandas/DEM-2026-001/`)
-Contexto consolidado (fonte de verdade do contexto): `03-operacional/demandas/DEM-2026-001/contexto.yaml` (último commit 13a10bd; só o ORQ altera estado e etapa). Histórico append-only: `03-operacional/demandas/DEM-2026-001/historico.md`.
+Contexto consolidado (fonte de verdade do contexto): `03-operacional/demandas/DEM-2026-001/contexto.yaml` (`versao_contexto: 34`; último commit `b57eaa1`; só o ORQ altera estado e etapa). Histórico append-only: `03-operacional/demandas/DEM-2026-001/historico.md`. DEC-PO-0008 (não reabre os CA após a AH-0003; revisão editorial das US/REQ/RN) está registrada na análise do PO v1.4, commit `a20fe82`.
 
 | Caminho | ID | Versão | Status | Dono | Último commit |
 |---|---|---|---|---|---|
-| `03-operacional/demandas/DEM-2026-001/analise-po-task-0002.md` | ANALISE-DEM-2026-001-TASK-0002 | 1.3 | em-revisao | PO | 053a2d4 |
+| `03-operacional/demandas/DEM-2026-001/analise-po-task-0002.md` | ANALISE-DEM-2026-001-TASK-0002 | 1.4 | em-revisao | PO | a20fe82 |
 | `03-operacional/demandas/DEM-2026-001/aprovacoes.md` | — | — | — | — | 2ad1838 |
-| `03-operacional/demandas/DEM-2026-001/historias/US-0001-endpoint-health.md` | US-0001 | 1.2 | vigente | PO | babb9fe |
-| `03-operacional/demandas/DEM-2026-001/historias/US-0002-tela-status.md` | US-0002 | 1.3 | vigente | PO | 053a2d4 |
+| `03-operacional/demandas/DEM-2026-001/historias/US-0001-endpoint-health.md` | US-0001 | 1.3 | vigente | PO | a20fe82 |
+| `03-operacional/demandas/DEM-2026-001/historias/US-0002-tela-status.md` | US-0002 | 1.4 | vigente | PO | a20fe82 |
 | `03-operacional/demandas/DEM-2026-001/plano-atividades-g2.md` | PLANO-DEM-2026-001-G2 | 1.1 | vigente | PO | f61a1f9 |
-| `03-operacional/demandas/DEM-2026-001/requisitos/REQ-0001-endpoint-get-health.md` | REQ-0001 | 1.2 | vigente | PO | babb9fe |
-| `03-operacional/demandas/DEM-2026-001/requisitos/REQ-0002-tela-de-status-portal.md` | REQ-0002 | 1.2 | vigente | PO | babb9fe |
-| `03-operacional/demandas/DEM-2026-001/requisitos/REQ-0003-estado-de-erro-tela.md` | REQ-0003 | 1.2 | vigente | PO | babb9fe |
-| `03-operacional/demandas/DEM-2026-001/requisitos/REQ-0004-sem-dados-sensiveis.md` | REQ-0004 | 1.2 | vigente | PO | babb9fe |
+| `03-operacional/demandas/DEM-2026-001/requisitos/REQ-0001-endpoint-get-health.md` | REQ-0001 | 1.3 | vigente | PO | a20fe82 |
+| `03-operacional/demandas/DEM-2026-001/requisitos/REQ-0002-tela-de-status-portal.md` | REQ-0002 | 1.3 | vigente | PO | a20fe82 |
+| `03-operacional/demandas/DEM-2026-001/requisitos/REQ-0003-estado-de-erro-tela.md` | REQ-0003 | 1.3 | vigente | PO | a20fe82 |
+| `03-operacional/demandas/DEM-2026-001/requisitos/REQ-0004-sem-dados-sensiveis.md` | REQ-0004 | 1.3 | vigente | PO | a20fe82 |
 | `03-operacional/demandas/DEM-2026-001/validacao-po-prototipo-task-0004.md` | DEC-PO-0005 | 1.0 | em-revisao | PO | af208f2 |
 
 ## 5. Qualidade (`06-qualidade/`)
@@ -122,7 +130,14 @@ Observação: pareceres CR-nnnn e PQ-nnnn ainda não existem (contadores CR: 0, 
 
 ## 6. Artefatos de UX e agentes (`07-agentes/`)
 - Entrega de UX da DEM-2026-001: `07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/` — especificação `UX-ESPEC-DEM-2026-001-TASK-0004` (alias **UX-0001**) v1.1 vigente, aprovada com ressalvas (DEC-PO-0005), e `prototipo-tela-status.html` v1.1 (tipo prototipo), commit `0e9a4af`. Prefixo `UX-nnnn` **vigente** (convenção v1.2, endosso do UX).
-- Parecer técnico do ARQ: `07-agentes/07-arq/parecer-tecnico-DEM-2026-001-g2.md`.
+- Artefatos do ARQ (`07-agentes/07-arq/`):
+
+| Caminho | ID | Versão | Status | Dono | Último commit |
+|---|---|---|---|---|---|
+| `07-agentes/07-arq/parecer-tecnico-DEM-2026-001-g2.md` | PARECER-ARQ-DEM-2026-001-G2 | 1.0 | vigente | ARQ | d1b0235 |
+| `07-agentes/07-arq/parecer-tecnico-DEM-2026-001-g3.md` | PARECER-ARQ-DEM-2026-001-G3 | 1.0 | vigente | ARQ | 7bc37ba |
+| `07-agentes/07-arq/analise-impacto-troca-stack-DEM-2026-001.md` | ARQ-ANALISE-DEM-2026-001-AH-0003 | 1.0 | vigente | ARQ | 7fa2b43 |
+| `07-agentes/07-arq/capacitacao/RM-0002-plano-capacitacao-dotnet-angular.md` | PLANO-RM-0002 | 1.0 | proposto | ARQ | 3dc12a6 |
 
 | Agente (pasta) | ID das notas | Versão |
 |---|---|---|
@@ -133,7 +148,7 @@ Observação: pareceres CR-nnnn e PQ-nnnn ainda não existem (contadores CR: 0, 
 | `04-an` | AGT-AN-NOTAS | 1.0 |
 | `05-as` | AGT-AS-NOTAS | 1.0 |
 | `06-ux` | AGT-UX-NOTAS | 1.2 |
-| `07-arq` | AGT-ARQ-NOTAS | 1.3 |
+| `07-arq` | AGT-ARQ-NOTAS | 1.5 |
 | `08-fs` | AGT-FS-NOTAS | 1.0 |
 | `09-mob` | AGT-MOB-NOTAS | 1.0 |
 | `10-dba` | AGT-DBA-NOTAS | 1.0 |
@@ -171,11 +186,15 @@ Cada pasta tem também o `PROMPT.md` completo do agente.
 | `modelos/rca.md` |
 | `modelos/release.md` |
 
-Modelos de EF, ET e contrato de API (`ef.md`, `et.md`, `contrato-api.md`) derivados de EF-0001 v1.2, ET-0001 v1.2 (a ET está hoje na v1.3; revisão do modelo se a v1.3 mudar a estrutura) e do contrato `portal-api` 1.0.0 (L-09). Se a AH-0001 ou o G3 mudarem ADR ou contrato, o DOC revisa estes modelos (DEC-PO-0007, ressalva).
+Modelos de EF, ET e contrato de API (`ef.md`, `et.md`, `contrato-api.md`) derivados de EF-0001 v1.2, ET-0001 v1.2 (a ET está hoje na v1.4 em revisão na main (R1 do G3; confirmação do ARQ pendente no merge `9b3dc1b`)) e do contrato `portal-api` 1.0.0 (L-09). A ressalva da DEC-PO-0007 permanece: se a R1 ou o G3 alterarem a estrutura, o DOC revisa estes modelos no incremento B.
 
 ## 8. Lacunas deste índice
 - Linhas com “—” em ID/Versão/Status/Dono: arquivo sem frontmatter padrão (governança: `criterios-classificacao`, `dor-dod`, `matriz-aprovacoes`, `politica-autonomia`; `aprovacoes.md` da demanda). Padronizar é decisão do dono de cada arquivo; a DOC apenas registra.
-- `DEC-ARQ-0003` e `DEC-ARQ-0004` estão em `02-tecnica/contratos-api/portal-api/` (local escolhido pelo ARQ); o índice reflete o que existe.
-- Não há `01-institucional/produto` (visão e objetivos) nem `02-tecnica/modelos-dados` nesta fase (pastas vazias ou inexistentes).
+- `DEC-ARQ-0003` a `DEC-ARQ-0011` estão em `02-tecnica/contratos-api/portal-api/` (local escolhido pelo ARQ). `DEC-ARQ-0003`..`0006` estão com status **substituida** (pelas `0007`..`0010`).
+- Há `01-institucional/produto/decisoes/DEC-CPO-0001-…`; ainda não há documento de visão/objetivos do produto nem `02-tecnica/modelos-dados`.
+- `PLANO-RM-0002` v1.0 permanece **proposto** no frontmatter. O contexto v33 (`b606d11`) registra validação da CPO em 26/11/2026 15:12 (America/Sao_Paulo), com validação do PO ainda pendente; o índice não antecipa mudança de status.
+- `aprovacoes.md` da demanda segue sem frontmatter (commit indexado `2ad1838` pode estar defasado em relação a AH-0002/AH-0003). Só o ORQ atualiza esse arquivo.
+- ET-0001 v1.4 e EF-0001 v1.3 estão na main (`ac391ea`, merge `9b3dc1b`); a mensagem do merge registra confirmação do ARQ pendente. A prosa do OpenAPI (R1) ainda não está na main (ramo `doc/TASK-0006-R1-openapi-prosa`).
 - Itens de `04-incidentes/`, `05-releases/` e `08-arquivo/`: vazios (só README).
+- O plano G2 na main permanece v1.1 vigente (`f61a1f9`); a v1.2 está em elaboração pelo PO.
 - Planilha (Backlog, Tarefas etc.): fonte de verdade do status; não indexada aqui (fora do Git).
