@@ -10,6 +10,8 @@ Este repositório Git é a **fonte de verdade** da memória compartilhada dos 16
 - Stack tecnológica (exceto Mobile em Java) e demais premissas: **a confirmar** — ver `01-institucional/README.md`.
 
 ## Como navegar
+Índice completo com ID, versão e status: [`INDEX.md`](INDEX.md) (mantido pela DOC).
+
 | Pasta | Conteúdo | Dono principal |
 |---|---|---|
 | `00-memoria/` | Regras da própria memória: protocolo, IDs, SSOT, conflitos, governança, skills | Documentação (DOC) |
