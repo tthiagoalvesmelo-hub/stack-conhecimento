@@ -22,3 +22,5 @@
 | 26/11/2026 12:25 | ORQ | Merge --no-ff do ramo doc/DEC-ARQ-0001-risco-r3 (3 entradas do ARQ no histórico); TASK-0003 → Parcial (stack proposta, depende de AH); classe de risco R3 registrada; contexto.yaml v4 | commits 362ea35, 07cdf27 (verificados) |
 | 26/11/2026 12:26 | ORQ | TASK-0006 liberada ao AS sob premissa (contrato independe da stack, conforme ARQ); G3 só após AH-0001 | TASK-0006 |
 | 26/11/2026 12:27 | ORQ | AH-0001 (arquitetura, N3) preparada e enviada ao Thiago; TASK-0008 e TASK-0012 seguem bloqueadas pela AH | AH-0001 |
+| 26/11/2026 12:24 | UX | MSG-RET TASK-0004 Concluída: protótipo HTML (3 estados) e especificação de interface v1.0, CA-01..06 da US-0002 rastreados; validação do PO pendente | commit 1290f25 (verificado pelo ORQ) |
+| 26/11/2026 12:30 | ORQ | TASK-0004 → Concluída; ponteiros de protótipo em contexto.yaml v5; MSG-COL ao PO para validação do protótipo/spec. Registro: o commit 454f49e (ORQ) incluiu por engano a 1ª versão do HTML do UX (git add -A em árvore compartilhada); versão final em 1290f25; a partir de agora o ORQ commita só caminhos explícitos | commits 454f49e, 1290f25 |
