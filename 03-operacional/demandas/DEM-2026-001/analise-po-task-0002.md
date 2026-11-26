@@ -2,13 +2,13 @@
 id: ANALISE-DEM-2026-001-TASK-0002
 titulo: "Análise inicial do PO — escopo, atividades propostas e pontuação (DEM-2026-001 [TESTE])"
 tipo: analise
-versao: 1.1
+versao: 1.2
 status: em-revisao
 dono: PO
 autores: [PO]
 aprovado_por: null
 criado_em: 2026-11-26T12:22-03:00
-atualizado_em: 2026-11-26T12:32-03:00
+atualizado_em: 2026-11-26T12:38-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0002, TASK-0003, TASK-0004, TASK-0005, US-0001, US-0002, REQ-0001, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, DEC-PO-0001, DEC-PO-0002, DEC-PO-0003, DEC-PO-0004, DEC-PO-0005, DEC-PO-0006, DEC-ARQ-0001, ADR-0001, ADR-0002, ADR-0003]
 substitui: null
@@ -28,7 +28,7 @@ substituido_por: null
 | # | Item | Tratamento (v1.1) | Dono |
 |---|---|---|---|
 | L1 | Visão e objetivos de produto ausentes em 01-institucional/produto | **Aberta.** Premissa de teste: demanda de validação da esteira; sem compromisso de negócio | CPO |
-| L2 | Público da tela de status | **Aberta.** Premissa de teste (DEC-PO-0002): operador/equipe técnica interna | CPO |
+| L2 | Público da tela de status | **Resolvida em 26/11 12:36.** CPO confirmou (MSG-RET CPO→PO): operador/equipe técnica interna; vocabulário técnico, valores brutos e timestamp UTC liberados. Exposição a clientes/usuários finais = nova decisão da CPO | CPO |
 | L3 | Stack, estrutura, formato de versão e timestamp, nomes de campos e valores de status | **Respondida como premissa** (ADR-0001/0002/0003 v1.0 **propostos**, commit 362ea35). Formatos incorporados nas US/REQ v1.1 sem o PO decidir arquitetura. Stack = N3, aguarda **AH-0001** | ARQ / Thiago (via ORQ) |
 | L4 | Exposição do endpoint e autenticação | **Respondida como premissa** (ADR-0003): contrato interno, `/health` sem autenticação, só rede local/interna. Exposição pública reabre R3/N3 + AH | ARQ |
 | L5 | Regra de acesso à tela | **Respondida como premissa** (ADR-0003): tela sem login nesta demanda; autenticação do Portal é demanda própria | ARQ / CPO (público) |
@@ -98,7 +98,7 @@ Riscos anteriores permanecem. Acrescenta-se: ADRs ainda propostos — se formato
 
 ## 9. Decisões (alçada do PO)
 - **DEC-PO-0001** — Escopo e acionamentos (inalterada).
-- **DEC-PO-0002** — Público da tela = operador/equipe técnica interna (premissa; CPO confirma).
+- **DEC-PO-0002** — Público da tela = operador/equipe técnica interna (confirmado pela CPO em 26/11/2026 12:36; deixa de ser premissa).
 - **DEC-PO-0003** — Prioridade Normal apesar da fórmula (v1.0, pontuação 2,4 provisória).
 - **DEC-PO-0004** — Pontuação recalculada **2,8** com os fatores do ARQ; classe **Normal** mantida.
 - **DEC-PO-0005** — Protótipo/spec UX v1.0: **Aprovado com ressalvas**; RE-01..RE-05 e D-UX-05/08 decididos.
