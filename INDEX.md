@@ -2,22 +2,22 @@
 id: INDEX
 titulo: "Índice do repositório stack-conhecimento"
 tipo: indice
-versao: 1.0
+versao: 1.1
 status: vigente
 dono: DOC
 autores: [DOC]
 aprovado_por: DOC
 criado_em: 2026-11-26T13:02-03:00
-atualizado_em: 2026-11-26T13:02-03:00
+atualizado_em: 2026-11-26T13:10-03:00
 revisar_ate: 2027-02-26
-relacionados: [DEM-2026-001, TASK-0011, L-09, EF-0001, ET-0001, CONF-0001]
+relacionados: [DEM-2026-001, TASK-0011, L-09, L-UX-01, EF-0001, ET-0001, CONF-0001, UX-0001]
 substitui: null
 substituido_por: null
 ---
 
 # INDEX — stack-conhecimento
 
-> Versão 1.0 · 2026-11-26 13:02 (America/Sao_Paulo) · DOC (L-09, TASK-0011 incremento A). Estado do Git no commit-base `13a10bd` mais o ramo `doc/TASK-0011-incremento-a`. Os campos Versão/Status/Último commit vêm do frontmatter e do `git log` dos arquivos. **Em caso de divergência, o arquivo e o histórico do Git prevalecem sobre este índice** (um índice é só ponteiro: ID + caminho + versão, ver `00-memoria/fontes-de-verdade.md`). Quem cria ou muda um documento atualiza este índice (DoD: “contexto.yaml e INDEX atualizados”).
+> Versão 1.1 · 2026-11-26 13:10 (America/Sao_Paulo) · DOC (L-UX-01, reserva UX-0001). Estado do Git no commit-base `13a10bd` mais o ramo `doc/TASK-0011-incremento-a`. Os campos Versão/Status/Último commit vêm do frontmatter e do `git log` dos arquivos. **Em caso de divergência, o arquivo e o histórico do Git prevalecem sobre este índice** (um índice é só ponteiro: ID + caminho + versão, ver `00-memoria/fontes-de-verdade.md`). Quem cria ou muda um documento atualiza este índice (DoD: “contexto.yaml e INDEX atualizados”).
 
 ## Como usar
 1. Recuperação de contexto: `00-memoria/skills/recuperar-contexto/SKILL.md` (passo 5 aponta para este índice).
@@ -121,7 +121,7 @@ Contexto consolidado (fonte de verdade do contexto): `03-operacional/demandas/DE
 Observação: pareceres CR-nnnn e PQ-nnnn ainda não existem (contadores CR: 0, PQ: 0 em `registro-ids.yaml`). Local do CR-nnnn na fase atual: `06-qualidade/pareceres/CR-nnnn-<slug>.md` (convencao-ids v1.1).
 
 ## 6. Artefatos de UX e agentes (`07-agentes/`)
-- Entrega de UX da DEM-2026-001: `07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/` — especificação `UX-ESPEC-DEM-2026-001-TASK-0004` v1.0 (em revisão) e `prototipo-tela-status.html`. Prefixo `UX-nnnn` proposto, alias pendente do endosso do UX (L-UX-01).
+- Entrega de UX da DEM-2026-001: `07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/` — especificação `UX-ESPEC-DEM-2026-001-TASK-0004` v1.0 (em revisão) e `prototipo-tela-status.html`. Prefixo `UX-nnnn` **vigente** (convenção v1.2, endosso do UX). Alias **UX-0001** reservado; o id `UX-ESPEC-DEM-2026-001-TASK-0004` permanece até o UX publicar a especificação v1.1 com o alias, depois do merge na main.
 - Parecer técnico do ARQ: `07-agentes/07-arq/parecer-tecnico-DEM-2026-001-g2.md`.
 
 | Agente (pasta) | ID das notas | Versão |
