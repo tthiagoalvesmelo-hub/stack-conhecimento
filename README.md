@@ -1,11 +1,11 @@
 # stack-conhecimento — memória oficial da Stack Multiagentes
 
-> Versão 1.0 · 26/11/2026 · FASE DE TESTES INTERNOS (não é produção).
+> Versão 1.1 · 26/11/2026 · FASE DE TESTES INTERNOS (não é produção). AH-0004: PRs reais no GitHub.
 
 Este repositório Git é a **fonte de verdade** da memória compartilhada dos 16 agentes da Stack Multiagentes de Desenvolvimento de Software (maximatech.com.br). Responsável e aprovador humano: **Thiago Melo**.
 
 ## Estado atual
-- Repositório Git **local**, sem remoto: o GitHub ainda não foi conectado (credenciais pendentes). Quando for, ele terá um repositório/diretório inicialmente vazio e este histórico será enviado por AH de governança.
+- Cópia principal no GitHub (AH-0004): https://github.com/tthiagoalvesmelo-hub/stack-conhecimento. A pasta local `/workspace/stack-memoria/stack-conhecimento` é o espelho de trabalho, mantido sincronizado com `origin`. Repositório **público**: proibido segredo, credencial ou dado real em commit. PRs reais (ramo `doc/<ID>-slug` ou `feat/<ID>-slug`; PR aberto pelo autor; revisão do CR quando aplicável; merge pelo dono da área).
 - Backlog e roadmap: planilha Google Sheets “Stack Multiagentes — Operação” (conector pendente). Enquanto isso, espelho CSV em `/workspace/stack-memoria/planilha-operacao/`.
 - Stack tecnológica (exceto Mobile em Java) e demais premissas: **a confirmar** — ver `01-institucional/README.md`.
 
