@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 19
-atualizado_em: "2026-11-26T12:59-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
+versao_contexto: 20
+atualizado_em: "2026-11-26T13:01-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -54,7 +54,7 @@ ah: [AH-0001]   # arquitetura (stack base ADR-0001) — Solicitada 26/11 12:27
 implantacao: []
 documentacao:
   - {ref: 02-tecnica/especificacoes/EF-0001-health-check-portal-api.md, versao: "1.2 em revisão", commit: 3a41a2c}
-  - {ref: 02-tecnica/especificacoes/ET-0001-health-check-portal-api.md, versao: "1.2 em revisão", commit: 3a41a2c}
+  - {ref: 02-tecnica/especificacoes/ET-0001-health-check-portal-api.md, versao: "1.3 em revisão", commit: bb3e08a, nota: "§7.4/§11 espelham §7.2 (500 por injeção na fábrica de teste; L-12 proposta AS); EF-0001 segue v1.2 (3a41a2c)"}
   - {ref: 02-tecnica/contratos-api/portal-api/openapi.yaml, versao: "1.0.0 proposto", commit: cf660fb, nota: "na main (merge ARQ, autor AS); G3 pendente após AH-0001"}
   - {ref: 07-agentes/07-arq/parecer-tecnico-DEM-2026-001-g2.md, id: PARECER-ARQ-DEM-2026-001-G2, versao: "1.0", commit: d1b0235}
 bloqueios: []
@@ -64,7 +64,7 @@ riscos:
   - {id: RK-3, descricao: "Cadeia de suprimentos npm (Fastify)", P_x_I: "1x2=2", dono: ARQ, mitigacao: "lockfile, npm ci (ver MSG-RET TASK-0003)", status: aberto}
 pendencias_contexto:
   - {item: "P-QA-01..05 (entrada na execução da TASK-0010): ferramenta/método local de varredura R3 e de p95 (PS-08)", dono: OPS/ARQ}   # OPS propôs: SCA via npm audit (DEC-ARQ-0003); SAST residual e script p95 em Node a decidir pelo ARQ (parecer OPS §7)
-  - {item: "Gancho de fábrica para 500 (CA-09): FS propõe injeção só na fábrica (como o 503); AS espelhar ET §7.2 em §7.4/§11; ARQ confirmar no G3 extensão da L-05 e fora da superfície do OpenAPI", dono: AS/ARQ}
+  - {item: "Gancho de fábrica para 500 (CA-09): AS registrou na ET-0001 v1.3 (bb3e08a) a L-12 (extensão da L-05 ao 500, fora do OpenAPI); ARQ confirmar no G3; forma concreta da fábrica depende da AH-0001", dono: ARQ}
   - {item: "FS (b): teste de tela em navegador exigiria ADR/dependência nova?", dono: ARQ}
   - {item: "Texto narrativo da US-0002 ainda cita público não definido (fechado na DEC-PO-0002) — não afeta CA", dono: PO}
   - {item: "Procedimento operacional da DEC-ARQ-0003 confirmado pelo OPS (scripts/verify-local.sh, evidência gitignorada e sanitizada, reexecução pelo CR; parecer OPS §6); falta calibrar cobertura 80% com QA no G5", dono: QA}
