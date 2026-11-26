@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 24
-atualizado_em: "2026-11-26T13:11-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
+versao_contexto: 25
+atualizado_em: "2026-11-26T13:13-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -25,7 +25,7 @@ componentes: ["API base do Portal Web (a criar)", "Portal Web — tela de status
 microsservicos_impactados: []
 apis: ["GET /health — contrato interno, sem autenticação (ADR-0003 proposto)"]
 bancos: []
-decisoes: [DEC-PO-0001, DEC-PO-0002, DEC-PO-0003, DEC-PO-0004, DEC-PO-0005, DEC-PO-0006, DEC-PO-0007, DEC-ARQ-0001, DEC-ARQ-0002, DEC-ARQ-0003, DEC-ARQ-0004 (condicionada ao ADR-0001), DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, ADR-0001 (proposto), ADR-0002 (proposto), ADR-0003 (proposto)]
+decisoes: [DEC-PO-0001, DEC-PO-0002, DEC-PO-0003, DEC-PO-0004, DEC-PO-0005, DEC-PO-0006, DEC-PO-0007, DEC-ARQ-0001, DEC-ARQ-0002, DEC-ARQ-0003, DEC-ARQ-0004 (condicionada ao ADR-0001), DEC-ARQ-0005 (SAST; condicionada ao ADR-0001), DEC-ARQ-0006 (p95 indicativo; condicionada ao ADR-0001), DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, ADR-0001 (proposto), ADR-0002 (proposto), ADR-0003 (proposto)]
 prototipos:
   - {ref: 07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/prototipo-tela-status.html, versao: "1.0 em revisão", commit: 1290f25}
   - {ref: 07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/especificacao-interface-tela-status.md, id: UX-ESPEC-DEM-2026-001-TASK-0004, versao: "1.0 em revisão", commit: 1290f25, validacao_po: "Aprovado com ressalvas (DEC-PO-0005; validacao-po-prototipo-task-0004.md v1.0; commit af208f2)"}
@@ -63,7 +63,7 @@ riscos:
   - {id: RK-2, descricao: "Exposição fora da rede interna vira contrato público", P_x_I: "1x3=3", dono: ARQ, mitigacao: "condição no ADR-0003; reabre R3/N3 + AH", status: aberto}
   - {id: RK-3, descricao: "Cadeia de suprimentos npm (Fastify)", P_x_I: "1x2=2", dono: ARQ, mitigacao: "lockfile, npm ci (ver MSG-RET TASK-0003)", status: aberto}
 pendencias_contexto:
-  - {item: "P-QA-01..05 (entrada na execução da TASK-0010): ferramenta/método local de varredura R3 e de p95 (PS-08)", dono: OPS/ARQ}   # OPS propôs: SCA via npm audit (DEC-ARQ-0003); SAST residual e script p95 em Node a decidir pelo ARQ (parecer OPS §7)
+  - {item: "P-QA-01..05: SAST e p95 decididos (DEC-ARQ-0005/0006, 458acb8; condicionadas ao ADR-0001); resta calibrar cobertura 80% com o QA", dono: QA}
   - {item: "Gancho de fábrica para 500 (CA-09): AS registrou na ET-0001 v1.3 (bb3e08a) a L-12 (extensão da L-05 ao 500, fora do OpenAPI); ARQ confirmar no G3; forma concreta da fábrica depende da AH-0001", dono: ARQ}
   - {item: "FS (b): teste de tela em navegador exigiria ADR/dependência nova?", dono: ARQ}
   - {item: "Texto narrativo da US-0002 ainda cita público não definido (fechado na DEC-PO-0002) — não afeta CA", dono: PO}
@@ -76,7 +76,8 @@ pendencias_contexto:
   - {item: "EF-0001 §8 e ET-0001 §12 ainda citam CONF-0001 aberto e modelos ausentes (atualizar na próxima versão)", dono: AS}
   - {item: "Exposição do /health interna ou pública (pública => R3 + AH) e acesso à tela", dono: ARQ}
   - {item: "Lacunas da análise do PO v1.2: L2/L8/L9 fechadas; L3–L6 respondidas como premissa (abertas até G3 e AH-0001); L1 (CPO) e L7 (OPS) abertas como premissa de teste", dono: PO, ref: analise-po-task-0002.md}
-  - {item: "Conversão das estimativas do ARQ (escala 1–5) para horas — obs. (e) do G2; PO incorpora ao plano sem nova decisão", dono: ARQ}
+  - {item: "Conversão do ARQ recebida (458acb8: TASK-0003 1–3 h, TASK-0007 2–4 h, 2ª aprovação G4 1–2 h; planejamento 6,5 h → total em horas 78 h sem janela de 24 h); PO incorpora ao plano sem nova decisão", dono: PO}
+  - {item: "QA: dizer se exige teste em navegador real na TASK-0010 (se sim, DEC/ADR do ARQ antes da 0008/0010; alternativa sem dependência nova: testes de módulo com node:test)", dono: QA}
   - {item: "Visão e objetivos estratégicos ausentes em 01-institucional/produto; alinhamento desta demanda é à validação da esteira", dono: CPO}
   - {item: "Stack base proposta no ADR-0001 (Node.js 24 LTS + Fastify 5 + Portal estático) — aguarda AH-0001 do Thiago (N3 arquitetura)", dono: ORQ/Thiago}
   - {item: "Ambientes (dev/hml) e forma de execução no teste — não existem; premissa de teste: execução local em /workspace/projetos/", dono: OPS}
