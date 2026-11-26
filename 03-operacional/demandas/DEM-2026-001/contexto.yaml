@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 5
-atualizado_em: "2026-11-26T12:30-03:00"
+versao_contexto: 6
+atualizado_em: "2026-11-26T12:33-03:00"
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -35,7 +35,7 @@ tarefas:
   - {id: TASK-0002, agente: PO, estado: "Concluída"}   # commit 9bde637
   - {id: TASK-0003, agente: ARQ, estado: "Parcial"}   # A0; commits 7893133, 362ea35, 07cdf27; stack depende de AH-0001
   - {id: TASK-0004, agente: UX, estado: "Concluída"}   # A1 protótipo; commit 1290f25; validação do PO pendente (insumo DoR/TASK-0008)
-  - {id: TASK-0005, agente: QA, estado: "Em andamento"}   # A4a revisão de testabilidade dos CA (antes do G1)
+  - {id: TASK-0005, agente: QA, estado: "Concluída"}   # favorável com ressalvas ao G1 (13 testáveis, 5 ajustes); commit 80e9184
   - {id: TASK-0006, agente: AS, estado: "Em andamento"}   # A2 EF/ET e OpenAPI sob premissa (ADR-0003); G3 só após AH-0001
   - {id: TASK-0007, agente: ARQ, estado: "Aguardando dependências"}   # A3 aprovação do contrato (G3); depende de TASK-0006
   - {id: TASK-0008, agente: FS, estado: "Aguardando dependências"}   # A5 implementação; depende de G2, G3 e TASK-0004
@@ -44,7 +44,8 @@ tarefas:
   - {id: TASK-0011, agente: DOC, estado: "Aguardando dependências"}   # A8 documentação, paralela à TASK-0010
   - {id: TASK-0012, agente: OPS, estado: "Aguardando dependências"}   # A9 execução local, smoke test e rollback simples
 resultados: []
-testes: []
+testes:
+  - {ref: 06-qualidade/pareceres/analise-testabilidade-task-0005.md, id: ANALISE-TESTABILIDADE-DEM-2026-001-TASK-0005, versao: "1.0", commit: 80e9184, resultado_pre_g1: "favorável com ressalvas"}
 aprovacoes: {G0: "CPO 26/11"}
 roadmap: RM-0001   # proposto pela CPO; registro na aba Roadmap pela CPO
 ah: [AH-0001]   # arquitetura (stack base ADR-0001) — Solicitada 26/11 12:27
@@ -56,6 +57,8 @@ riscos:
   - {id: RK-2, descricao: "Exposição fora da rede interna vira contrato público", P_x_I: "1x3=3", dono: ARQ, mitigacao: "condição no ADR-0003; reabre R3/N3 + AH", status: aberto}
   - {id: RK-3, descricao: "Cadeia de suprimentos npm (Fastify)", P_x_I: "1x2=2", dono: ARQ, mitigacao: "lockfile, npm ci (ver MSG-RET TASK-0003)", status: aberto}
 pendencias_contexto:
+  - {item: "Responder os 5 ajustes da QA (US-0001 CA-04/CA-06; US-0002 CA-03/CA-04; REQ-0001) e decidir se o caminho 503/unavailable entra no aceite (alt. A) ou fica para nova US (alt. B)", dono: PO}
+  - {item: "Tolerância do timestamp (±5 s) e tempo limite do cliente (5 s) na ET", dono: AS}
   - {item: "Validação do protótipo/spec UX v1.0 e decisão RE-01..RE-05 (inclui 503 ocultar versão/timestamp)", dono: PO}
   - {item: "Prefixo/ID padronizado para protótipo e especificação de UX (L-UX-01) — não existe no padrão de IDs", dono: DOC}
   - {item: "Público da tela de status (premissa DEC-PO-0002: operador/equipe técnica interna)", dono: CPO}
