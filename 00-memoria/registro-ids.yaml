@@ -26,11 +26,11 @@ sequencial_global:
   TD: 0
   CONF: 1
   AH: 3
-  RM: 1
+  RM: 2   # RM-0002 reservado 26/11 14:56 (capacitação C#/.NET e Angular; CPO; condicionado à AH-0003)
   UX: 1   # UX-0001 reservado (L-UX-01, convencao-ids v1.2); alias do artefato UX-ESPEC-DEM-2026-001-TASK-0004, a aplicar pelo UX após o merge
 decisoes_por_sigla:   # DEC-<SIGLA>-nnnn
   ORQ: 0
-  CPO: 0
+  CPO: 1   # DEC-CPO-0001 reservado 26/11 14:56 (priorização RM-0002; condicionado à AH-0003)
   PO: 7
   PMM: 0
   AN: 0
