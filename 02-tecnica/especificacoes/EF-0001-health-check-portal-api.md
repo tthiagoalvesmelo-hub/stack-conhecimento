@@ -2,15 +2,15 @@
 id: EF-0001
 titulo: "Especificação funcional do health-check GET /health da portal-api e consumo pela tela de status"
 tipo: ef
-versao: 1.2
+versao: 1.3
 status: em-revisao
 dono: AS
 autores: [AS]
 aprovado_por: null
 criado_em: 2026-11-26T12:27-03:00
-atualizado_em: 2026-11-26T12:43-03:00
+atualizado_em: 2026-11-26T15:16-03:00
 revisar_ate: 2027-02-26
-relacionados: [DEM-2026-001, TASK-0006, ET-0001, US-0001, US-0002, REQ-0001, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, ADR-0003, DEC-PO-0005, DEC-PO-0006, DEC-ARQ-0002, DEC-AS-0001, CONF-0001]
+relacionados: [DEM-2026-001, TASK-0006, ET-0001, US-0001, US-0002, REQ-0001, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, ADR-0003, DEC-PO-0005, DEC-PO-0006, DEC-ARQ-0002, DEC-ARQ-0011, DEC-AS-0001, CONF-0001, ADR-0001, AH-0003, L-10]
 substitui: null
 substituido_por: null
 ---
@@ -18,7 +18,8 @@ substituido_por: null
 # EF-0001 — Health-check `GET /health` e consumo pela tela de status
 
 > [TESTE] DEM-2026-001 · TASK-0006 · Fluxo 01 · classe de risco R3 (DEC-ARQ-0001) · autora: AS.
-> **v1.2:** incorpora a resposta do PO (DEC-PO-0006, US/REQ/RN v1.1, promovidos a **v1.2 vigente** no G1 — commit babb9fe; G1 aprovado com observações, b083eef) e toma nota da DEC-ARQ-0002 (L-01 a L-07). Os ADR-0001/0002/0003 permanecem *propostos*; a ressalva do G1 (formatos, 503/405/500, tempo limite de 5 s e “sem login” dependem dos ADR; se mudarem no G3, o PO reabre os CA) vale também para esta EF. Detalhamento técnico: ET-0001 v1.2. Contrato: `02-tecnica/contratos-api/portal-api/openapi.yaml` 1.0.0 (ramo `doc/ET-0001-contrato-portal-api-health`, aguarda merge `--no-ff` do ARQ; esse merge não é o G3).
+> **v1.3 (R1 do G3):** fecha a **L-10** (a dependência da AH-0001 acabou: AH-0001 substituída pela **AH-0003**; ADR-0001 v2.0 aceito — C#/.NET 10 + Angular 22; G3 concluído com ressalvas, parecer do ARQ, merge `a271ac1`). **Nenhuma mudança funcional**: CA, RN, REQ, fluxo e matriz §7 permanecem. Detalhamento técnico: ET-0001 v1.4. Contrato `openapi.yaml` 1.0.0 aprovado pelo ARQ no G3. A ressalva do G1 (se os ADR mudarem, o PO reabre os CA afetados) segue com o PO (plano G2 v1.2).
+> **v1.2:** incorpora a resposta do PO (DEC-PO-0006, US/REQ/RN v1.1, promovidos a **v1.2 vigente** no G1 — commit babb9fe; G1 aprovado com observações, b083eef) e toma nota da DEC-ARQ-0002 (L-01 a L-07). (Na v1.2 os ADR-0001/0002/0003 estavam *propostos*; hoje: ADR-0001 v2.0, ADR-0002 v1.1 e ADR-0003 v1.1 *aceitos*.) A ressalva do G1 (formatos, 503/405/500, tempo limite de 5 s e “sem login” dependem dos ADR; se mudarem no G3, o PO reabre os CA) vale também para esta EF. Detalhamento técnico: ET-0001 (hoje v1.4). Contrato: `02-tecnica/contratos-api/portal-api/openapi.yaml` 1.0.0 (na main; aprovado pelo ARQ no G3).
 
 ## 1. Objetivo
 Permitir saber, de forma rápida, objetiva e segura, se a `portal-api` (API base do Portal Web) está respondendo e qual versão do serviço está em execução, e tornar esse sinal visível numa tela simples do Portal — sem expor dado sensível e sem jamais apresentar indisponibilidade como saudável.
@@ -50,7 +51,7 @@ Permitir saber, de forma rápida, objetiva e segura, se a `portal-api` (API base
 |---|---|---|
 | RN-0001 v1.2 | A resposta contém apenas status, versão e timestamp; proibido dado pessoal, credencial, segredo, token e detalhe interno de infraestrutura/implementação | Esquema fechado da resposta; erros sem detalhe; cabeçalhos sem revelar servidor/framework (ET-0001 RT-02, RT-08, RT-09, RT-12) |
 | RN-0002 v1.2 | Ausência de resposta saudável e válida (sem resposta, tempo esgotado, erro, conteúdo inválido ou HTTP 503 de contrato) = indisponível; nunca exibir valor anterior como atual, nunca assumir "saudável" nem tratar o 503 como operacional; no 503 a tela não exibe versão/timestamp (RE-02) | Regras de consumo (ET-0001 seção 5); tempo limite de 5 s (DEC-AS-0001, confirmada na DEC-ARQ-0002 e aceita pelo PO como premissa); `503` com `status` `"unavailable"` |
-| Diretrizes do ADR-0003 (proposto) e DEC-ARQ-0002 | Contrato interno e sem autenticação; somente leitura; formato dos campos; CORS só do Portal | ET-0001 seção 4 |
+| Diretrizes do ADR-0003 (v1.1 aceito) e DEC-ARQ-0002 | Contrato interno e sem autenticação; somente leitura; formato dos campos; CORS só do Portal | ET-0001 seção 4 |
 
 ## 5. Comportamento por cenário (resumo funcional; detalhe e matriz completa na ET-0001 seção 8)
 | ID | Cenário | O que o consumidor vê | Regra |
@@ -107,9 +108,9 @@ Legenda das seções: **EF** = esta especificação; **ET** = ET-0001 v1.2; **OA
 Consolidadas na ET-0001 seção 12.
 - **L-08 (PO, resolvida no conteúdo):** US-0001, US-0002 e REQ-0004 v1.1/v1.2 citam classe **R3** (DEC-ARQ-0001). O fechamento formal do CONF-0001 permanece com a **DOC** (o PO não fecha o registro; a AS não o altera).
 - **L-11 (PO, resolvida — DEC-PO-0006):** o escopo passou a incluir HTTP 503 (US-0001 CA-07, REQ-0001 item 2; tela = US-0002 CA-03 caso (b), RE-02), 405 (CA-08, REQ-0001 item 3) e 500 (CA-09, REQ-0001 item 4 e REQ-0004; tela caso (a)). O CA-04 foi alinhado ao ADR-0002 (manifesto + tag, sem hash). Incorporado nesta v1.2.
-- **L-01 a L-07 (ARQ, decididas — DEC-ARQ-0002):** o parecer prévio fecha formato de erro, HEAD/OPTIONS, `X-Request-Id`, cabeçalhos, 503/testabilidade, CORS e as DEC-AS-0001..0003 (com aperto do regex de `version`). Residual: valores de porta/origem no ambiente (OPS/FS, TASK-0012); implementação do gancho de encerramento (AH-0001). Detalhe na ET §12.
+- **L-01 a L-07 (ARQ, decididas — DEC-ARQ-0002):** o parecer prévio fecha formato de erro, HEAD/OPTIONS, `X-Request-Id`, cabeçalhos, 503/testabilidade, CORS e as DEC-AS-0001..0003 (com aperto do regex de `version`). Residual: valores de porta/origem no ambiente (OPS/FS, TASK-0012); implementação do gancho de encerramento gracioso (ADR-0001 v2 D8 item 10; spike antes do CA-07). Detalhe na ET §12.
 - **L-09 (DOC):** modelos de EF/ET/contrato e `INDEX.md` ainda ausentes.
-- **L-10 (ORQ/ARQ):** AH-0001 pendente; G3 (TASK-0007) só após a AH e o merge do OpenAPI ajustado. Ressalva do G1: se os ADR mudarem no G3, o PO reabre os CA afetados.
+- **L-10 (ORQ/ARQ) — fechada na v1.3:** a AH-0001 foi substituída pela AH-0003 ("Aprovo AH-0003", 26/11/2026 14:54), o ADR-0001 v2.0 foi aceito e o G3 (TASK-0007) foi concluído com ressalvas (R1 = esta revisão e a ET-0001 v1.4). A ressalva do G1 (reabertura de CA pelo PO se os ADR mudarem) permanece com o PO.
 
 ## 9. Histórico de versões
 | Versão | Data/hora | Autor | Mudança |
@@ -117,3 +118,4 @@ Consolidadas na ET-0001 seção 12.
 | 1.0 | 26/11/2026 12:27 | AS | Criação (TASK-0006) (commit 950ebff) |
 | 1.1 | 26/11/2026 12:33 | AS | Registra L-11 (cobertura funcional de `503`/`405`/`500`) (commit d836bc6) |
 | 1.2 | 26/11/2026 12:43 | AS | Ajustes pedidos pelo PO (DEC-PO-0006): matriz §7.1 com CA-07/08/09 (CE-02, CE-05, CE-07); CA-04 manifesto+tag; CA-06 (2+ chamadas, logs, timestamp variável); US-0002 CA-01/03/04; §8 registra L-08/L-11 resolvidas no conteúdo. Fontes US/REQ/RN v1.2 vigente (G1). Toma nota da DEC-ARQ-0002. |
+| 1.3 | 26/11/2026 15:16 | AS | R1 do G3: fecha a L-10 (AH-0001 → AH-0003; ADR-0001 v2.0 aceito; G3 concluído com ressalvas); atualiza a nota sobre a L-01..L-07 e o estado do contrato. Sem mudança funcional (CA/RN/REQ/matriz §7 inalterados). |
