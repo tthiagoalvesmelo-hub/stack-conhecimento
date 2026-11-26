@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 37
-atualizado_em: "2026-11-26T15:34-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
+versao_contexto: 38
+atualizado_em: "2026-11-26T15:41-03:00"   # relógio da box atrasado em relação ao histórico (última entrada 15:40); registro adiante do relógio
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -14,7 +14,7 @@ pontuacao: 2.8                       # PO, DEC-PO-0004 (fatores ARQ 1/2/3); clas
 severidade: null
 classe_risco: R3                    # confirmada ARQ (DEC-ARQ-0001, 26/11 12:22): primeiro serviço + stack base
 tipo_demanda: "Funcionalidade nova" # confirmado CPO
-estado: "Aprovada para execução"   # após G2 e G3 (aprovado com ressalvas 15:08); stack ADR-0001 v2.0 (.NET 10 LTS + Angular 22.3); TASK-0008 aguarda R1 (AS) e reavaliação do plano G2 (PO)
+estado: "Aprovada para execução"   # após G2 v1.2 (mantido com ajuste, PO 15:31) e G3 (aprovado com ressalvas 15:08; R1 fechada 15:23); stack ADR-0001 v2.0 (.NET 10 LTS + Angular 22.3); TASK-0008 liberada ao FS 15:41
 etapa: C
 objetivo: "Disponibilizar GET /health na API base do Portal Web (status, versão, timestamp) e uma tela simples no Portal que exiba esse status."
 descricao_funcional: ""
@@ -25,12 +25,12 @@ componentes: ["API base do Portal Web (a criar)", "Portal Web — tela de status
 microsservicos_impactados: []
 apis: ["GET /health — contrato interno, sem autenticação (ADR-0003 proposto)"]
 bancos: []
-decisoes: [DEC-PO-0001, DEC-PO-0002, DEC-PO-0003, DEC-PO-0004, DEC-PO-0005, DEC-PO-0006, DEC-PO-0007, DEC-PO-0008, DEC-ARQ-0001, DEC-ARQ-0002, DEC-ARQ-0003..0006 (substituídas), DEC-ARQ-0007, DEC-ARQ-0008, DEC-ARQ-0009, DEC-ARQ-0010, DEC-ARQ-0011, DEC-CPO-0001, DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, ADR-0001 v2.0 (aceito), ADR-0002 v1.1 (aceito), ADR-0003 v1.1 (aceito)]
+decisoes: [DEC-PO-0001, DEC-PO-0002, DEC-PO-0003, DEC-PO-0004, DEC-PO-0005, DEC-PO-0006, DEC-PO-0007, DEC-PO-0008, DEC-PO-0009, DEC-ARQ-0001, DEC-ARQ-0002, DEC-ARQ-0003..0006 (substituídas), DEC-ARQ-0007, DEC-ARQ-0008, DEC-ARQ-0009, DEC-ARQ-0010, DEC-ARQ-0011, DEC-CPO-0001, DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, ADR-0001 v2.0 (aceito), ADR-0002 v1.1 (aceito), ADR-0003 v1.1 (aceito)]
 prototipos:
   - {ref: 07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/prototipo-tela-status.html, versao: "1.1", commit: 0e9a4af}
   - {ref: 07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/especificacao-interface-tela-status.md, id: UX-ESPEC-DEM-2026-001-TASK-0004, alias: UX-0001, versao: "1.1 vigente (com ressalvas DEC-PO-0005)", commit: 0e9a4af, validacao_po: "Aprovado com ressalvas (DEC-PO-0005; validacao-po-prototipo-task-0004.md v1.0; commit af208f2)"}
 historias: [US-0001, US-0002]   # v1.2 vigente (babb9fe), ressalva (1) do G1 (US-0001 CA-01..CA-09; US-0002 CA-01..06); analise-po-task-0002.md v1.2
-plano_atividades: {ref: 03-operacional/demandas/DEM-2026-001/plano-atividades-g2.md, id: PLANO-DEM-2026-001-G2, versao: "1.1 vigente", commit: f61a1f9, conteudo: 053a2d4}
+plano_atividades: {ref: 03-operacional/demandas/DEM-2026-001/plano-atividades-g2.md, id: PLANO-DEM-2026-001-G2, versao: "1.2 (em-revisao; registrada pelo ORQ 15:41; promoção a vigente é do PO)", commit: 7d85a6e}
 tarefas:
   - {id: TASK-0001, agente: CPO, estado: "Concluída"}
   - {id: TASK-0002, agente: PO, estado: "Concluída"}   # commit 9bde637
@@ -39,18 +39,18 @@ tarefas:
   - {id: TASK-0005, agente: QA, estado: "Concluída"}   # favorável com ressalvas ao G1 (13 testáveis, 5 ajustes); commit 80e9184
   - {id: TASK-0006, agente: AS, estado: "Concluída"}   # EF-0001/ET-0001 v1.2 (3a41a2c); OpenAPI 1.0.0 proposto na main (cf660fb, merge ARQ); G3 pendente após AH-0001 [corrigido v19: comentário antigo citava ramo 2b9fa2e — apontado pelo OPS]
   - {id: TASK-0007, agente: ARQ, estado: "Concluída"}   # G3 aprovado com ressalvas R1..R5 (7bc37ba; merge a271ac1)
-  - {id: TASK-0008, agente: FS, estado: "Aguardando dependências"}   # A5 implementação; G3 OK; aguarda R1 do G3 (ET-0001 v1.4, AS), plano G2 v1.2 (PO) e SDK .NET 10/Angular CLI (OPS)
+  - {id: TASK-0008, agente: FS, estado: "Em desenvolvimento"}   # A5 implementação; liberada ao FS 15:41 (plano G2 v1.2 registrado, 7d85a6e; G3 OK, R1 fechada 15:23; SDK/CLI instalados)
   - {id: TASK-0009, agente: CR, estado: "Aguardando dependências"}   # A6 Code Review (G4)
   - {id: TASK-0010, agente: QA, estado: "Aguardando dependências"}   # A4b/A7 plano de testes, testes e PQ (G5)
-  - {id: TASK-0011, agente: DOC, estado: "Em desenvolvimento (incremento A Parcial: merge b8e921b; matriz 7.1 aguarda AH-0002; UX-0001 reservado; DEC-PO-0007; DoR verificada: escopo, estimativa, critério e dono definidos, sem dependência aberta); incremento B aguarda TASK-0008", estimativa: "12,5 h (11–14 h): incr. A 7 h sem dependência da TASK-0008; incr. B 5,5 h após TASK-0008", parecer_g2: "rascunhos/doc/MSG-RET-ORQ-TASK-0011-parecer-g2.md (sem commit)"}   # A8 documentação, paralela à TASK-0010
-  - {id: TASK-0012, agente: OPS, estado: "Aguardando dependências (ADR-0001 v2; preparação refeita para .NET/Angular)", estimativa: "prep. 8 h (6–10) + G6/G7 5 h (4–7) + 24 h observação", parecer_g2: "rascunhos/ops/DEM-2026-001-TASK-0012-parecer-g2.md v1.0 (sem commit)"}   # A9 execução local, smoke test e rollback simples
+  - {id: TASK-0011, agente: DOC, estado: "Em desenvolvimento (incremento A Parcial: merge b8e921b; matriz 7.1 mesclada 3755fc6, AH-0002; UX-0001 reservado; DEC-PO-0007; DoR verificada: escopo, estimativa, critério e dono definidos, sem dependência aberta); incremento B aguarda TASK-0008", estimativa: "14,5 h (13,5–16 h): incr. A 7 h; incr. B 7,5 h (6,5–9) após TASK-0008 (plano G2 v1.2, 7d85a6e)", parecer_g2: "rascunhos/doc/MSG-RET-ORQ-TASK-0011-parecer-g2.md (sem commit)"}   # A8 documentação, paralela à TASK-0010
+  - {id: TASK-0012, agente: OPS, estado: "Parcial (toolchain instalada; 1º bloco fechado; saldo da preparação aguarda esqueleto D6)", estimativa: "prep. 10 h (8–13) + G6/G7 6 h (5–8) + 24 h calendário (plano G2 v1.2, 7d85a6e)", parecer_g2: "v2.1 3fe751d (merge ce58d16); v2.0 d214f94 (merge a525821)"}   # A9 execução local, smoke test e rollback simples
 resultados: []
 testes:
-  - {ref: 06-qualidade/pareceres/parecer-planejamento-g2-task-0010.md, id: PARECER-G2-DEM-2026-001-TASK-0010, versao: "1.0", commit: 40c8ace, estimativa: "20 h (16–23 h)"}
+  - {ref: 06-qualidade/pareceres/parecer-planejamento-g2-task-0010.md, id: PARECER-G2-DEM-2026-001-TASK-0010, versao: "1.1", commit: 1bd34a6, estimativa: "33 h (23,5–40 h)"}
   - {ref: 06-qualidade/pareceres/analise-testabilidade-task-0005.md, id: ANALISE-TESTABILIDADE-DEM-2026-001-TASK-0005, versao: "1.0", commit: 80e9184, resultado_pre_g1: "favorável com ressalvas"}
-aprovacoes: {G0: "CPO 26/11", G1: "PO 26/11 12:38 — Aprovado com observações (condições 1–3 em aprovacoes.md)", G2: "PO 26/11 13:05 — Aprovado com observações (a)–(e) em aprovacoes.md; PLANO-DEM-2026-001-G2 v1.1 (053a2d4)", G3: "ARQ 26/11 15:08 — Aprovado com ressalvas R1..R5 (7bc37ba; merge a271ac1); R1 fechada 15:23 (ebb5f22; merges e34e6b9, edc9467); R2..R5 abertas"}
+aprovacoes: {G0: "CPO 26/11", G1: "PO 26/11 12:38 — Aprovado com observações (condições 1–3 em aprovacoes.md)", G2: "PO 26/11 15:31 — Aprovado com observações — MANTIDO COM AJUSTE (a)–(f) em aprovacoes.md; PLANO-DEM-2026-001-G2 v1.2 (7d85a6e, em-revisao); antecedente v1.1 13:05 (053a2d4, f61a1f9)", G3: "ARQ 26/11 15:08 — Aprovado com ressalvas R1..R5 (7bc37ba; merge a271ac1); R1 fechada 15:23 (ebb5f22; merges e34e6b9, edc9467); R2..R5 abertas"}
 roadmap: RM-0001   # registrado pela CPO no Roadmap.csv (Em andamento, Normal, dono CPO), DEM-2026-001 vinculada
-ah: [AH-0001, AH-0002, AH-0003]   # AH-0003 Aprovada 26/11 14:54, literal "Aprovo AH-0003" (chat do ORQ); AH-0001 substituída — ambas Aprovadas 26/11 14:45 — literal: "Aprovo AH-0001 e também AH-0002" (Thiago, chat do ORQ)
+ah: [AH-0001, AH-0002, AH-0003, AH-0004]   # AH-0004 Aprovada 26/11 15:29, literal "Aprovo AH-0004" (chat do ORQ; 27eb1e1); AH-0003 Aprovada 26/11 14:54, literal "Aprovo AH-0003"; AH-0001 substituída — ambas Aprovadas 26/11 14:45 — literal: "Aprovo AH-0001 e também AH-0002"
 implantacao: []
 documentacao:
   - {ref: 02-tecnica/especificacoes/EF-0001-health-check-portal-api.md, versao: "1.2 em revisão", commit: 3a41a2c}
@@ -59,26 +59,34 @@ documentacao:
   - {ref: 07-agentes/07-arq/parecer-tecnico-DEM-2026-001-g2.md, id: PARECER-ARQ-DEM-2026-001-G2, versao: "1.0", commit: d1b0235}
 bloqueios: []
 riscos:
-  - {id: RK-1, descricao: "Stack sem confirmação atrasa AS/FS/OPS", P_x_I: "3x2=6 (alto)", dono: ORQ/ARQ, mitigacao: "AH-0001; AS redige contrato sob premissa; FS só após aceitação", status: aberto}
+  - {id: RK-1, descricao: "Stack sem confirmação atrasa AS/FS/OPS", P_x_I: "3x2=6 (alto)", dono: ORQ/ARQ, mitigacao: "AH-0003 aprovada (14:54) e ADR-0001 v2.0 aceito (d40518e); plano G2 v1.2 §8 registra RK-1 como mitigado", status: mitigado}
   - {id: RK-2, descricao: "Exposição fora da rede interna vira contrato público", P_x_I: "1x3=3", dono: ARQ, mitigacao: "condição no ADR-0003; reabre R3/N3 + AH", status: aberto}
   - {id: RK-3, descricao: "Cadeia de suprimentos npm (Fastify)", P_x_I: "1x2=2", dono: ARQ, mitigacao: "lockfile, npm ci (ver MSG-RET TASK-0003)", status: aberto}
 pendencias_contexto:
-  - {item: "R1 do G3 FECHADA (ARQ 15:23; merges e34e6b9 openapi e edc9467 parecer G3 v1.2). ET-0001 v1.4 aprovada tecnicamente pelo ARQ para o G3: AS atualiza o frontmatter (status/aprovado_por ARQ) no próximo commit dela. TASK-0008 aguarda só o plano G2 v1.2 do PO", dono: AS/PO}
   - {item: "R2..R5 do G3: format date-time no teste de contrato; itens PV do ADR-0001 v2 D8 como testes obrigatórios antes do G4; spike do encerramento antes do CA-07; âncora fim-de-texto nas regex .NET", dono: FS/QA/CR/OPS}
-  - {item: "TASK-0012 Parcial: toolchain instalada e verificada pelo ORQ (dotnet 10.0.404, Angular CLI 22.3.0, Node 24.22.1; evidência rascunhos/ops/evidencias/TASK-0012-toolchain-box-2026-11-26T1516-03); falta esqueleto D6 (FS), confirmação do FS da MSG-COL de portas/comando e ensaio N1", dono: OPS/FS}
-  - {item: "PO: plano G2 v1.2. DEC-PO-0008 (a20fe82): nenhum CA reaberto; premissas de stack revisadas (US-0001 v1.3, US-0002 v1.4, REQ/RN v1.3). Reestimativas recebidas: FS TASK-0008 40 h (32–50); CR TASK-0009 5 h + 2 h; ARQ (TASK-0003 0,5–1 h, TASK-0007 3–6 h, 2ª aprovação 1,5–3 h); AS R1 ≈0,1 h real + 0,25 h contingência. DOC incremento B 7,5 h (6,5–9; era 5,5 h). PO propõe capacitação fora das TASKs (validação PO do PLANO-RM-0002, 417d62f; perguntas à CPO). QA TASK-0010 33 h (23,5–40; era 20 h; parecer v1.1 1bd34a6). DEC-PO-0009 (PO 15:20, ID a reservar no v1.2): FS escreve os testes automatizados na TASK-0008 (premissa A; confirmação técnica do ARQ pedida pelo PO); PT+CT da TASK-0010 depende de G3+R1, execução/PQ do G4. OPS TASK-0012 preparação 10 h (8–13) + G6/G7 6 h ativas (5–8) + 24 h calendário (parecer v2.0 d214f94). Todas as reestimativas recebidas; PO fecha o v1.2", dono: PO}
+  - {item: "TASK-0012 Parcial: toolchain instalada e verificada pelo ORQ (dotnet 10.0.404, Angular CLI 22.3.0, Node 24.22.1); 1º bloco fechado (confirmação FS f1b6cda; parecer v2.1 3fe751d, merge ce58d16). Falta esqueleto D6 (FS, L-01) e ensaio N1", dono: OPS/FS}
+  - {item: "L-01: esqueleto D6 / monorepo /workspace/projetos/portal/ inexistente; scripts do OPS ficam em rascunho até o depósito", dono: FS}
+  - {item: "L-02: injeção de PORTAL_API_BASE_URL no Angular (D7; item 3 das lacunas do ADR-0001 v2)", dono: FS}
+  - {item: "L-04: piso de 32 h do FS vale só com o núcleo da RM-0002 antes da TASK-0008; FS não confirmou o piso por escrito para essa condição", dono: FS}
+  - {item: "L-05: limiar de 2 dias úteis para aviso à CPO se o início da TASK-0008 atrasar após o desbloqueio — consta do plano v1.2; transcrição da CPO com esse número não localizada no repositório (PO)", dono: ORQ/CPO}
+  - {item: "L-06: spike do CA-07 (R4) não executado; se inviável, o PO reabre o CA-07", dono: FS/ARQ}
+  - {item: "L-07: CSP fora desta fase; limiar numérico de memória/CPU na observação de 24 h não definido", dono: ARQ/OPS}
+  - {item: "L-08: incremento A da DOC permanece Parcial; justificativa da matriz 7.1 atualizada neste registro (mesclada 3755fc6, AH-0002); item que falta para Concluída não identificado", dono: PO/DOC/ORQ}
+  - {item: "L-09: pareceres do FS e da DOC só em rascunhos/ sem commit; parecer do CR só transcrito pelo ORQ", dono: FS/DOC/CR}
+  - {item: "L-10: horas do ARQ sem ponto único; total central não soma o ARQ (só faixa)", dono: ARQ}
+  - {item: "Plano G2 v1.2 registrado (7d85a6e; decisão PO 15:31, MANTIDO COM AJUSTE); TASK-0008 liberada ao FS 15:41. Promoção da v1.2 a vigente (só status e aprovado_por) é do PO. L-11 (horas 0003/0007, estimativas, justificativa DOC A) e L-12 (RK-1, frontmatter ET/EF) atualizados neste v38: RK-1 mitigado (AH-0003 + ADR-0001 v2.0); frontmatter ET-0001 v1.4 e EF-0001 v1.3 aprovado (merge 0e4363b)", dono: PO}
   - {item: "RM-0002: PLANO-RM-0002 v1.0 validado pela CPO 15:12 (MOB, PMM, AN fora; DBA/SUP por gatilho com núcleo curto definido pelo ARQ; prazo e forma de acordo; sem DEC nova); falta o PO validar impacto em backlog e prazo da DEM", dono: PO}
   - {item: "Pergunta ao Thiago (texto da CPO, 15:12) sobre a diretriz AH-0003: (a) Angular estável mais recente + acompanhar suporte, ou só começar na mais recente; (b) C#/.NET só nas APIs do Portal Web ou também demais backends. Premissas registradas até a resposta: (a) Angular 22.x estável; (b) só APIs do Portal Web. Não bloqueia a DEM; se (b) ampliar, CPO abre DEC-CPO-0002", dono: ORQ/Thiago}
   - {item: "P-QA-01..05: SAST/p95 decididos (DEC-ARQ-0005/0006); cobertura: QA confirma 80% de linhas no código alterado como entrada do G4 (ramos só reportados); calibração definitiva no G5 com a 1ª medição real", dono: QA}
   - {item: "FS (b): teste de tela em navegador exigiria ADR/dependência nova?", dono: ARQ}
   - {item: "Texto narrativo da US-0002 ainda cita público não definido (fechado na DEC-PO-0002) — não afeta CA", dono: PO}
   - {item: "Procedimento operacional da DEC-ARQ-0003 confirmado pelo OPS (scripts/verify-local.sh, evidência gitignorada e sanitizada, reexecução pelo CR; parecer OPS §6); falta calibrar cobertura 80% com QA no G5", dono: QA}
-  - {item: "Valores de porta/host/PORTAL_API_ALLOWED_ORIGIN e comando de subida (L-06 residual): fecham no 1º bloco da preparação (até 2 h após início, só com AH-0001), OPS propõe por MSG-COL e FS confirma; valores em .env fora do git", dono: OPS/FS}
+  - {item: "Valores de porta/host/origem/comando confirmados no 1º bloco (f1b6cda; parecer OPS v2.1, 3fe751d): 127.0.0.1, API 8080, front 4200, origem exata http://127.0.0.1:4200, LOG_LEVEL=Information; valores no .env fora do git", dono: OPS/FS}
   - {item: "Tolerância do timestamp (±5 s) e tempo limite do cliente (5 s) na ET", dono: AS}
   - {item: "EF-0001 §8 e ET-0001 §12 ainda citam CONF-0001 aberto e modelos ausentes (atualizar na próxima versão)", dono: AS}
   - {item: "Exposição do /health interna ou pública (pública => R3 + AH) e acesso à tela", dono: ARQ}
   - {item: "Lacunas da análise do PO v1.2: L2/L8/L9 fechadas; L3–L6 respondidas como premissa (abertas até G3 e AH-0001); L1 (CPO) e L7 (OPS) abertas como premissa de teste", dono: PO, ref: analise-po-task-0002.md}
-  - {item: "Conversão do ARQ recebida (458acb8: TASK-0003 1–3 h, TASK-0007 2–4 h, 2ª aprovação G4 1–2 h; planejamento 6,5 h → total em horas 78 h sem janela de 24 h); PO incorpora ao plano sem nova decisão", dono: PO}
+  - {item: "Conversão do ARQ da era Node (458acb8) superada pelo plano G2 v1.2 (7d85a6e): TASK-0003 residual 0,5–1 h (concluída); TASK-0007 3–6 h (concluída); 2ª aprovação G4 1,5–3 h (+1 h no 2º ciclo); sem ponto único (L-10)", dono: ARQ}
   - {item: "Recorte de teste da tela (QA 26/11 13:15): sem ferramenta nova — node:test com fetch mockado + CT manual em Chromium da box; condição para a TASK-0008: separar a lógica de apresentação da manipulação do DOM", dono: FS}
   - {item: "Visão e objetivos estratégicos ausentes em 01-institucional/produto; alinhamento desta demanda é à validação da esteira", dono: CPO}
   - {item: "Ambientes (dev/hml) e forma de execução no teste — não existem; premissa de teste: execução local em /workspace/projetos/", dono: OPS}
