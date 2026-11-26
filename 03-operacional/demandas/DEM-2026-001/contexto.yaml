@@ -25,7 +25,7 @@ componentes: ["API base do Portal Web (a criar)", "Portal Web — tela de status
 microsservicos_impactados: []
 apis: ["GET /health — contrato interno, sem autenticação (ADR-0003 proposto)"]
 bancos: []
-decisoes: [DEC-PO-0001, DEC-PO-0002, DEC-PO-0003, DEC-PO-0004, DEC-PO-0005, DEC-PO-0006, DEC-PO-0007, DEC-ARQ-0001, DEC-ARQ-0002, DEC-ARQ-0003, DEC-ARQ-0004 (condicionada ao ADR-0001), DEC-ARQ-0005 (SAST; condicionada ao ADR-0001), DEC-ARQ-0006 (p95 indicativo; condicionada ao ADR-0001), DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, ADR-0001 (proposto), ADR-0002 (proposto), ADR-0003 (proposto)]
+decisoes: [DEC-PO-0001, DEC-PO-0002, DEC-PO-0003, DEC-PO-0004, DEC-PO-0005, DEC-PO-0006, DEC-PO-0007, DEC-ARQ-0001, DEC-ARQ-0002, DEC-ARQ-0003..0006 (substituídas), DEC-ARQ-0007, DEC-ARQ-0008, DEC-ARQ-0009, DEC-ARQ-0010, DEC-ARQ-0011, DEC-CPO-0001, DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, ADR-0001 v2.0 (aceito), ADR-0002 v1.1 (aceito), ADR-0003 v1.1 (aceito)]
 prototipos:
   - {ref: 07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/prototipo-tela-status.html, versao: "1.1", commit: 0e9a4af}
   - {ref: 07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/especificacao-interface-tela-status.md, id: UX-ESPEC-DEM-2026-001-TASK-0004, alias: UX-0001, versao: "1.1 vigente (com ressalvas DEC-PO-0005)", commit: 0e9a4af, validacao_po: "Aprovado com ressalvas (DEC-PO-0005; validacao-po-prototipo-task-0004.md v1.0; commit af208f2)"}
@@ -48,7 +48,7 @@ resultados: []
 testes:
   - {ref: 06-qualidade/pareceres/parecer-planejamento-g2-task-0010.md, id: PARECER-G2-DEM-2026-001-TASK-0010, versao: "1.0", commit: 40c8ace, estimativa: "20 h (16–23 h)"}
   - {ref: 06-qualidade/pareceres/analise-testabilidade-task-0005.md, id: ANALISE-TESTABILIDADE-DEM-2026-001-TASK-0005, versao: "1.0", commit: 80e9184, resultado_pre_g1: "favorável com ressalvas"}
-aprovacoes: {G0: "CPO 26/11", G1: "PO 26/11 12:38 — Aprovado com observações (condições 1–3 em aprovacoes.md)", G2: "PO 26/11 13:05 — Aprovado com observações (a)–(e) em aprovacoes.md; PLANO-DEM-2026-001-G2 v1.1 (053a2d4)"}
+aprovacoes: {G0: "CPO 26/11", G1: "PO 26/11 12:38 — Aprovado com observações (condições 1–3 em aprovacoes.md)", G2: "PO 26/11 13:05 — Aprovado com observações (a)–(e) em aprovacoes.md; PLANO-DEM-2026-001-G2 v1.1 (053a2d4)", G3: "ARQ 26/11 15:08 — Aprovado com ressalvas R1..R5 (7bc37ba; merge a271ac1)"}
 roadmap: RM-0001   # registrado pela CPO no Roadmap.csv (Em andamento, Normal, dono CPO), DEM-2026-001 vinculada
 ah: [AH-0001, AH-0002, AH-0003]   # AH-0003 Aprovada 26/11 14:54, literal "Aprovo AH-0003" (chat do ORQ); AH-0001 substituída — ambas Aprovadas 26/11 14:45 — literal: "Aprovo AH-0001 e também AH-0002" (Thiago, chat do ORQ)
 implantacao: []
@@ -63,6 +63,12 @@ riscos:
   - {id: RK-2, descricao: "Exposição fora da rede interna vira contrato público", P_x_I: "1x3=3", dono: ARQ, mitigacao: "condição no ADR-0003; reabre R3/N3 + AH", status: aberto}
   - {id: RK-3, descricao: "Cadeia de suprimentos npm (Fastify)", P_x_I: "1x2=2", dono: ARQ, mitigacao: "lockfile, npm ci (ver MSG-RET TASK-0003)", status: aberto}
 pendencias_contexto:
+  - {item: "R1 do G3: ET-0001 v1.4 (PS-01..PS-09 em .NET/Angular, L-10, L-12 = DEC-ARQ-0011), EF-0001 L-10 e prosa do openapi.yaml sem mudança semântica; ARQ confirma fechamento; só então ORQ libera a TASK-0008", dono: AS}
+  - {item: "R2..R5 do G3: format date-time no teste de contrato; itens PV do ADR-0001 v2 D8 como testes obrigatórios antes do G4; spike do encerramento antes do CA-07; âncora fim-de-texto nas regex .NET", dono: FS/QA/CR/OPS}
+  - {item: "OPS: instalar SDK .NET 10 e Angular CLI na box (R4; pré-requisito da TASK-0012 e das evidências da RM-0002) e refazer preparação e estimativa", dono: OPS}
+  - {item: "PO: plano G2 v1.2 com horas novas (ARQ: TASK-0003 residual 0,5–1 h; TASK-0007 3–6 h; 2ª aprovação G4 1,5–3 h); ARQ informa que nenhum CA muda de comportamento (CA-04 só troca manifesto para .csproj; CA-07 depende do spike)", dono: PO}
+  - {item: "RM-0002: PLANO-RM-0002 v1.0 proposto (merge 97f90c4; custo zero; núcleo 46–62 h, completo 75–109 h); CPO/PO validam escopo, prazo, papéis (MOB fora?) e forma de capacitação", dono: CPO/PO}
+  - {item: "Dúvidas do ARQ sobre a diretriz: (a) 'última linguagem do angular' interpretada como versão estável mais recente (22.3.0); (b) backends fora do Portal Web ficam A CONFIRMAR", dono: CPO}
   - {item: "P-QA-01..05: SAST/p95 decididos (DEC-ARQ-0005/0006); cobertura: QA confirma 80% de linhas no código alterado como entrada do G4 (ramos só reportados); calibração definitiva no G5 com a 1ª medição real", dono: QA}
   - {item: "FS (b): teste de tela em navegador exigiria ADR/dependência nova?", dono: ARQ}
   - {item: "Texto narrativo da US-0002 ainda cita público não definido (fechado na DEC-PO-0002) — não afeta CA", dono: PO}
