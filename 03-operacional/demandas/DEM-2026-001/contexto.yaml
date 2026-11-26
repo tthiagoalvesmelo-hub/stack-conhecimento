@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 12
-atualizado_em: "2026-11-26T12:55-03:00"
+versao_contexto: 13
+atualizado_em: "2026-11-26T12:58-03:00"
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -52,9 +52,9 @@ roadmap: RM-0001   # registrado pela CPO no Roadmap.csv (Em andamento, Normal, d
 ah: [AH-0001]   # arquitetura (stack base ADR-0001) — Solicitada 26/11 12:27
 implantacao: []
 documentacao:
-  - {ref: 02-tecnica/especificacoes/EF-0001-health-check-portal-api.md, versao: "1.1 em revisão"}
-  - {ref: 02-tecnica/especificacoes/ET-0001-health-check-portal-api.md, versao: "1.1 em revisão"}
-  - {ref: 02-tecnica/contratos-api/portal-api/openapi.yaml, versao: "1.0.0 proposto", ramo: doc/ET-0001-contrato-portal-api-health, commit: 2b9fa2e}
+  - {ref: 02-tecnica/especificacoes/EF-0001-health-check-portal-api.md, versao: "1.2 em revisão", commit: 3a41a2c}
+  - {ref: 02-tecnica/especificacoes/ET-0001-health-check-portal-api.md, versao: "1.2 em revisão", commit: 3a41a2c}
+  - {ref: 02-tecnica/contratos-api/portal-api/openapi.yaml, versao: "1.0.0 proposto", ramo: doc/ET-0001-contrato-portal-api-health, commit: b3f13d6, nota: "ajustes 1–6 DEC-ARQ-0002; só openapi.yaml; aguardando merge --no-ff do ARQ (não é G3)"}
 bloqueios: []
 riscos:
   - {id: RK-1, descricao: "Stack sem confirmação atrasa AS/FS/OPS", P_x_I: "3x2=6 (alto)", dono: ORQ/ARQ, mitigacao: "AH-0001; AS redige contrato sob premissa; FS só após aceitação", status: aberto}
@@ -64,8 +64,8 @@ pendencias_contexto:
   - {item: "L-CR1: substituto local do CI (ADR-0001 D5 exclui CI/CD) e L-CR3: lint/análise estática — por DEC-ARQ, antes do PR da TASK-0008 (bloqueia entrada no G4, não o G2)", dono: ARQ/OPS}
   - {item: "L-CR2: local de registro do CR-nnnn sem GitHub (proposta CR: 06-qualidade/pareceres/CR-nnnn.md com ponteiro no Tarefas.csv)", dono: DOC/ORQ}
   - {item: "CONF-0001: lado PO resolvido (textos v1.1 citam R3); fechamento formal", dono: DOC}
-  - {item: "OpenAPI: aplicar ajustes 1–6 do DEC-ARQ-0002 (L-01..L-07 decididos), rebase na main e retirar historico.md do ramo doc/ET-0001-contrato-portal-api-health", dono: AS}
-  - {item: "Merge --no-ff do contrato (proposto) após ramo limpo — não é o G3", dono: ARQ}
+  - {item: "Merge --no-ff do contrato (proposto), ramo limpo em b3f13d6 — não é o G3", dono: ARQ}
+  - {item: "Valores de PORTAL_WEB_PORT e PORTAL_API_ALLOWED_ORIGIN (L-06 residual)", dono: OPS/FS}
   - {item: "L-09: modelos de EF/ET/contrato e INDEX.md inexistentes", dono: DOC}
   - {item: "Tolerância do timestamp (±5 s) e tempo limite do cliente (5 s) na ET", dono: AS}
   - {item: "Prefixo/ID padronizado para protótipo e especificação de UX (L-UX-01) — não existe no padrão de IDs", dono: DOC}
