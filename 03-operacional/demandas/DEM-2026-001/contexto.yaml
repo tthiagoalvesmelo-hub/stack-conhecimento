@@ -67,8 +67,8 @@ pendencias_contexto:
   - {item: "R2..R5 do G3: format date-time no teste de contrato; itens PV do ADR-0001 v2 D8 como testes obrigatórios antes do G4; spike do encerramento antes do CA-07; âncora fim-de-texto nas regex .NET", dono: FS/QA/CR/OPS}
   - {item: "OPS: instalar SDK .NET 10 e Angular CLI na box (R4; pré-requisito da TASK-0012 e das evidências da RM-0002) e refazer preparação e estimativa", dono: OPS}
   - {item: "PO: plano G2 v1.2 com horas novas (ARQ: TASK-0003 residual 0,5–1 h; TASK-0007 3–6 h; 2ª aprovação G4 1,5–3 h); ARQ informa que nenhum CA muda de comportamento (CA-04 só troca manifesto para .csproj; CA-07 depende do spike)", dono: PO}
-  - {item: "RM-0002: PLANO-RM-0002 v1.0 proposto (merge 97f90c4; custo zero; núcleo 46–62 h, completo 75–109 h); CPO/PO validam escopo, prazo, papéis (MOB fora?) e forma de capacitação", dono: CPO/PO}
-  - {item: "Dúvidas do ARQ sobre a diretriz: (a) 'última linguagem do angular' interpretada como versão estável mais recente (22.3.0); (b) backends fora do Portal Web ficam A CONFIRMAR", dono: CPO}
+  - {item: "RM-0002: PLANO-RM-0002 v1.0 validado pela CPO 15:12 (MOB, PMM, AN fora; DBA/SUP por gatilho com núcleo curto definido pelo ARQ; prazo e forma de acordo; sem DEC nova); falta o PO validar impacto em backlog e prazo da DEM", dono: PO}
+  - {item: "Pergunta ao Thiago (texto da CPO, 15:12) sobre a diretriz AH-0003: (a) Angular estável mais recente + acompanhar suporte, ou só começar na mais recente; (b) C#/.NET só nas APIs do Portal Web ou também demais backends. Premissas registradas até a resposta: (a) Angular 22.x estável; (b) só APIs do Portal Web. Não bloqueia a DEM; se (b) ampliar, CPO abre DEC-CPO-0002", dono: ORQ/Thiago}
   - {item: "P-QA-01..05: SAST/p95 decididos (DEC-ARQ-0005/0006); cobertura: QA confirma 80% de linhas no código alterado como entrada do G4 (ramos só reportados); calibração definitiva no G5 com a 1ª medição real", dono: QA}
   - {item: "FS (b): teste de tela em navegador exigiria ADR/dependência nova?", dono: ARQ}
   - {item: "Texto narrativo da US-0002 ainda cita público não definido (fechado na DEC-PO-0002) — não afeta CA", dono: PO}
