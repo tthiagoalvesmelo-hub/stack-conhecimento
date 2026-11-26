@@ -35,7 +35,7 @@ decisoes_por_sigla:   # DEC-<SIGLA>-nnnn
   AN: 0
   AS: 3
   UX: 0
-  ARQ: 1
+  ARQ: 2
   FS: 0
   MOB: 0
   DBA: 0
