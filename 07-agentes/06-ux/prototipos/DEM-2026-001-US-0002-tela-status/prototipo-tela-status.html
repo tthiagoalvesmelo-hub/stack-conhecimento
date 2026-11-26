@@ -253,6 +253,10 @@
     btnAtualizar.setAttribute('aria-disabled', novo === 'carregando' ? 'true' : 'false');
     document.querySelectorAll('[data-set]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-set') === novo ? 'true' : 'false'); });
 
+    if (novo !== 'saudavel') {
+      // RN-0002 / CA-03: valores anteriores são removidos do DOM (não apenas ocultados) fora do estado saudável
+      ['v-status', 'v-versao', 'v-hora-local', 'v-hora-utc'].forEach(function (id) { $(id).textContent = ''; });
+    }
     if (novo === 'saudavel') {
       // textContent: o conteúdo da API nunca é inserido como HTML
       $('v-status').textContent = AMOSTRA.status;
