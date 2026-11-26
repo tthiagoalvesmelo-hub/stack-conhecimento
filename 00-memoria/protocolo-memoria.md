@@ -1,7 +1,7 @@
 # Protocolo de Memória da Stack e regras de leitura/escrita
 
 > Versão 1.1 · 26/11/2026 · gerado a partir dos Prompts 01–04 da Stack Multiagentes (Prompt 04, Anexo A, tem prioridade).
-> v1.1 (TASK-0011, DOC) — **PROPOSTA DE MUDANÇA DE GOVERNANÇA (N3), dependente de AH-nnnn do Thiago**: desdobra a matriz 7.1 em `06-qualidade` (pareceres CR-nnnn: A = CR, E = ARQ), cria a linha de reserva de IDs/CONF e a regra EL-08. Só vale depois do merge, que exige a AH.
+> v1.1 (TASK-0011, DOC) — **VIGENTE** conforme AH-0002 (aprovada em 26/11/2026 14:45 America/Sao_Paulo; texto literal transcrito pelo ORQ: “Aprovo AH-0001 e também AH-0002”; sem condições; merge em main: 3755fc6): desdobra a matriz 7.1 em `06-qualidade` (pareceres CR-nnnn: A = CR, E = ARQ), cria a linha de reserva de IDs/CONF e a regra EL-08.
 
 ## 1. Protocolo de Memória (copiado nos 16 PROMPT.md)
 
@@ -187,3 +187,4 @@ A memória não é repositório de segredos em texto aberto. Credenciais, senhas
 |---|---|---|---|
 | 1.0 | 26/11/2026 | Geração inicial (Prompts 01–04) | Criação |
 | 1.1 | 2026-11-26 13:03 | DOC | Matriz 7.1 (duas cópias da tabela, mantidas idênticas): linha `06-qualidade / pareceres CR-nnnn` (A = CR, E = ARQ), linha `00-memoria / registro-ids.yaml e conflitos/` (E = todos, A = DOC) e regra EL-08. Dependente de AH-nnnn |
+| 1.1 (vigência) | 2026-11-26 14:45 | DOC | Registro de vigência da v1.1: AH-0002 aprovada (texto literal transcrito pelo ORQ: “Aprovo AH-0001 e também AH-0002”; sem condições). Merge 3755fc6. Banner atualizado de proposta para vigente. |
