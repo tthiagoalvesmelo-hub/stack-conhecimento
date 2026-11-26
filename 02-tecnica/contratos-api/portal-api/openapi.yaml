@@ -1,0 +1,353 @@
+# Contrato OpenAPI 3.1 — portal-api — GET /health
+# Metadados do documento (equivalem ao frontmatter padrão da Stack; ver também info.x-stack):
+#   versão do contrato: 1.0.0 (SemVer próprio, ADR-0003; distinto da versão do serviço, ADR-0002)
+#   status: proposto (rascunho do AS para validação do ARQ no G3 — TASK-0007)
+#   dono: ARQ (aprova) · autor: AS · criado em 2026-11-26T12:33-03:00 · atualizado em 2026-11-26T12:44-03:00 · revisar até 2027-02-26
+#   demanda: DEM-2026-001 [TESTE] · atividade: TASK-0006 · especificação: EF-0001 v1.2 / ET-0001 v1.2
+#   fontes: ADR-0003 v1.0 (proposto), ADR-0002 v1.0 (proposto), ADR-0001 v1.0 (proposto),
+#           DEC-ARQ-0002 v1.0 (vigente, L-01 a L-07), US-0001/US-0002/RN-0001/RN-0002/REQ-0001..0004 v1.2 vigente (G1)
+#   Itens marcados "premissa a confirmar (AH-0001)" dependem da stack (ADR-0001, aguarda AH-0001).
+#   Este merge do ramo (quando o ARQ o fizer) NÃO é o G3.
+openapi: 3.1.0
+info:
+  title: portal-api
+  version: 1.0.0
+  summary: Contrato interno do health-check da API base do Portal Web.
+  description: |
+    Contrato **interno** (sem autenticação) do recurso operacional `GET /health` da `portal-api`
+    (liveness do processo). Retorna somente `status`, `version` e `timestamp` (RN-0001).
+
+    - A `version` do corpo é a versão do **serviço** em execução (ADR-0002); `info.version`
+      deste documento é a versão do **contrato** (SemVer próprio, inicial 1.0.0, ADR-0003).
+    - Exposição fora da rede interna transforma este contrato em público (R3 + N3, nova AH) — ADR-0003.
+    - Indisponibilidade jamais deve ser interpretada pelo consumidor como "saudável" (RN-0002):
+      sem resposta, tempo esgotado, HTTP diferente de 200, corpo fora do esquema, `status` diferente
+      de `"ok"` ou HTTP 503 com `"unavailable"` ⇒ o consumidor trata como erro/indisponível.
+      No Portal, o 503 válido é o caso (b) da US-0002 CA-03: estado de erro genérico, **sem** exibir
+      versão nem timestamp (RE-02).
+    - Tempo limite do cliente (Portal): 5 s, sem nova tentativa automática (DEC-AS-0001, confirmada
+      na DEC-ARQ-0002 e aceita pelo PO como premissa).
+    - Alvo indicativo de desempenho: p95 ≤ 100 ms em execução local — **não é SLO** (ADR-0003; a calibrar por OPS/QA).
+    - Framework, servidor, porta de escuta, forma de obter a versão e biblioteca de CORS:
+      premissa a confirmar (AH-0001). A regra de CORS (variável obrigatória, fail closed) está na DEC-ARQ-0002 L-06.
+    - **Padrão do serviço (não é resposta de `GET /health`):** um caminho inexistente responde `404`
+      em `application/problem+json` (`type: "about:blank"`, `title: "Not Found"`, `status: 404`)
+      com `Cache-Control: no-store` e `X-Content-Type-Options: nosniff` (DEC-ARQ-0002 L-04).
+      Ver `components.schemas.ProblemNotFound`.
+    - Sem `Retry-After` no 503 (DEC-ARQ-0002 L-05).
+  x-stack:
+    demanda: DEM-2026-001
+    atividade: TASK-0006
+    especificacao: [EF-0001, ET-0001]
+    adr: [ADR-0001, ADR-0002, ADR-0003]
+    decisoes: [DEC-ARQ-0002, DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, DEC-PO-0006]
+    status-documento: proposto
+    dono: ARQ
+    autor: AS
+    classe-de-risco: R3
+    exposicao: interna
+  x-rastreabilidade:
+    US-0001: [CA-01, CA-02, CA-03, CA-04, CA-05, CA-06, CA-07, CA-08, CA-09]
+    US-0002: [CA-01, CA-03, CA-06]
+    REQ-0001: [item-1, item-2, item-3, item-4]
+    RN: [RN-0001, RN-0002]
+tags:
+  - name: operacional
+    description: Recursos operacionais (não funcionais de negócio).
+security: []   # contrato interno, sem autenticação (ADR-0003, diretriz 2)
+paths:
+  /health:
+    description: |
+      Recurso operacional `GET /health`. A superfície prometida do contrato 1.0.0 é apenas `GET`.
+
+      **HEAD** (DEC-ARQ-0002 L-02): tolerado com o mesmo código HTTP e os mesmos cabeçalhos do `GET`,
+      **sem corpo**. Não é operação de negócio (não há `head` abaixo); consumidores não devem depender dele.
+
+      **OPTIONS** (DEC-ARQ-0002 L-02): preflight CORS — `204`, sem corpo,
+      `Access-Control-Allow-Origin` somente se a origem for a configurada,
+      `Access-Control-Allow-Methods: GET, HEAD`, sem credenciais e sem
+      `Access-Control-Allow-Headers` nesta demanda. **Não** responde `405` e **não** é
+      operação de negócio (não há `options` abaixo). O GET do Portal é "simples" e não dispara preflight.
+
+      Métodos diferentes de `GET` e `HEAD` respondem `405` com `Allow: GET, HEAD`.
+    get:
+      operationId: getHealth
+      tags: [operacional]
+      summary: Consulta o estado de liveness da portal-api.
+      description: |
+        Somente leitura, seguro e idempotente; sem parâmetros de consulta e sem corpo; sem efeitos
+        colaterais (US-0001 CA-06: duas ou mais chamadas não alteram dados persistidos nem estado
+        de negócio; logs permitidos; status e versão iguais; timestamp pode variar). Não consulta
+        dependências nem persistência (não há nenhuma). Fora do prefixo de versão (endpoint operacional).
+
+        Rastreio: US-0001 CA-01 a CA-09; REQ-0001 itens 1 a 4; RN-0001; RN-0002.
+
+        **CORS (DEC-ARQ-0002 L-06):** somente a origem configurada em `PORTAL_API_ALLOWED_ORIGIN`
+        (obrigatória, valor exato, sem curinga; ausente, inválida ou `*` ⇒ o serviço não inicia).
+        Premissa de teste: `http://127.0.0.1:${PORTAL_WEB_PORT}` (valores por OPS/FS, TASK-0012;
+        porta não inventada neste contrato). Sem credenciais. Origem não permitida ⇒ a resposta
+        mantém o status normal e **não** traz `Access-Control-Allow-Origin` (**sem 403**).
+        A biblioteca de CORS é premissa a confirmar (AH-0001).
+      parameters:
+        - $ref: '#/components/parameters/XRequestIdRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  parameters:
+    XRequestIdRequest:
+      name: X-Request-Id
+      in: header
+      required: false
+      description: |
+        ID de correlação opcional. Formato esperado (DEC-ARQ-0002 L-03): UUID canônico, 36 caracteres,
+        hexadecimal minúsculo com hífens. Se o cabeçalho estiver **ausente ou inválido**, o servidor
+        **gera UUID v4** e **não** retorna `400`. Este parâmetro não é validado com o padrão UUID
+        na entrada precisamente para não implicar 400.
+
+        O Portal **não envia nem lê** este cabeçalho (DEC-ARQ-0002 L-03), de modo que o GET permanece
+        "simples" para CORS (sem preflight; sem Access-Control-Allow-Headers / Expose-Headers para este ID).
+      schema:
+        type: string
+  headers:
+    CacheControl:
+      description: >
+        Sempre `no-store` (ADR-0003; DEC-ARQ-0002 L-04). Vale para todas as respostas de `/health`
+        (200, 503, 405, 500) e, como padrão do serviço, também para o 404 de rota inexistente.
+      required: true
+      schema:
+        type: string
+        const: no-store
+    XContentTypeOptions:
+      description: Sempre `nosniff` (ADR-0003; DEC-ARQ-0002 L-04). Mesmo escopo do Cache-Control.
+      required: true
+      schema:
+        type: string
+        const: nosniff
+    XRequestIdResponse:
+      description: |
+        ID de correlação aceito (se válido) ou gerado (UUID v4 se ausente/inválido). Sempre no
+        padrão UUID canônico (DEC-ARQ-0002 L-03). O Portal não lê este cabeçalho; ele não é
+        exposto via CORS (`Access-Control-Expose-Headers` não o inclui).
+      required: true
+      schema:
+        type: string
+        minLength: 36
+        maxLength: 36
+        pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+    AccessControlAllowOrigin:
+      description: |
+        Presente somente quando a origem da requisição é exatamente a origem do Portal configurada
+        em `PORTAL_API_ALLOWED_ORIGIN` (nunca `*`). Ausente nos demais casos (sem 403).
+      required: false
+      schema:
+        type: string
+    Allow:
+      description: >
+        Métodos permitidos no recurso (DEC-ARQ-0002 L-02). Valor `GET, HEAD`.
+      required: true
+      schema:
+        type: string
+        const: 'GET, HEAD'
+  schemas:
+    ServiceVersion:
+      type: string
+      description: |
+        SemVer 2.0.0 do serviço `portal-api` em execução (ADR-0002, gramática oficial sem metadados
+        de build — DEC-ARQ-0002 L-07): `MAJOR.MINOR.PATCH` com pré-release opcional; sem `+...` e
+        sem hash de commit; nunca vazio. Oráculo do US-0001 CA-04: valor idêntico ao manifesto do
+        serviço e, quando houver, à tag de release.
+      pattern: '^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(\.(0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*))?$'
+      examples: ['0.1.0', '0.2.0-rc.1']
+    Timestamp:
+      type: string
+      format: date-time
+      description: |
+        Instante em que a resposta foi gerada, pelo relógio do servidor; RFC 3339 / ISO 8601 em UTC com
+        `Z` e exatamente 3 casas de milissegundos (`AAAA-MM-DDThh:mm:ss.sssZ`) — ADR-0003, confirmado
+        na DEC-ARQ-0002 L-07. A tela exibe o valor UTC bruto (US-0002 CA-01); a conversão para
+        America/Sao_Paulo é adicional e não substitui o valor bruto.
+      pattern: '^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9]{3}Z$'
+      examples: ['2026-11-26T15:30:00.123Z']
+    HealthOk:
+      type: object
+      description: >
+        Corpo do `200` (US-0001 CA-01 a CA-04). Exatamente três campos (`additionalProperties: false`
+        no provedor; o consumidor ignora campos desconhecidos).
+      additionalProperties: false
+      required: [status, version, timestamp]
+      properties:
+        status:
+          type: string
+          const: ok
+          description: Sempre `ok` quando o HTTP é 200 (ADR-0003).
+        version:
+          $ref: '#/components/schemas/ServiceVersion'
+        timestamp:
+          $ref: '#/components/schemas/Timestamp'
+    HealthUnavailable:
+      type: object
+      description: >
+        Corpo do `503` (US-0001 CA-07, REQ-0001 item 2): mesmo formato do `200`, com `status` igual
+        a `unavailable`; sem causa, sem detalhe e sem `Retry-After` (DEC-ARQ-0002 L-05).
+      additionalProperties: false
+      required: [status, version, timestamp]
+      properties:
+        status:
+          type: string
+          const: unavailable
+          description: Valor reservado ao `503` (ADR-0003).
+        version:
+          $ref: '#/components/schemas/ServiceVersion'
+        timestamp:
+          $ref: '#/components/schemas/Timestamp'
+    ProblemBase:
+      type: object
+      description: |
+        Erro padronizado — RFC 9457 (`application/problem+json`), somente `type`, `title` e `status`
+        (DEC-ARQ-0002 L-01, padrão inicial da plataforma). Nunca contém stack trace, caminho, nome
+        de máquina, variável de ambiente ou qualquer detalhe interno (RN-0001).
+      additionalProperties: false
+      required: [type, title, status]
+      properties:
+        type:
+          type: string
+          const: 'about:blank'
+          description: Valor padrão da RFC 9457 quando não há semântica adicional (DEC-ARQ-0002 L-01).
+        title:
+          type: string
+        status:
+          type: integer
+    ProblemMethodNotAllowed:
+      allOf:
+        - $ref: '#/components/schemas/ProblemBase'
+      properties:
+        title:
+          const: Method Not Allowed
+        status:
+          const: 405
+    ProblemInternalError:
+      allOf:
+        - $ref: '#/components/schemas/ProblemBase'
+      properties:
+        title:
+          const: Internal Server Error
+        status:
+          const: 500
+    ProblemNotFound:
+      allOf:
+        - $ref: '#/components/schemas/ProblemBase'
+      description: >
+        Padrão do serviço para caminho inexistente (DEC-ARQ-0002 L-04). Não é resposta de `GET /health`.
+      properties:
+        title:
+          const: Not Found
+        status:
+          const: 404
+  responses:
+    Ok:
+      description: A portal-api está em execução normal (US-0001 CA-01 a CA-04).
+      headers:
+        Cache-Control:
+          $ref: '#/components/headers/CacheControl'
+        X-Content-Type-Options:
+          $ref: '#/components/headers/XContentTypeOptions'
+        X-Request-Id:
+          $ref: '#/components/headers/XRequestIdResponse'
+        Access-Control-Allow-Origin:
+          $ref: '#/components/headers/AccessControlAllowOrigin'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/HealthOk'
+          examples:
+            saudavel:
+              summary: Serviço em execução normal
+              value:
+                status: ok
+                version: 0.1.0
+                timestamp: '2026-11-26T15:30:00.123Z'
+    Unavailable:
+      description: |
+        Serviço indisponível (US-0001 CA-07, REQ-0001 item 2). Hoje: processo em encerramento
+        gracioso enquanto o listener estiver no ar (DEC-ARQ-0002 L-05); no futuro, dependência
+        crítica fora — ADR-0003. Mesmo formato do `200`, sem causa, sem detalhe e **sem `Retry-After`**.
+        O gancho concreto do encerramento é premissa a confirmar (AH-0001). Testável somente por
+        injeção na fábrica da aplicação (proibido controle remoto em não-teste).
+        O Portal trata como US-0002 CA-03 caso (b) e **não exibe** versão nem timestamp (RE-02).
+      headers:
+        Cache-Control:
+          $ref: '#/components/headers/CacheControl'
+        X-Content-Type-Options:
+          $ref: '#/components/headers/XContentTypeOptions'
+        X-Request-Id:
+          $ref: '#/components/headers/XRequestIdResponse'
+        Access-Control-Allow-Origin:
+          $ref: '#/components/headers/AccessControlAllowOrigin'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/HealthUnavailable'
+          examples:
+            indisponivel:
+              summary: Processo em encerramento
+              value:
+                status: unavailable
+                version: 0.1.0
+                timestamp: '2026-11-26T15:30:05.456Z'
+    MethodNotAllowed:
+      description: |
+        Método diferente de `GET` e do `HEAD` tolerado em `/health` (US-0001 CA-08, REQ-0001 item 3).
+        Cabeçalho `Allow: GET, HEAD` (DEC-ARQ-0002 L-02). Corpo padronizado, sem detalhe interno.
+      headers:
+        Allow:
+          $ref: '#/components/headers/Allow'
+        Cache-Control:
+          $ref: '#/components/headers/CacheControl'
+        X-Content-Type-Options:
+          $ref: '#/components/headers/XContentTypeOptions'
+        X-Request-Id:
+          $ref: '#/components/headers/XRequestIdResponse'
+        Access-Control-Allow-Origin:
+          $ref: '#/components/headers/AccessControlAllowOrigin'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemMethodNotAllowed'
+          examples:
+            metodo-nao-permitido:
+              summary: POST /health
+              value:
+                type: 'about:blank'
+                title: Method Not Allowed
+                status: 405
+    InternalError:
+      description: >
+        Erro inesperado do servidor (US-0001 CA-09, REQ-0001 item 4, REQ-0004). Corpo padronizado,
+        sem detalhe interno (RN-0001). O Portal trata como US-0002 CA-03 caso (a).
+      headers:
+        Cache-Control:
+          $ref: '#/components/headers/CacheControl'
+        X-Content-Type-Options:
+          $ref: '#/components/headers/XContentTypeOptions'
+        X-Request-Id:
+          $ref: '#/components/headers/XRequestIdResponse'
+        Access-Control-Allow-Origin:
+          $ref: '#/components/headers/AccessControlAllowOrigin'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemInternalError'
+          examples:
+            erro-inesperado:
+              summary: Falha inesperada
+              value:
+                type: 'about:blank'
+                title: Internal Server Error
+                status: 500
