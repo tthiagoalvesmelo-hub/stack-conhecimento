@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 21
-atualizado_em: "2026-11-26T13:05-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
+versao_contexto: 22
+atualizado_em: "2026-11-26T13:06-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -30,7 +30,7 @@ prototipos:
   - {ref: 07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/prototipo-tela-status.html, versao: "1.0 em revisão", commit: 1290f25}
   - {ref: 07-agentes/06-ux/prototipos/DEM-2026-001-US-0002-tela-status/especificacao-interface-tela-status.md, id: UX-ESPEC-DEM-2026-001-TASK-0004, versao: "1.0 em revisão", commit: 1290f25, validacao_po: "Aprovado com ressalvas (DEC-PO-0005; validacao-po-prototipo-task-0004.md v1.0; commit af208f2)"}
 historias: [US-0001, US-0002]   # v1.2 vigente (babb9fe), ressalva (1) do G1 (US-0001 CA-01..CA-09; US-0002 CA-01..06); analise-po-task-0002.md v1.2
-plano_atividades: {ref: 03-operacional/demandas/DEM-2026-001/plano-atividades-g2.md, id: PLANO-DEM-2026-001-G2, versao: "1.1 (G2 aprovado com observações; PO promove a vigente)", commit: 053a2d4}
+plano_atividades: {ref: 03-operacional/demandas/DEM-2026-001/plano-atividades-g2.md, id: PLANO-DEM-2026-001-G2, versao: "1.1 vigente", commit: f61a1f9, conteudo: 053a2d4}
 tarefas:
   - {id: TASK-0001, agente: CPO, estado: "Concluída"}
   - {id: TASK-0002, agente: PO, estado: "Concluída"}   # commit 9bde637
