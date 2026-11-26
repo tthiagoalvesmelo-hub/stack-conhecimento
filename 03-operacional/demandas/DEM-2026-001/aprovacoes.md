@@ -18,6 +18,7 @@ Demanda: DEM-2026-001 [TESTE] · Classe de risco: R3 (DEC-ARQ-0001) · Fluxo: 01
 | AH | Operação | Categoria | Pedido em | Decisão (texto literal do Thiago) | Decidido por | Decidido em | Condições | Validade |
 |---|---|---|---|---|---|---|---|---|
 | AH-0001 | Adotar stack base ADR-0001 (Node.js 24 LTS + Fastify 5 portal-api + Portal estático JS) em monorepo git local /workspace/projetos/portal/ | arquitetura | 26/11/2026 12:27 | (aguardando) | | | | 24 h |
+| AH-0002 | Mesclar o ramo doc/TASK-0011-matriz-7-1 (40c7d84: protocolo-memoria.md v1.1 — matriz 7.1 pareceres CR-nnnn A=CR/E=ARQ, linha registro-ids/conflitos, EL-08) e aplicar o patch do Leia-me.csv (Evidência pelo executor da TASK) | governança | 26/11/2026 13:08 | (aguardando) | | | | 24 h |
 
 ## Observações
 - Aprovação de pedido de urgência para pular gate: não existe; registrar e escalar.

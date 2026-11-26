@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 22
-atualizado_em: "2026-11-26T13:06-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
+versao_contexto: 23
+atualizado_em: "2026-11-26T13:08-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -42,7 +42,7 @@ tarefas:
   - {id: TASK-0008, agente: FS, estado: "Aguardando dependências"}   # A5 implementação; depende de G2, G3 e TASK-0004
   - {id: TASK-0009, agente: CR, estado: "Aguardando dependências"}   # A6 Code Review (G4)
   - {id: TASK-0010, agente: QA, estado: "Aguardando dependências"}   # A4b/A7 plano de testes, testes e PQ (G5)
-  - {id: TASK-0011, agente: DOC, estado: "Em desenvolvimento (incremento A; DEC-PO-0007; DoR verificada: escopo, estimativa, critério e dono definidos, sem dependência aberta); incremento B aguarda TASK-0008", estimativa: "12,5 h (11–14 h): incr. A 7 h sem dependência da TASK-0008; incr. B 5,5 h após TASK-0008", parecer_g2: "rascunhos/doc/MSG-RET-ORQ-TASK-0011-parecer-g2.md (sem commit)"}   # A8 documentação, paralela à TASK-0010
+  - {id: TASK-0011, agente: DOC, estado: "Em desenvolvimento (incremento A Parcial: merge b8e921b; matriz 7.1 aguarda AH-0002; DEC-PO-0007; DoR verificada: escopo, estimativa, critério e dono definidos, sem dependência aberta); incremento B aguarda TASK-0008", estimativa: "12,5 h (11–14 h): incr. A 7 h sem dependência da TASK-0008; incr. B 5,5 h após TASK-0008", parecer_g2: "rascunhos/doc/MSG-RET-ORQ-TASK-0011-parecer-g2.md (sem commit)"}   # A8 documentação, paralela à TASK-0010
   - {id: TASK-0012, agente: OPS, estado: "Aguardando dependências", estimativa: "prep. 8 h (6–10) + G6/G7 5 h (4–7) + 24 h observação", parecer_g2: "rascunhos/ops/DEM-2026-001-TASK-0012-parecer-g2.md v1.0 (sem commit)"}   # A9 execução local, smoke test e rollback simples
 resultados: []
 testes:
@@ -69,11 +69,11 @@ pendencias_contexto:
   - {item: "Texto narrativo da US-0002 ainda cita público não definido (fechado na DEC-PO-0002) — não afeta CA", dono: PO}
   - {item: "Procedimento operacional da DEC-ARQ-0003 confirmado pelo OPS (scripts/verify-local.sh, evidência gitignorada e sanitizada, reexecução pelo CR; parecer OPS §6); falta calibrar cobertura 80% com QA no G5", dono: QA}
   - {item: "L-CR2: DOC confirmou (padrão documental) 06-qualidade/pareceres/CR-nnnn-<slug>.md, ponteiro na Evidência da TASK-0009, ajuste de convenção/modelo/README e desdobramento da matriz 7.1 (CR = A em pareceres CR) — implementação no incremento A da TASK-0011, antes do G4; incremento A liberado pelo PO (DEC-PO-0007, 26/11 12:58) e atribuído à DOC; concluir antes do G4; ciência QA/CR", dono: DOC}
-  - {item: "CONF-0001: lado PO resolvido (textos v1.1 citam R3); fechamento formal", dono: DOC}
   - {item: "Valores de porta/host/PORTAL_API_ALLOWED_ORIGIN e comando de subida (L-06 residual): fecham no 1º bloco da preparação (até 2 h após início, só com AH-0001), OPS propõe por MSG-COL e FS confirma; valores em .env fora do git", dono: OPS/FS}
-  - {item: "L-09: modelos de EF/ET/contrato e INDEX.md inexistentes", dono: DOC}
   - {item: "Tolerância do timestamp (±5 s) e tempo limite do cliente (5 s) na ET", dono: AS}
-  - {item: "Prefixo/ID padronizado para protótipo e especificação de UX (L-UX-01) — não existe no padrão de IDs", dono: DOC}
+  - {item: "L-UX-01: convenção UX-nnnn proposta (convencao-ids v1.1, b8e921b); endosso do UX e alias do artefato UX-ESPEC-DEM-2026-001-TASK-0004 pendentes", dono: UX/DOC}
+  - {item: "AH-0002 (governança): matriz 7.1 (pareceres CR-nnnn A=CR) + EL-08 + Leia-me.csv — aguardando decisão literal do Thiago; sem ela o CR não tem escrita formal em 06-qualidade/pareceres (bloqueia entrada no G4)", dono: ORQ/Thiago}
+  - {item: "EF-0001 §8 e ET-0001 §12 ainda citam CONF-0001 aberto e modelos ausentes (atualizar na próxima versão)", dono: AS}
   - {item: "Exposição do /health interna ou pública (pública => R3 + AH) e acesso à tela", dono: ARQ}
   - {item: "Lacunas da análise do PO v1.2: L2/L8/L9 fechadas; L3–L6 respondidas como premissa (abertas até G3 e AH-0001); L1 (CPO) e L7 (OPS) abertas como premissa de teste", dono: PO, ref: analise-po-task-0002.md}
   - {item: "Conversão das estimativas do ARQ (escala 1–5) para horas — obs. (e) do G2; PO incorpora ao plano sem nova decisão", dono: ARQ}
