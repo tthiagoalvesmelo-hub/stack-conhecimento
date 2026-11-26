@@ -2,15 +2,15 @@
 id: DEC-ARQ-0007
 titulo: "Substituto local do pré-requisito 'CI verde' para .NET + Angular (verify-local)"
 tipo: dec
-versao: 1.2
+versao: 1.3
 status: vigente
 dono: ARQ
 autores: [ARQ]
 aprovado_por: ARQ
 criado_em: 2026-11-26T15:03-03:00
-atualizado_em: 2026-11-26T15:54-03:00
+atualizado_em: 2026-11-26T17:02-03:00
 revisar_ate: 2027-02-26
-relacionados: [DEM-2026-001, TASK-0008, TASK-0009, TASK-0010, TASK-0012, AH-0003, ADR-0001, DEC-ARQ-0008, DEC-ARQ-0009, DEC-ARQ-0010, L-CR1]
+relacionados: [DEM-2026-001, TASK-0008, TASK-0009, TASK-0010, TASK-0012, AH-0003, G4-PR1, ADR-0001, DEC-ARQ-0008, DEC-ARQ-0009, DEC-ARQ-0010, L-CR1]
 substitui: DEC-ARQ-0003
 substituido_por: null
 ---
@@ -45,6 +45,8 @@ substituido_por: null
 2. **Cobertura:** meta inicial **80% de linhas** no código-fonte dos dois apps (calibração com o QA antes do G5, como na DEC-ARQ-0003 item 2; escopo de ramos e funções fica reportado). Não invento outro número.
 3. **Evidência:** o autor anexa à TASK-0008/PR o log completo (sem segredos). O **CR reexecuta o mesmo script na box** antes de revisar; divergência ou falha impede a entrada no G4 (mitiga RK-CR1).
 4. **Pré-requisitos de ambiente (OPS, TASK-0012):** SDK .NET 10 (`global.json`), Node 24 `^24.15` e Angular CLI instalados; rede para o NuGet Audit e o `npm audit` (sem rede, A1/W5 não valem como evidência).
+   - **Ferramentas de sistema usadas pelos scripts locais (v1.3):** `bash`, `curl` e `python3` (somente biblioteca padrão: `re`, `sys`, `json`; sem `pip` e sem pacote de terceiros), `ss` (iproute2) e `setsid` (util-linux), além dos utilitários POSIX comuns (`grep`, `sed`, `tr`, `awk`, `date`). São ferramentas padrão de qualquer distribuição Linux, gratuitas, sem instalação por projeto, usadas só em `scripts/` locais e **fora** do artefato entregue (API e bundle web). Não são tecnologia de produto, não exigem aprovação humana e não alteram a stack. Ferramenta nova nesta lista, ou qualquer `pip install`/pacote extra, volta ao ARQ (e à AH se houver custo ou tecnologia de produto).
+   - **Toolchain local opcional:** `~/.config/ops-toolchain.sh` (DOTNET_ROOT, PATH, telemetria desligada) é carregado pelos scripts quando existir; não é versionado e não pode conter segredo. Sem ele, valem `dotnet`, `node` e `ng` já no `PATH`.
 5. Sem pipeline remota e sem serviço pago. Com GitHub/CI, esta DEC é revista.
 
 ## Alternativas
@@ -61,3 +63,6 @@ Esclarecimentos pedidos pela QA, sem mudar a decisão de fundo (verify-local, 80
 
 ## Revisão v1.2 (26/11/2026 15:54)
 A5: o código de saída 0 com vulnerabilidade deixou de ser relato e passou a ser **medido** (SDK 10.0.404); o critério de falha (parse do JSON, High/Critical) e a decisão de fundo não mudam.
+
+## Revisão v1.3 (26/11/2026 17:02)
+Item 4 (pré-requisitos de ambiente): lista **`bash`, `curl`, `python3` (só biblioteca padrão), `ss`, `setsid` e utilitários POSIX** como ferramentas de sistema aceitas, e registra o carregador opcional `~/.config/ops-toolchain.sh`. Origem: S-N2 do CR no ciclo 2 do G4 (portal PR #1), que apontou o uso de `python3`, `ss`, `setsid` e `curl` fora da lista. Constatação do ARQ: `python3` já era usado por A5 desde a v1.1 e por `check-version.sh`; nenhuma das ferramentas entra no artefato entregue; nenhuma é tecnologia de produto nem tem custo. Critérios, limiares e decisão de fundo (verify-local, 80% de linhas, SCA alta/crítica) **não mudam**. Alteração sem custo e sem tecnologia de produto: não é AH, segue pelo fluxo de PR (AH-0004).
