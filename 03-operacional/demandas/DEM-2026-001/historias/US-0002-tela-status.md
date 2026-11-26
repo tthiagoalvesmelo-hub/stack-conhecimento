@@ -2,22 +2,24 @@
 id: US-0002
 titulo: "Ver o status da API em uma tela simples do Portal Web"
 tipo: us
-versao: 1.3
+versao: 1.4
 status: vigente
 dono: PO
 autores: [PO]
 aprovado_por: PO (G1, DEM-2026-001)
 criado_em: 2026-11-26T12:19-03:00
-atualizado_em: 2026-11-26T13:10-03:00
+atualizado_em: 2026-11-26T15:12-03:00
 revisar_ate: 2027-02-26
-relacionados: [DEM-2026-001, TASK-0002, TASK-0003, TASK-0004, TASK-0005, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, US-0001, ADR-0003, DEC-PO-0002, DEC-PO-0005, DEC-PO-0006]
+relacionados: [DEM-2026-001, TASK-0002, TASK-0003, TASK-0004, TASK-0005, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, US-0001, ADR-0003, DEC-PO-0002, DEC-PO-0005, DEC-PO-0006, DEC-PO-0008, AH-0003, ADR-0001, ADR-0002]
 substitui: null
 substituido_por: null
 ---
 
-> **Vigente desde 26/11/2026 12:41 (America/Sao_Paulo)** — promovido pelo PO após o G1 (Aprovado com observações, aprovacoes.md, commit b083eef). **Ressalva (condição 1 do G1):** formatos, 503/405/500, tempo limite de 5 s e “sem login” dependem dos ADR-0002/0003 ainda propostos; se mudarem no G3, o PO reabre os CA afetados. Implementação depende da AH-0001.
+> **Vigente desde 26/11/2026 12:41 (America/Sao_Paulo)** — promovido pelo PO após o G1 (Aprovado com observações, aprovacoes.md, commit b083eef). **Ressalva (1) do G1 (atualizada em 26/11/2026 15:12 (America/Sao_Paulo), DEC-PO-0008):** os ADR-0001 v2.0, ADR-0002 v1.1 e ADR-0003 v1.1 foram **aceitos** (AH-0003 aprovada em 26/11/2026 14:54, America/Sao_Paulo, que substitui a AH-0001; G3 registrado em `a271ac1`). Os formatos, caminhos 503/405/500, tempo limite de 5 s e “sem login” seguem esses ADR aceitos. **Ressalva do G3:** R1..R5 (aprovacoes.md, 26/11/2026 15:08) — R1 (ET-0001 v1.4 da AS, condição para liberar a TASK-0008); R2 (teste de contrato com `format: date-time`); ressalva R3 do G3 (itens PV do ADR-0001 v2 D8 como testes obrigatórios antes do G4); R4 (SDK .NET 10 + Angular CLI e spike do encerramento gracioso em ASP.NET Core antes do CA-07); R5 (usar `\z` nas regex .NET). A implementação não depende mais da AH-0001.
 >
 > **v1.3** (26/11/2026 13:10, America/Sao_Paulo) — revisão editorial: o texto da história e a premissa de público registram a confirmação da CPO (DEC-PO-0002). Os critérios de aceite e o status **vigente** não mudam; a ressalva (1) do G1 permanece.
+>
+> **v1.4** (26/11/2026 15:12 (America/Sao_Paulo)) — revisão editorial (DEC-PO-0008): premissas de stack atualizadas para C#/.NET 10 LTS + Angular 22.3 (ADR-0001 v2.0 / AH-0003); ADR-0002/0003 v1.1 aceitos; ressalva (1) do G1 atualizada e ressalvas R1..R5 do G3 registradas. Nenhum CA foi reaberto nem alterado. Status **vigente** mantido.
 
 # US-0002 — Ver o status da API em uma tela simples do Portal Web
 
@@ -36,11 +38,11 @@ Torna o sinal de US-0001 visível a pessoas e valida a integração Portal ↔ A
 - Dentro: tela de status no Portal Web (a criar) que consome `GET /health` (US-0001) e trata sucesso, carregamento e falha/indisponibilidade (REQ-0002, REQ-0003, REQ-0004, RN-0002).
 - Fora: histórico de status, gráficos, alertas, notificações, múltiplos serviços, Mobile, atualização automática (polling — RE-04, demanda futura); qualquer solução visual, de navegação ou de acesso além do comportamento aqui definido (UX/UI e ARQ).
 
-## Premissas (até confirmação do dono)
+## Premissas
 - Público = operador/equipe técnica interna (DEC-PO-0002, confirmado pela CPO em 26/11/2026 12:36; exposição a clientes ou usuários finais é nova decisão da CPO).
-- Tela sem login nesta demanda (L5, ADR-0003 proposto).
-- Tempo limite da consulta: orientação de 5 s, a fechar na ET (L6, AS/ARQ).
-- Formatos de `status`/`version`/`timestamp` e valores `"ok"` / `"unavailable"`: premissa dos ADR-0002/0003 propostos (ver US-0001).
+- Tela sem login nesta demanda (L5, ADR-0003 v1.1 aceito).
+- Tempo limite da consulta: 5 s, sem nova tentativa automática (DEC-AS-0001, confirmado no G3).
+- Formatos de `status`/`version`/`timestamp` e valores `"ok"` / `"unavailable"`: ADR-0002 v1.1 e ADR-0003 v1.1 aceitos (ver US-0001). A tela (Portal Angular 22.3, ADR-0001 v2.0 / AH-0003) consome o mesmo contrato.
 - Protótipo e spec UX v1.0 (TASK-0004, commit 1290f25) **aprovados com ressalvas** (DEC-PO-0005). D-UX-05 e D-UX-08 aceitos como oráculo do CA-01.
 
 ## Critérios de aceite
@@ -61,11 +63,11 @@ Torna o sinal de US-0001 visível a pessoas e valida a integração Portal ↔ A
 ## Dependências
 - US-0001 (endpoint) ou seu contrato aprovado (G3): o Portal pode ser implementado em paralelo com mocks do contrato (PR-04), nunca antes do G3.
 - UX/UI: protótipo e spec v1.0 validados com ressalvas (DEC-PO-0005). Mudanças de ADR podem exigir revisão do UX.
-- ARQ (TASK-0003): stack do Portal, forma de consumo da API, regra de acesso à tela (premissa: sem login).
+- ARQ (TASK-0003): stack do Portal = Angular 22.3 (ADR-0001 v2.0 / AH-0003); forma de consumo da API e acesso à tela sem login (ADR-0003 v1.1 aceito). G3 com ressalvas R1..R5; a TASK-0008 espera a R1.
 - G1 (escopo) antes do planejamento técnico.
 
 ## Rastreio
 Solicitação original (DEM-2026-001) → REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002 → US-0002 → TASK-0004 (protótipo), TASK-0006/0008/0009/0010/0011 → CT (QA, por CA) → entrega (G8).
 
-## Definition of Ready (situação em 26/11/2026 12:32)
-Objetivo e valor: OK · Critérios numerados e verificáveis: OK (ajustes da TASK-0005 incorporados; D-UX-05/08 aceitos) · Dependências identificadas: OK · Protótipo: Aprovado com ressalvas (DEC-PO-0005) · Contexto técnico: Parcial (TASK-0003; AH-0001) · Risco: R3 confirmado.
+## Definition of Ready (situação em 26/11/2026 15:12)
+Objetivo e valor: OK · Critérios numerados e verificáveis: OK (nenhum CA reaberto, DEC-PO-0008) · Dependências identificadas: OK (ADR aceitos; AH-0003 aprovada) · Protótipo: Aprovado com ressalvas (DEC-PO-0005) · Contexto técnico: G3 com ressalvas R1..R5 (ET-0001 v1.4 pendente, R1) · Risco: R3 confirmado.
