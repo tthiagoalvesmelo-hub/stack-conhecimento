@@ -2,7 +2,7 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 39
+versao_contexto: 40
 atualizado_em: "2026-11-26T15:48-03:00"
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
@@ -39,8 +39,8 @@ tarefas:
   - {id: TASK-0005, agente: QA, estado: "Concluída"}   # favorável com ressalvas ao G1 (13 testáveis, 5 ajustes); commit 80e9184
   - {id: TASK-0006, agente: AS, estado: "Concluída"}   # EF-0001/ET-0001 v1.2 (3a41a2c); OpenAPI 1.0.0 proposto na main (cf660fb, merge ARQ); G3 pendente após AH-0001 [corrigido v19: comentário antigo citava ramo 2b9fa2e — apontado pelo OPS]
   - {id: TASK-0007, agente: ARQ, estado: "Concluída"}   # G3 aprovado com ressalvas R1..R5 (7bc37ba; merge a271ac1)
-  - {id: TASK-0008, agente: FS, estado: "Em desenvolvimento"}   # A5 implementação; liberada ao FS 15:41 (plano G2 v1.2 registrado, 7d85a6e; G3 OK, R1 fechada 15:23; SDK/CLI instalados)
-  - {id: TASK-0009, agente: CR, estado: "Aguardando dependências"}   # A6 Code Review (G4)
+  - {id: TASK-0008, agente: FS, estado: "Em Code Review"}   # A5 implementação; PR portal #1 aberto 16:21 (480f5c5, 22f94c0, 4b372c8, ebe7ff7), revisor CR, 2ª aprovação ARQ; liberada ao FS 15:41 (plano G2 v1.2 registrado, 7d85a6e; G3 OK, R1 fechada 15:23; SDK/CLI instalados)
+  - {id: TASK-0009, agente: CR, estado: "Aprovada para execução"}   # A6 Code Review (G4); entrada: PR portal #1; lacuna: CR sem credencial para comentar no GitHub (decisão do Thiago pendente)
   - {id: TASK-0010, agente: QA, estado: "Aguardando dependências"}   # A4b/A7 plano de testes, testes e PQ (G5)
   - {id: TASK-0011, agente: DOC, estado: "Em desenvolvimento (incremento A Parcial: merge b8e921b; matriz 7.1 mesclada 3755fc6, AH-0002; UX-0001 reservado; DEC-PO-0007; DoR verificada: escopo, estimativa, critério e dono definidos, sem dependência aberta); incremento B aguarda TASK-0008", estimativa: "14,5 h (13,5–16 h): incr. A 7 h; incr. B 7,5 h (6,5–9) após TASK-0008 (plano G2 v1.2, 7d85a6e)", parecer_g2: "rascunhos/doc/MSG-RET-ORQ-TASK-0011-parecer-g2.md (sem commit)"}   # A8 documentação, paralela à TASK-0010
   - {id: TASK-0012, agente: OPS, estado: "Parcial (toolchain instalada; 1º bloco fechado; saldo da preparação aguarda esqueleto D6)", estimativa: "prep. 10 h (8–13) + G6/G7 6 h (5–8) + 24 h calendário (plano G2 v1.2, 7d85a6e)", parecer_g2: "v2.1 3fe751d (merge ce58d16); v2.0 d214f94 (merge a525821)"}   # A9 execução local, smoke test e rollback simples
