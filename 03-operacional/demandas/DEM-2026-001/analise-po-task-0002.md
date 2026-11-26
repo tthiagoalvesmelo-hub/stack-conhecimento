@@ -2,22 +2,22 @@
 id: ANALISE-DEM-2026-001-TASK-0002
 titulo: "Análise inicial do PO — escopo, atividades propostas e pontuação (DEM-2026-001 [TESTE])"
 tipo: analise
-versao: 1.4
+versao: 1.5
 status: em-revisao
 dono: PO
 autores: [PO]
 aprovado_por: null
 criado_em: 2026-11-26T12:22-03:00
-atualizado_em: 2026-11-26T15:12-03:00
+atualizado_em: 2026-11-26T15:27-03:00
 revisar_ate: 2027-02-26
-relacionados: [DEM-2026-001, TASK-0002, TASK-0003, TASK-0004, TASK-0005, US-0001, US-0002, REQ-0001, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, DEC-PO-0001, DEC-PO-0002, DEC-PO-0003, DEC-PO-0004, DEC-PO-0005, DEC-PO-0006, DEC-PO-0007, DEC-ARQ-0001, ADR-0001, ADR-0002, ADR-0003, DEC-PO-0008, AH-0003]
+relacionados: [DEM-2026-001, TASK-0002, TASK-0003, TASK-0004, TASK-0005, US-0001, US-0002, REQ-0001, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, DEC-PO-0001, DEC-PO-0002, DEC-PO-0003, DEC-PO-0004, DEC-PO-0005, DEC-PO-0006, DEC-PO-0007, DEC-ARQ-0001, ADR-0001, ADR-0002, ADR-0003, DEC-PO-0008, DEC-PO-0009, AH-0003]
 substitui: null
 substituido_por: null
 ---
 
 # Análise inicial do PO — DEM-2026-001 [TESTE] · TASK-0002
 
-> Fase de testes internos; nada vai à produção. Este documento **não** altera estado, etapa, gates nem tarefas (só o ORQ). **v1.4** (26/11/2026 15:12 (America/Sao_Paulo)): inclui a DEC-PO-0008 na lista de decisões do PO (CA não reabertos após a AH-0003). **v1.3** (26/11/2026 13:10, America/Sao_Paulo): inclui a DEC-PO-0007 na lista de decisões do PO. Não altera escopo, pontuação nem lacunas já registradas. **v1.1** (26/11/2026 12:32, America/Sao_Paulo): incorpora TASK-0003 (ADR propostos, R3, fatores técnicos), validação do protótipo (DEC-PO-0005), ajustes de testabilidade (DEC-PO-0006) e pontuação recalculada 2,8 (DEC-PO-0004). Os códigos A1…A9 foram mapeados pelo ORQ às TASK-0004…0012.
+> Fase de testes internos; nada vai à produção. Este documento **não** altera estado, etapa, gates nem tarefas (só o ORQ). **v1.5** (26/11/2026 15:27 (America/Sao_Paulo)): inclui a DEC-PO-0009 na lista de decisões do PO (autoria do código de teste e dependência da fase PT+CT da TASK-0010). **v1.4** (26/11/2026 15:12 (America/Sao_Paulo)): inclui a DEC-PO-0008 na lista de decisões do PO (CA não reabertos após a AH-0003). **v1.3** (26/11/2026 13:10, America/Sao_Paulo): inclui a DEC-PO-0007 na lista de decisões do PO. Não altera escopo, pontuação nem lacunas já registradas. **v1.1** (26/11/2026 12:32, America/Sao_Paulo): incorpora TASK-0003 (ADR propostos, R3, fatores técnicos), validação do protótipo (DEC-PO-0005), ajustes de testabilidade (DEC-PO-0006) e pontuação recalculada 2,8 (DEC-PO-0004). Os códigos A1…A9 foram mapeados pelo ORQ às TASK-0004…0012.
 
 ## 1. Entendimento
 - **O que foi pedido, por quem, para quê:** Thiago Melo (via Jarvis, ORQ) pediu, como teste ponta a ponta da esteira, um endpoint `GET /health` na API base do Portal Web (status, versão, timestamp) e uma tela simples no Portal que mostre esse status; projeto do zero. G0 aceito pela CPO (26/11/2026): Funcionalidade nova, Fluxo 01, responsável PO, prioridade Normal, não dividir a demanda, ARQ colaborador obrigatório.
@@ -105,6 +105,7 @@ Riscos anteriores permanecem. Acrescenta-se: ADRs ainda propostos — se formato
 - **DEC-PO-0006** — Ajustes de testabilidade da TASK-0005 e respostas à AS (TASK-0006, L-11): REQ-0001 alternativa **A** (503 no aceite, premissa até o ADR-0003 ser aceito); 405 e 500 também entram no aceite (CA-08 e CA-09). Conteúdo de US/REQ atualizado para R3 (CONF-0001, lado PO).
 - **DEC-PO-0007** — 26/11/2026 12:57 (America/Sao_Paulo). Libera o incremento A da TASK-0011 (7 h: L-CR2, fechamento formal do CONF-0001, L-09 e L-UX-01) para começar já, sem esperar a TASK-0008. O incremento B (5,5 h) permanece após a TASK-0008, em paralelo à TASK-0010. Motivo: a L-CR2 é pré-requisito de entrada no G4 (RK-DOC-1); o incremento A não é N3 e não depende da AH-0001.
 - **DEC-PO-0008** — 26/11/2026 15:12 (America/Sao_Paulo). Após a AH-0003 (C#/.NET 10 LTS + Angular 22.3, substitui a AH-0001) e o G3 com ressalvas R1..R5, o PO **não reabre** os CA das US-0001/0002. Motivos: o texto do CA-04 já é agnóstico (manifesto + tag); o comportamento dos 15 CA é o mesmo (parecer do ARQ, `analise-impacto-troca-stack-DEM-2026-001.md`); o CA-07 permanece válido, mas depende do spike de encerramento gracioso em ASP.NET Core (ressalva R4 do G3) — isso é um risco, não uma mudança de CA. Se o spike mostrar inviabilidade, o ARQ volta ao PO e o CA-07 é reaberto. Ajuste editorial nas US/REQ/RN vigentes (premissas de stack e origem da versão no `.csproj`); os CA não foram alterados. O plano G2 v1.2 espera as reestimativas (FS, OPS e demais).
+- **DEC-PO-0009** — decisão do PO de 26/11/2026 15:20 (MSG-RET do PO ao ORQ; ID reservado no commit do PLANO-DEM-2026-001-G2 v1.2). Planejamento da TASK-0008/TASK-0010, **sem reabrir CA e sem horas extras do ARQ**: (1) **Opção A** — o FS escreve e mantém o código dos testes automatizados (xUnit/`WebApplicationFactory` e Vitest/jsdom) dentro da TASK-0008 (as 40 h do FS já incluem 11 h de testes: 6 h da API + 5 h da tela); o QA **especifica** PT, CT e oráculos, **verifica** a suíte do FS (revisão de oráculo) e faz a verificação black-box e manual na TASK-0010 (33 h). A opção B (QA escrevendo o código de teste) reabriria a conta das duas TASK, sem contagem dupla. (2) A fase **PT+CT** da TASK-0010 depende de **G3 + R1** (R3 do G3 exige os casos PV antes do G4); a **execução** e o **PQ** seguem após o G4. Concordância técnica do ARQ registrada no merge `edc9467` (DEC-ARQ-0007/0009/0011 v1.1).
 
 ## 10. Próximos passos
 1. ORQ atualiza contexto.yaml (ponteiros v1.1, pontuação 2,8, validação do protótipo, DEC-PO-0004..0006, pendências L1/L2/L6/L7/AH-0001) e avalia o G1 (TASK-0003 Parcial + TASK-0005 Concluída + validação do PO + ajustes respondidos). A stack continua bloqueada pela AH-0001.

@@ -1,7 +1,7 @@
 # Registro de identificadores — último número usado por prefixo (0 = nenhum ainda)
 # Quem cria um artefato incrementa aqui ANTES de criar o arquivo e registra o commit com o trailer "Agente: <sigla>".
 versao: 1
-atualizado_em: "2026-11-26T15:12-03:00"
+atualizado_em: "2026-11-26T15:29-03:00"
 atualizado_por: PO
 por_ano:        # formato DEM-AAAA-nnn e INC-AAAA-nnn: sequência reinicia a cada ano
   DEM: {2026: 1}
@@ -31,7 +31,7 @@ sequencial_global:
 decisoes_por_sigla:   # DEC-<SIGLA>-nnnn
   ORQ: 0
   CPO: 1   # DEC-CPO-0001 reservado 26/11 14:56 (priorização RM-0002; condicionado à AH-0003)
-  PO: 8
+  PO: 9   # DEC-PO-0009 reservado 26/11 (autoria do código de teste; PT+CT depende de G3+R1; plano G2 v1.2; PO)
   PMM: 0
   AN: 0
   AS: 3
