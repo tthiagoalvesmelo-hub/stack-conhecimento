@@ -2,12 +2,12 @@
 # Metadados do documento (equivalem ao frontmatter padrão da Stack; ver também info.x-stack):
 #   versão do contrato: 1.0.0 (SemVer próprio, ADR-0003; distinto da versão do serviço, ADR-0002)
 #   status: aprovado pelo ARQ no G3 (TASK-0007, aprovado com ressalvas; ressalva R1 fechada neste ajuste de prosa — TASK-0006)
-#   dono: ARQ (aprova) · autor: AS · criado em 2026-11-26T12:33-03:00 · atualizado em 2026-11-26T15:16-03:00 (só prosa; R1) · revisar até 2027-02-26
+#   dono: ARQ (aprova) · autor: AS · criado em 2026-11-26T12:33-03:00 · atualizado em 2026-11-26T16:02-03:00 (prosa editorial DEC-ARQ-0012 §1; R1 já aplicada) · revisar até 2027-02-26
 #   demanda: DEM-2026-001 [TESTE] · atividade: TASK-0006 · especificação: EF-0001 v1.3 / ET-0001 v1.4
 #   fontes: ADR-0003 v1.1 (aceito), ADR-0002 v1.1 (aceito), ADR-0001 v2.0 (aceito; AH-0003; C#/.NET 10 LTS + Angular 22.3),
 #           DEC-ARQ-0002 v1.0 (vigente, L-01 a L-07), DEC-ARQ-0011 v1.0 (vigente, L-12), US-0001/US-0002/RN-0001/RN-0002/REQ-0001..0004 v1.2 vigente (G1)
 #   Premissas de stack: ADR-0001 v2.0 D8 (ASP.NET Core; obrigações de implementação, itens PV a verificar no 1º spike/teste). A AH-0001 foi substituída pela AH-0003.
-#   Ajuste desta revisão: somente prosa (R1 do G3); caminhos, esquemas, exemplos, cabeçalhos HTTP e info.version permanecem inalterados (1.0.0).
+#   Ajuste desta revisão: somente prosa (DEC-ARQ-0012 §1: preflight × OPTIONS sem preflight). Caminhos, esquemas, exemplos, operações, status e info.version permanecem inalterados (1.0.0). A prosa da R1 do G3 permanece.
 openapi: 3.1.0
 info:
   title: portal-api
@@ -41,7 +41,7 @@ info:
     atividade: TASK-0006
     especificacao: [EF-0001, ET-0001]
     adr: [ADR-0001, ADR-0002, ADR-0003]
-    decisoes: [DEC-ARQ-0002, DEC-ARQ-0011, AH-0003, DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, DEC-PO-0006]
+    decisoes: [DEC-ARQ-0002, DEC-ARQ-0011, DEC-ARQ-0012, AH-0003, DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, DEC-PO-0006]
     status-documento: aprovado
     dono: ARQ
     autor: AS
@@ -64,13 +64,12 @@ paths:
       **HEAD** (DEC-ARQ-0002 L-02): tolerado com o mesmo código HTTP e os mesmos cabeçalhos do `GET`,
       **sem corpo**. Não é operação de negócio (não há `head` abaixo); consumidores não devem depender dele.
 
-      **OPTIONS** (DEC-ARQ-0002 L-02): preflight CORS — `204`, sem corpo,
-      `Access-Control-Allow-Origin` somente se a origem for a configurada,
-      `Access-Control-Allow-Methods: GET, HEAD`, sem credenciais e sem
-      `Access-Control-Allow-Headers` nesta demanda. **Não** responde `405` e **não** é
-      operação de negócio (não há `options` abaixo). O GET do Portal é "simples" e não dispara preflight.
+      **OPTIONS** (DEC-ARQ-0002 L-02; esclarecimento DEC-ARQ-0012 §1). Não é operação de negócio (não há `options` abaixo). Distingue-se o preflight do `OPTIONS` que não é preflight:
+      - **Preflight** (`OPTIONS` **com** `Origin` e `Access-Control-Request-Method`): `204`, sem corpo. Origem permitida: `Access-Control-Allow-Origin` igual à origem exata e `Access-Control-Allow-Methods` com o conjunto {`GET`, `HEAD`} (comparar como conjunto; o valor pode sair sem espaço). Sem credenciais e sem `Access-Control-Allow-Headers` nesta demanda. Origem não permitida: `204` **sem** cabeçalhos CORS (**nunca 403**). O preflight **não** responde `405`.
+      - **`OPTIONS` que não é preflight** (sem `Origin` e/ou sem `Access-Control-Request-Method`): `405` com `Allow: GET, HEAD`, `Content-Type: application/problem+json` e corpo `{type: "about:blank", title: "Method Not Allowed", status: 405}` — igual a qualquer método não permitido. Não é `204`.
+      O GET do Portal é "simples" e não dispara preflight.
 
-      Métodos diferentes de `GET` e `HEAD` respondem `405` com `Allow: GET, HEAD`.
+      Métodos diferentes de `GET` e `HEAD` (e o `OPTIONS` que não é preflight) respondem `405` com `Allow: GET, HEAD`.
     get:
       operationId: getHealth
       tags: [operacional]

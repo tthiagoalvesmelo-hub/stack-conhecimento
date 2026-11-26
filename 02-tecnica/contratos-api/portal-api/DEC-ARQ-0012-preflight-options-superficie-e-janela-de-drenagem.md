@@ -2,13 +2,13 @@
 id: DEC-ARQ-0012
 titulo: "OPTIONS fora do preflight (L-PT-03), preflight e a superfície do CT-0022 (L-PT-11) e janela de drenagem do encerramento gracioso (L-PT-04)"
 tipo: dec
-versao: 1.0
+versao: 1.1
 status: vigente
 dono: ARQ
 autores: [ARQ]
 aprovado_por: ARQ
 criado_em: 2026-11-26T15:54-03:00
-atualizado_em: 2026-11-26T15:54-03:00
+atualizado_em: 2026-11-26T16:02-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0007, TASK-0008, TASK-0010, TASK-0012, PT-0001, CT-0008, CT-0010, CT-0018, CT-0022, CT-0038, ADR-0001, ADR-0003, DEC-ARQ-0002, DEC-ARQ-0011, ET-0001, US-0001, L-PT-03, L-PT-04, L-PT-11, R4]
 substitui: null
@@ -17,7 +17,7 @@ substituido_por: null
 
 # DEC-ARQ-0012 — OPTIONS fora do preflight, superfície com preflight e janela de drenagem
 
-> [TESTE] Decide as lacunas L-PT-03, L-PT-11 e L-PT-04 do PT-0001 v1.1 (§11), pedidas pela QA e formalizadas pelo ORQ. **Não é N3** (sem exposição nova, sem custo). **Não altera o OpenAPI nem o conjunto de status/esquemas.** O §1 é um **esclarecimento de caso não previsto** (ver "Impacto em outros artefatos"). As medições vêm de um protótipo descartável do ARQ, **que não é o spike R4**: `07-agentes/07-arq/evidencias-lacunas-pt-0001/`.
+> [TESTE] Decide as lacunas L-PT-03, L-PT-11 e L-PT-04 do PT-0001 v1.1 (§11), pedidas pela QA e formalizadas pelo ORQ. **Não é N3** (sem exposição nova, sem custo). **Não altera o conjunto de status, esquemas, operações nem o `info.version` (1.0.0) do OpenAPI.** A prosa do `/health` foi alinhada editorialmente na v1.1 (revisão da AS no PR #4). O §1 é um **esclarecimento de caso não previsto** (ver "Impacto em outros artefatos"). As medições vêm de um protótipo descartável do ARQ, **que não é o spike R4**: `07-agentes/07-arq/evidencias-lacunas-pt-0001/`.
 
 ## 1. OPTIONS e preflight (L-PT-03)
 **Definição de preflight** (documentação oficial do CORS no ASP.NET Core e código do `CorsMiddleware`/`CorsService`, consultados em 26/11/2026): requisição `OPTIONS` **com** `Origin` **e** `Access-Control-Request-Method`. Sem esses dois cabeçalhos, não é preflight.
@@ -35,7 +35,7 @@ Observações medidas (protótipo, .NET 10.0.15, Kestrel): (i) `Access-Control-A
 2. Preflight com origem diferente: `204`, sem ACAO e sem ACAM, status ≠ 403.
 3. `OPTIONS /health` sem cabeçalhos; com só `Origin`; com só `Access-Control-Request-Method`: `405`, `Allow` = {GET, HEAD} (conjunto), `application/problem+json`, corpo exato, `no-store`, `nosniff`; nenhum `204`.
 
-**Impacto em outros artefatos (esclarecimento; AS e PO com ciência):** a frase "`OPTIONS` não deve responder `405`" (DEC-ARQ-0002 L-02; ET-0001 RT-16 e CE-11; prosa do `/health` no OpenAPI) é lida como referente **ao preflight CORS** — todos os trechos descrevem o preflight, e o D8 item 5 (aceito) já restringe o `204` ao preflight. Nenhum CA, esquema, status ou exemplo muda; o `405` com `Allow: GET, HEAD` já é contrato. **Proposta editorial** (não aplicada aqui): ET-0001 v1.5 (RT-16 e CE-11, com uma linha para o `OPTIONS` sem preflight) e uma frase na prosa do OpenAPI. Se a AS ou o PO entenderem que isso muda comportamento prometido, o assunto volta ao ARQ antes de qualquer edição.
+**Impacto em outros artefatos (esclarecimento; AS e PO com ciência):** a frase "`OPTIONS` não deve responder `405`" (DEC-ARQ-0002 L-02; ET-0001 RT-16 e CE-11) é lida como referente **ao preflight CORS** — esses trechos descrevem o preflight, e o D8 item 5 (aceito) já restringe o `204` ao preflight. Nenhum CA, esquema, status ou exemplo muda; o `405` com `Allow: GET, HEAD` já é contrato. A AS, na revisão do PR #4, confirmou que o §1 **não muda o comportamento prometido** e que não há conflito com CA. **Prosa do OpenAPI (v1.1):** alinhada neste ramo — o preflight (`Origin` + `Access-Control-Request-Method`) responde `204` (origem negada: `204` sem cabeçalhos CORS, nunca 403) e **não** responde `405`; o `OPTIONS` que não é preflight responde `405` com `Allow: GET, HEAD` e ProblemDetails. `info.version` permanece 1.0.0. **ET-0001:** a v1.5 editorial (RT-16, CE-11 e, no mesmo recorte, §4.1 e L-02) permanece com a AS, em PR próprio depois do merge, como ela propôs; o ARQ confirma esse recorte.
 
 ## 2. O preflight não é endpoint — superfície do CT-0022 (L-PT-11)
 **Decisão:** o preflight é tratado **pelo middleware de CORS** e **não conta como endpoint**. A superfície registrada é **exatamente dois endpoints**: `GET /health` e `HEAD /health`.
@@ -71,3 +71,4 @@ CT-0010 (+ caso novo `OPTIONS` sem preflight), CT-0022, CT-0018 e CT-0038 (QA); 
 | Versão | Data/hora (America/Sao_Paulo) | Autor | Mudança |
 |---|---|---|---|
 | 1.0 | 26/11/2026 15:54 | ARQ | Criação (L-PT-03, L-PT-04, L-PT-11 do PT-0001 v1.1) |
+| 1.1 | 26/11/2026 16:02 | ARQ | Prosa do OpenAPI alinhada ao §1 (revisão da AS no PR #4); status/esquemas/operações/`info.version` inalterados |
