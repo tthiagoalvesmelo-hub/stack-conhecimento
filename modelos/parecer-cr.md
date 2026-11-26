@@ -13,13 +13,28 @@ revisar_ate: AAAA-MM-DD
 relacionados: [DEM-AAAA-nnn, TASK-nnnn, US-nnnn]
 substitui: null
 substituido_por: null
+pr:                         # ramo e commit revisado
+ciclo:                      # 1 | 2 | escalado
+resultado:                  # Aprovado | Aprovado com observações | Reprovado
+critico:                    # sim | não + motivo
+aprovacao_arq:              # pendente | dada + referência
+evidencia_verify_local:     # caminho do log reexecutado; sem segredo
 ---
 
-> **Local de registro na fase atual (sem GitHub):** `06-qualidade/pareceres/CR-nnnn-<slug>.md`. Reserve o CR-nnnn em `00-memoria/registro-ids.yaml` antes de criar o arquivo. Ponteiro (ID + versão + caminho + commit) na coluna **Evidência** da linha da TASK de Code Review no Tarefas.csv. Com o GitHub conectado, o parecer volta a ser registrado no PR (link na TASK). Esta nota e o frontmatter não alteram as regras de mérito abaixo.
+> **Modelo v1.1** · 26/11/2026 · DOC (TASK-0011, L-CR2). Acrescenta os campos de registro pedidos pelo CR (Eduardo Pires): `pr`, `ciclo`, `resultado`, `critico`, `aprovacao_arq`, `evidencia_verify_local`. Não altera as regras de mérito abaixo.
+>
+> **Local de registro na fase atual (sem GitHub):** `06-qualidade/pareceres/CR-nnnn-<slug>.md`. Reserve o CR-nnnn em `00-memoria/registro-ids.yaml` antes de criar o arquivo (reserva do prefixo CR: o CR). Ponteiro (ID + versão + caminho + commit) na coluna **Evidência** da linha da TASK de Code Review no Tarefas.csv. Com o GitHub conectado, o parecer volta a ser registrado no PR (link na TASK). Esta nota e o frontmatter não alteram as regras de mérito abaixo.
 
 # Parecer de Code Review CR-nnnn — MODELO
 
 PR/TASK/DEM: · Autor: · Revisor: (≠ autor) · CI verde: sim/não · Rodada: 1 | 2 (máx. 2; na 3ª escala ao Arquiteto)
+
+pr (ramo e commit revisado):
+ciclo: 1 | 2 | escalado
+resultado: Aprovado | Aprovado com observações | Reprovado
+critico: sim | não · motivo:
+aprovacao_arq: pendente | dada · referência:
+evidencia_verify_local: (caminho do log reexecutado; sem segredo)
 
 Resultado: Aprovado | Aprovado com observações não bloqueantes | Reprovado (lista numerada: arquivo, linha, critério, sugestão)
 
