@@ -1,0 +1,8 @@
+# nada de segredos, rascunhos ou binários grandes
+*.env
+.env*
+*.pem
+*.key
+secrets/
+__pycache__/
+*.tmp

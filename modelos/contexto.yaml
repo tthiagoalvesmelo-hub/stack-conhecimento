@@ -1,0 +1,38 @@
+# 03-operacional/demandas/<DEM-AAAA-nnn>/contexto.yaml  — MODELO (copie e preencha; só o Orquestrador grava estado, etapa, tarefas e aprovações)
+id: DEM-AAAA-nnn                    # ou INC-AAAA-nnn
+titulo: ""
+versao_contexto: 1                  # incrementa a cada atualização relevante
+atualizado_em: ""                   # ISO-8601, America/Sao_Paulo
+atualizado_por: ORQ                 # sigla do agente
+solicitacao_original: ""            # texto literal recebido do CPO, sem reescrever
+fluxo_origem: "01"                  # 01 | 02 | 03
+responsavel_fluxo: PO               # PO | ARQ | SUP
+prioridade: Normal                  # Imediata | Alta | Normal | Baixa   (a escala P1–P4 não é mais usada)
+pontuacao: null                     # fórmula do Prompt 04, seção 3
+severidade: null                    # P0 | P1 | P2 | P3 (somente INC/BUG)
+classe_risco: R2                    # R1 | R2 | R3 (confirmada pelo Arquiteto Líder)
+tipo_demanda: ""                    # uma das 10 classes (criterios-classificacao.md)
+estado: "Recebida"                  # 18 estados do ciclo de vida
+etapa: A
+objetivo: ""
+descricao_funcional: ""
+regras_negocio: []                  # RN-nnnn
+requisitos_funcionais: []           # REQ-nnnn
+requisitos_nao_funcionais: []
+componentes: []
+microsservicos_impactados: []
+apis: []
+bancos: []
+decisoes: []                        # ADR-nnnn, DEC-<SIGLA>-nnnn
+prototipos: []
+historias: []                       # US-nnnn
+tarefas: []                         # - {id: TASK-nnnn, agente: SIGLA, estado: ""}
+resultados: []
+testes: []                          # PT-nnnn, PQ-nnnn
+aprovacoes: {}                     # G0..G8: "SIGLA dd/mm" (registro oficial em aprovacoes.md)
+ah: []                              # AH-nnnn vinculadas
+implantacao: []                     # REL-nnnn
+documentacao: []
+bloqueios: []                       # MSG-BLQ abertas
+riscos: []                          # - {id, descricao, P_x_I, dono, mitigacao, status}
+pendencias_contexto: []             # informações ausentes e de quem
