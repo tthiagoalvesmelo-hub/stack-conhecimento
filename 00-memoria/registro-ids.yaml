@@ -1,16 +1,16 @@
 # Registro de identificadores — último número usado por prefixo (0 = nenhum ainda)
 # Quem cria um artefato incrementa aqui ANTES de criar o arquivo e registra o commit com o trailer "Agente: <sigla>".
 versao: 1
-atualizado_em: "2026-11-26T11:00-03:00"
-atualizado_por: setup
+atualizado_em: "2026-11-26T12:12-03:00"
+atualizado_por: ORQ
 por_ano:        # formato DEM-AAAA-nnn e INC-AAAA-nnn: sequência reinicia a cada ano
-  DEM: {2026: 0}
+  DEM: {2026: 1}
   INC: {2026: 0}
 sequencial_global:
   REQ: 0
   RN: 0
   US: 0
-  TASK: 0
+  TASK: 1
   EF: 0
   ET: 0
   ADR: 0

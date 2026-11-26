@@ -1,0 +1,48 @@
+# DEM-2026-001 — TESTE (teste ponta a ponta da esteira; ambiente de teste, nada vai para produção)
+id: DEM-2026-001
+teste: true
+titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
+versao_contexto: 1
+atualizado_em: "2026-11-26T12:12-03:00"
+atualizado_por: ORQ
+solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
+origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
+fluxo_origem: "02"                  # PROPOSTO pelo ORQ; CPO confirma
+responsavel_fluxo: ARQ              # PROPOSTO; CPO confirma
+prioridade: Normal                  # PROPOSTA; PO/CPO pontuam
+pontuacao: null
+severidade: null
+classe_risco: R1                    # PROPOSTA; Arquiteto Líder confirma
+tipo_demanda: "Funcionalidade nova" # PROPOSTO; CPO confirma
+estado: "Recebida"
+etapa: A
+objetivo: "Disponibilizar GET /health na API base do Portal Web (status, versão, timestamp) e uma tela simples no Portal que exiba esse status."
+descricao_funcional: ""
+regras_negocio: []
+requisitos_funcionais: []
+requisitos_nao_funcionais: []
+componentes: ["API base do Portal Web (a criar)", "Portal Web — tela de status (a criar)"]
+microsservicos_impactados: []
+apis: ["GET /health (proposto na solicitação)"]
+bancos: []
+decisoes: []
+prototipos: []
+historias: []
+tarefas: []
+resultados: []
+testes: []
+aprovacoes: {}
+ah: []
+implantacao: []
+documentacao: []
+bloqueios: []
+riscos: []
+pendencias_contexto:
+  - {item: "Stack tecnológica (linguagem, framework, runtime) da API e do Portal — premissa a confirmar", dono: ARQ}
+  - {item: "Ambientes (dev/hml) e forma de execução no teste — não existem; premissa de teste: execução local em /workspace/projetos/", dono: OPS}
+  - {item: "Formato do campo 'versão' (origem: build, semver manual?)", dono: ARQ}
+  - {item: "Critérios de aceite e público da tela de status", dono: PO}
+premissas_teste:
+  - "Demanda fictícia de TESTE; nenhuma operação em produção; sem GitHub e sem Google Sheets (repositório git local + espelho CSV)."
+  - "Código em pasta de trabalho /workspace/projetos/ versionada em git local."
+  - "Thiago não é contatado diretamente: MSG-AH vai ao Jarvis, que leva ao Thiago."
