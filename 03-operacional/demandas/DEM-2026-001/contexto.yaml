@@ -2,8 +2,8 @@
 id: DEM-2026-001
 teste: true
 titulo: "[TESTE] Health-check GET /health na API base do Portal Web + tela de status"
-versao_contexto: 18
-atualizado_em: "2026-11-26T12:58-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
+versao_contexto: 19
+atualizado_em: "2026-11-26T12:59-03:00"   # relógio da box; entradas anteriores 13:03/13:06 registradas adiante do relógio
 atualizado_por: ORQ
 solicitacao_original: "Precisamos de um endpoint de health-check (GET /health) na API base do Portal Web, retornando status, versão e timestamp, com uma tela simples no Portal que mostre esse status. Projeto do zero."
 origem: "Thiago Melo, via Jarvis (assistente pessoal), 26/11/2026 12:10 — teste ponta a ponta aprovado por Thiago; entrada formal pela CPO pendente (G0)"
@@ -37,13 +37,13 @@ tarefas:
   - {id: TASK-0003, agente: ARQ, estado: "Parcial"}   # parecer G2 d1b0235; A0; commits 7893133, 362ea35, 07cdf27; stack depende de AH-0001
   - {id: TASK-0004, agente: UX, estado: "Concluída"}   # A1 protótipo; commit 1290f25; validado pelo PO com ressalvas (DEC-PO-0005)
   - {id: TASK-0005, agente: QA, estado: "Concluída"}   # favorável com ressalvas ao G1 (13 testáveis, 5 ajustes); commit 80e9184
-  - {id: TASK-0006, agente: AS, estado: "Concluída"}   # EF-0001/ET-0001 v1.1 (950ebff, d836bc6); OpenAPI no ramo doc/ET-0001-contrato-portal-api-health (2b9fa2e) aguardando merge do ARQ
+  - {id: TASK-0006, agente: AS, estado: "Concluída"}   # EF-0001/ET-0001 v1.2 (3a41a2c); OpenAPI 1.0.0 proposto na main (cf660fb, merge ARQ); G3 pendente após AH-0001 [corrigido v19: comentário antigo citava ramo 2b9fa2e — apontado pelo OPS]
   - {id: TASK-0007, agente: ARQ, estado: "Aguardando dependências"}   # A3 aprovação do contrato (G3); depende de TASK-0006
   - {id: TASK-0008, agente: FS, estado: "Aguardando dependências"}   # A5 implementação; depende de G2, G3 e TASK-0004
   - {id: TASK-0009, agente: CR, estado: "Aguardando dependências"}   # A6 Code Review (G4)
   - {id: TASK-0010, agente: QA, estado: "Aguardando dependências"}   # A4b/A7 plano de testes, testes e PQ (G5)
   - {id: TASK-0011, agente: DOC, estado: "Em desenvolvimento (incremento A; DEC-PO-0007; DoR verificada: escopo, estimativa, critério e dono definidos, sem dependência aberta); incremento B aguarda TASK-0008", estimativa: "12,5 h (11–14 h): incr. A 7 h sem dependência da TASK-0008; incr. B 5,5 h após TASK-0008", parecer_g2: "rascunhos/doc/MSG-RET-ORQ-TASK-0011-parecer-g2.md (sem commit)"}   # A8 documentação, paralela à TASK-0010
-  - {id: TASK-0012, agente: OPS, estado: "Aguardando dependências"}   # A9 execução local, smoke test e rollback simples
+  - {id: TASK-0012, agente: OPS, estado: "Aguardando dependências", estimativa: "prep. 8 h (6–10) + G6/G7 5 h (4–7) + 24 h observação", parecer_g2: "rascunhos/ops/DEM-2026-001-TASK-0012-parecer-g2.md v1.0 (sem commit)"}   # A9 execução local, smoke test e rollback simples
 resultados: []
 testes:
   - {ref: 06-qualidade/pareceres/parecer-planejamento-g2-task-0010.md, id: PARECER-G2-DEM-2026-001-TASK-0010, versao: "1.0", commit: 40c8ace, estimativa: "20 h (16–23 h)"}
@@ -63,20 +63,20 @@ riscos:
   - {id: RK-2, descricao: "Exposição fora da rede interna vira contrato público", P_x_I: "1x3=3", dono: ARQ, mitigacao: "condição no ADR-0003; reabre R3/N3 + AH", status: aberto}
   - {id: RK-3, descricao: "Cadeia de suprimentos npm (Fastify)", P_x_I: "1x2=2", dono: ARQ, mitigacao: "lockfile, npm ci (ver MSG-RET TASK-0003)", status: aberto}
 pendencias_contexto:
-  - {item: "P-QA-01..05 (entrada na execução da TASK-0010): ferramenta/método local de varredura R3 e de p95 (PS-08)", dono: OPS/ARQ}
+  - {item: "P-QA-01..05 (entrada na execução da TASK-0010): ferramenta/método local de varredura R3 e de p95 (PS-08)", dono: OPS/ARQ}   # OPS propôs: SCA via npm audit (DEC-ARQ-0003); SAST residual e script p95 em Node a decidir pelo ARQ (parecer OPS §7)
   - {item: "Gancho de fábrica para 500 (CA-09): FS propõe injeção só na fábrica (como o 503); AS espelhar ET §7.2 em §7.4/§11; ARQ confirmar no G3 extensão da L-05 e fora da superfície do OpenAPI", dono: AS/ARQ}
   - {item: "FS (b): teste de tela em navegador exigiria ADR/dependência nova?", dono: ARQ}
   - {item: "Texto narrativo da US-0002 ainda cita público não definido (fechado na DEC-PO-0002) — não afeta CA", dono: PO}
-  - {item: "Confirmar procedimento operacional da DEC-ARQ-0003 (onde vive o script, evidência sem segredo, reexecução pelo CR); calibrar cobertura 80% com QA no G5", dono: OPS/QA}
+  - {item: "Procedimento operacional da DEC-ARQ-0003 confirmado pelo OPS (scripts/verify-local.sh, evidência gitignorada e sanitizada, reexecução pelo CR; parecer OPS §6); falta calibrar cobertura 80% com QA no G5", dono: QA}
   - {item: "L-CR2: DOC confirmou (padrão documental) 06-qualidade/pareceres/CR-nnnn-<slug>.md, ponteiro na Evidência da TASK-0009, ajuste de convenção/modelo/README e desdobramento da matriz 7.1 (CR = A em pareceres CR) — implementação no incremento A da TASK-0011, antes do G4; incremento A liberado pelo PO (DEC-PO-0007, 26/11 12:58) e atribuído à DOC; concluir antes do G4; ciência QA/CR", dono: DOC}
   - {item: "CONF-0001: lado PO resolvido (textos v1.1 citam R3); fechamento formal", dono: DOC}
-  - {item: "Valores de PORTAL_WEB_PORT e PORTAL_API_ALLOWED_ORIGIN (L-06 residual)", dono: OPS/FS}
+  - {item: "Valores de porta/host/PORTAL_API_ALLOWED_ORIGIN e comando de subida (L-06 residual): fecham no 1º bloco da preparação (até 2 h após início, só com AH-0001), OPS propõe por MSG-COL e FS confirma; valores em .env fora do git", dono: OPS/FS}
   - {item: "L-09: modelos de EF/ET/contrato e INDEX.md inexistentes", dono: DOC}
   - {item: "Tolerância do timestamp (±5 s) e tempo limite do cliente (5 s) na ET", dono: AS}
   - {item: "Prefixo/ID padronizado para protótipo e especificação de UX (L-UX-01) — não existe no padrão de IDs", dono: DOC}
   - {item: "Exposição do /health interna ou pública (pública => R3 + AH) e acesso à tela", dono: ARQ}
   - {item: "Lacunas da análise do PO v1.2: L2/L8/L9 fechadas; L3–L6 respondidas como premissa (abertas até G3 e AH-0001); L1 (CPO) e L7 (OPS) abertas como premissa de teste", dono: PO, ref: analise-po-task-0002.md}
-  - {item: "G2: pareceres de planejamento despachados 26/11 12:52 (ARQ, FS, OPS, QA, CR, DOC; AS opcional) — estimativas a gravar no Tarefas.csv; decisão do G2 pelo PO", dono: PO/ORQ}
+  - {item: "G2: todos os pareceres recebidos (ARQ, FS, OPS, QA, CR, DOC) e estimativas gravadas no Tarefas.csv; consolidação enviada ao PO 26/11 12:59; CONF candidato: plano 4814277 descreve OpenAPI como não mesclado (cf660fb) — PO; decisão do G2 pelo PO", dono: PO}
   - {item: "Visão e objetivos estratégicos ausentes em 01-institucional/produto; alinhamento desta demanda é à validação da esteira", dono: CPO}
   - {item: "Stack base proposta no ADR-0001 (Node.js 24 LTS + Fastify 5 + Portal estático) — aguarda AH-0001 do Thiago (N3 arquitetura)", dono: ORQ/Thiago}
   - {item: "Ambientes (dev/hml) e forma de execução no teste — não existem; premissa de teste: execução local em /workspace/projetos/", dono: OPS}
