@@ -2,15 +2,15 @@
 id: ET-0001
 titulo: "Especificação técnica de GET /health da portal-api (contrato interno, liveness)"
 tipo: et
-versao: 1.2
+versao: 1.3
 status: em-revisao
 dono: AS
 autores: [AS]
 aprovado_por: null
 criado_em: 2026-11-26T12:27-03:00
-atualizado_em: 2026-11-26T12:43-03:00
+atualizado_em: 2026-11-26T13:00-03:00
 revisar_ate: 2027-02-26
-relacionados: [DEM-2026-001, TASK-0006, EF-0001, US-0001, US-0002, REQ-0001, REQ-0003, REQ-0004, RN-0001, RN-0002, ADR-0001, ADR-0002, ADR-0003, DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, DEC-ARQ-0002, DEC-PO-0005, DEC-PO-0006, CONF-0001]
+relacionados: [DEM-2026-001, TASK-0006, TASK-0008, EF-0001, US-0001, US-0002, REQ-0001, REQ-0003, REQ-0004, RN-0001, RN-0002, ADR-0001, ADR-0002, ADR-0003, DEC-AS-0001, DEC-AS-0002, DEC-AS-0003, DEC-ARQ-0002, DEC-PO-0005, DEC-PO-0006, CONF-0001]
 substitui: null
 substituido_por: null
 ---
@@ -18,9 +18,10 @@ substituido_por: null
 # ET-0001 — GET /health da `portal-api` (especificação técnica)
 
 > [TESTE] DEM-2026-001 · TASK-0006 · Fluxo 01 · classe de risco R3 (DEC-ARQ-0001) · autora: AS (Juliana Castro).
-> **v1.2:** incorpora US/REQ/RN **v1.2 vigente** (G1; conteúdo da v1.1 / DEC-PO-0006, commit babb9fe) e as decisões L-01 a L-07 da **DEC-ARQ-0002** v1.0 (commit 15b3809; parecer prévio, **não é o G3**). Os ADR-0001/0002/0003 permanecem *propostos*; a stack depende da AH-0001. Tudo que ainda depende da stack está marcado literalmente como **"premissa a confirmar (AH-0001)"**. A validação do contrato (G3, TASK-0007) só ocorre após a AH-0001. Ressalva do G1: se os ADR mudarem no G3, o PO reabre os CA afetados.
-> Contrato: `02-tecnica/contratos-api/portal-api/openapi.yaml` (OpenAPI 3.1, `info.version` **1.0.0**), proposto no ramo `doc/ET-0001-contrato-portal-api-health` (área protegida; aguarda merge `--no-ff` do ARQ após os ajustes da DEC-ARQ-0002; esse merge não é o G3).
-> Especificação funcional par: EF-0001 v1.2.
+> **v1.3:** acrescenta a testabilidade do HTTP 500 (US-0001 CA-09) por injeção somente na fábrica de teste, em espelho do §7.2 / DEC-ARQ-0002 L-05 — **proposta AS, confirmação final do ARQ no G3** (pedido do ORQ a partir do parecer G2 do FS, TASK-0008, item 5). O OpenAPI **não** é alterado (o gancho não integra a superfície do contrato).
+> **v1.2 (mantida):** incorpora US/REQ/RN **v1.2 vigente** (G1; conteúdo da v1.1 / DEC-PO-0006, commit babb9fe) e as decisões L-01 a L-07 da **DEC-ARQ-0002** v1.0 (commit 15b3809; parecer prévio, **não é o G3**). Os ADR-0001/0002/0003 permanecem *propostos*; a stack depende da AH-0001. Tudo que ainda depende da stack está marcado literalmente como **"premissa a confirmar (AH-0001)"**. A validação do contrato (G3, TASK-0007) só ocorre após a AH-0001. Ressalva do G1: se os ADR mudarem no G3, o PO reabre os CA afetados.
+> Contrato: `02-tecnica/contratos-api/portal-api/openapi.yaml` (OpenAPI 3.1, `info.version` **1.0.0**), **proposto** na main (merge `--no-ff` `cf660fb`; esse merge **não é o G3**).
+> Especificação funcional par: EF-0001 v1.2 (a v1.3 desta ET não exige nova EF: a rastreabilidade do CA-09 já apontava ao §7.4).
 
 ## 1. Objetivo e escopo
 Detalhar tecnicamente o recurso operacional `GET /health` da `portal-api` (API base do Portal Web, a criar): *liveness* do processo, somente leitura, que informa `status`, `version` e `timestamp` (REQ-0001) sem dado sensível (RN-0001, REQ-0004) e de forma que indisponibilidade nunca seja lida como saudável (RN-0002).
@@ -57,7 +58,7 @@ Todas as linhas abaixo são **premissa a confirmar (AH-0001)**; nada nesta tabel
 | PS-04 | Remoção de cabeçalhos que revelem servidor/versão do runtime ou framework (ADR-0003): mecanismo premissa a confirmar (AH-0001) | Nenhum no contrato |
 | PS-05 | Gancho concreto do encerramento gracioso (como o listener permanece no ar e passa a emitir `503`): premissa a confirmar (AH-0001). O comportamento exigido está na DEC-ARQ-0002 L-05 (ver §7.2) | Sem o gancho, o `503` pode não ocorrer na parada abrupta (o cliente trata timeout como indisponível, RN-0002); contrato mantido |
 | PS-06 | Adaptação das respostas padrão do framework (`404`, `405`, `500`, `HEAD`, preflight `OPTIONS`) ao corpo e aos cabeçalhos padronizados: premissa a confirmar (AH-0001). O comportamento exigido está na DEC-ARQ-0002 (L-02, L-04) | Nenhum no contrato |
-| PS-07 | Relógio injetável, geração de UUID v4 para `X-Request-Id` e injeção do estado de saúde na fábrica de teste: premissa a confirmar (AH-0001) | Nenhum no contrato |
+| PS-07 | Relógio injetável, geração de UUID v4 para `X-Request-Id` e injeção, na fábrica de teste, do estado de saúde (503) e da falha interna (500): forma concreta (assinatura da fábrica, nomes de argumentos, ferramenta de teste) é premissa a confirmar (AH-0001). O princípio dos ganchos está no §7.2 e no §7.4 | Nenhum no contrato |
 | PS-08 | Ferramenta de medição do p95 local: premissa a confirmar (AH-0001) | Só OPS/QA |
 | PS-09 | Validação do corpo da resposta contra o esquema (ex.: JSON Schema) no provedor e nos testes de contrato: premissa a confirmar (AH-0001) | Só testes |
 
@@ -157,7 +158,8 @@ X-Request-Id: <UUID canônico>
 ```
 - **Critério de disparo (ADR-0003 + DEC-ARQ-0002 L-05):** processo em encerramento (hoje não há dependência). No encerramento **gracioso**, enquanto o listener estiver no ar, o processo **deve** responder `503` com `status: "unavailable"`. Se a parada for abrupta, o cliente esgota o tempo e trata como indisponível (RN-0002). O gancho concreto depende da stack (PS-05, AH-0001).
 - **Sem `Retry-After`** nesta versão (DEC-ARQ-0002 L-05).
-- **Testabilidade:** o `503` é testável **somente** por injeção na fábrica da aplicação (estado de saúde injetável, no mesmo espírito do relógio injetável) ou equivalente de teste unitário/integração. **Proibido** endpoint, query string, cabeçalho ou variável honrada em execução não-teste que force o 503 remotamente (seria N3 de segurança). Em builds/ambientes que não forem de teste, o gancho não existe ou é inerte.
+- **Testabilidade:** o `503` é testável **somente** por injeção na fábrica da aplicação (estado de saúde injetável, no mesmo espírito do relógio injetável) ou equivalente de teste unitário/integração. **Proibido** endpoint, query string, cabeçalho ou variável de ambiente honrada em execução não-teste que force o 503 remotamente — inclusive nenhum `FORCE_*` e nenhum uso de `NODE_ENV` (ou equivalente) como controle remoto (seria N3 de segurança). Em builds/ambientes que não forem de teste, o gancho não existe ou é inerte: o argumento simplesmente não é passado no bootstrap de execução; não é um flag de ambiente que um operador possa ligar.
+- **Distinção:** o gancho de **teste** (injeção na fábrica) é distinto do gancho de **encerramento gracioso em execução** (PS-05 / AH-0001). Este último é comportamento de produção do 503 e **não** substitui o gancho de teste; também **não** pode virar controle remoto.
 - **Portal (US-0002 CA-03 caso (b), RE-02):** trata como Erro/indisponível e **não exibe** a `version` nem o `timestamp` recebidos no 503.
 
 ### 7.3 Resposta `405` (US-0001 CA-08)
@@ -177,6 +179,12 @@ O corpo segue o padrão inicial da plataforma (DEC-ARQ-0002 L-01).
 ### 7.4 Resposta `500` (US-0001 CA-09)
 `application/problem+json` com `{"type":"about:blank","title":"Internal Server Error","status":500}`; nenhuma causa, caminho ou stack trace; detalhes só em log interno (nível `error`, sem dado sensível). O Portal trata como US-0002 CA-03 caso (a). O formato exato dos campos está fechado na DEC-ARQ-0002 L-01 (alçada AS/ARQ, conforme o PO).
 
+- **Critério de disparo (US-0001 CA-09):** falha interna que impede responder HTTP 200 ou o 503 de contrato.
+- **Testabilidade (proposta AS, confirmação final do ARQ no G3):** em espelho do §7.2 e do princípio da DEC-ARQ-0002 L-05 (que cita explicitamente só o 503; a extensão ao 500 é proposta desta ET, não decisão já tomada). O `500` de CA-09 é testável **somente** por injeção na fábrica da aplicação (provedor ou colaborador de falha interna injetável, no mesmo espírito do relógio e do estado de saúde) ou equivalente de teste unitário/integração, de modo que o tratador padronizado responda o 500 sem vazar detalhe no corpo. A forma concreta da fábrica (assinatura, nomes de argumentos, ferramenta de teste) é **premissa a confirmar (AH-0001)** e não faz parte desta especificação — não se adota aqui a API de composição citada no parecer do FS (`app.js` / `buildApp({…})` / `inject` do Fastify) como normativa.
+- **Proibido** endpoint, query string, cabeçalho ou variável de ambiente honrada em execução não-teste que force o 500 remotamente — inclusive nenhum `FORCE_*` e nenhum uso de `NODE_ENV` (ou equivalente) como controle remoto (seria N3 de segurança, o mesmo risco da L-05). Em builds/ambientes que não forem de teste, o gancho não existe ou é inerte: o argumento simplesmente não é passado no bootstrap de execução; não é um flag de ambiente que um operador possa ligar. Teste de segurança (CA-05 / REQ-0004): query, cabeçalho ou variável tentando forçar 503 ou 500 **não** alteram o caminho saudável.
+- **Fora da superfície do contrato:** o gancho **não** é documentado no OpenAPI (nenhuma operação, parâmetro, cabeçalho ou schema de “force error/health”). A superfície 1.0.0 permanece `GET /health` e as respostas 200/503/405/500.
+- **Distinção:** este gancho de teste do 500 é da mesma família do gancho de teste do 503 (§7.2). Nenhum dos dois se confunde com o gancho de encerramento gracioso em execução (PS-05 / AH-0001), que vale só para o 503 e também não pode virar controle remoto.
+
 ### 7.5 CORS (DEC-ARQ-0002 L-06)
 - Origem permitida: somente a configurada em `PORTAL_API_ALLOWED_ORIGIN` (obrigatória, exata, sem curinga; fail closed se ausente, inválida ou `*`). Resposta traz `Access-Control-Allow-Origin` com **essa origem exata** (nunca `*`), sem `Access-Control-Allow-Credentials`.
 - Origem não permitida (ou ausente): a resposta mantém o status normal do recurso (200/503/405/500) e **não** traz `Access-Control-Allow-Origin`; **sem 403** no servidor. O navegador impede a leitura pelo Portal ⇒ Erro caso (a). Clientes que não são navegador (sondas) continuam recebendo o status normal.
@@ -193,7 +201,7 @@ Não é caminho de `GET /health` nem resposta desse recurso. Como padrão da `po
 | CE-02 | Processo em encerramento | Sinal de encerramento gracioso (listener no ar) | `503` `{status:"unavailable", …}` sem `Retry-After` (gancho: PS-05 / AH-0001; teste só por injeção na fábrica) | Erro genérico, **sem** exibir version/timestamp (RE-02) | US-0001 **CA-07**; US-0002 CA-03 caso (b); RN-0002 | ADR-0003, DEC-ARQ-0002 L-05, DEC-PO-0006 |
 | CE-03 | Serviço fora do ar (sem resposta, conexão recusada) | Falha de rede/conexão no cliente | n/a (não há resposta) | Erro caso (a); sem valor anterior | US-0002 CA-03 caso (a); RN-0002 | REQ-0003, RN-0002 |
 | CE-04 | Tempo limite do cliente | Sem resposta completa em 5 s | Resposta tardia é descartada | Aborta a consulta; Erro caso (a); sem nova tentativa automática | US-0002 CA-03 caso (a); RN-0002 | DEC-AS-0001 |
-| CE-05 | HTTP `500` ou outro inesperado (≠ 200 e ≠ 503) | Código recebido | `500` problem+json para falha inesperada (sem detalhe) | Erro caso (a) | US-0001 **CA-09**; US-0002 CA-03 caso (a); RN-0001; RN-0002 | DEC-ARQ-0002 L-01, DEC-PO-0006 |
+| CE-05 | HTTP `500` ou outro inesperado (≠ 200 e ≠ 503) | Código recebido (em teste, falha interna injetada na fábrica — §7.4, proposta AS / G3) | `500` problem+json para falha inesperada (sem detalhe); sem gancho de rede/env | Erro caso (a) | US-0001 **CA-09**; US-0002 CA-03 caso (a); RN-0001; RN-0002 | DEC-ARQ-0002 L-01, DEC-PO-0006; testabilidade: proposta AS, G3 |
 | CE-06 | Corpo inválido: JSON malformado, campo ausente/vazio/formato inválido, `200` com `status` ≠ `"ok"` | Validação no cliente | Provedor nunca emite (esquema fechado, validado nos testes de contrato) | Erro caso (a) | US-0002 CA-03 caso (a); RN-0002 | ADR-0003 |
 | CE-07 | Método inválido (`POST`, `PUT`, `PATCH`, `DELETE`, outros, exceto `HEAD`) | Método da requisição | `405` + `Allow: GET, HEAD` + problem+json | Não aplicável (Portal só usa `GET`); se ocorrer, Erro caso (a) | US-0001 **CA-08**; RN-0001 | DEC-ARQ-0002 L-02, DEC-PO-0006 |
 | CE-08 | CORS negado (origem diferente da do Portal) | Cabeçalho `Origin` | Status normal **sem** `Access-Control-Allow-Origin` e **sem 403** | Navegador bloqueia; Erro caso (a) | US-0002 CA-03 caso (a) | DEC-ARQ-0002 L-06 |
@@ -209,12 +217,12 @@ Não é caminho de `GET /health` nem resposta desse recurso. Como padrão da `po
 |---|---|---|
 | Portal Web | **Sim — consumidor novo** (tela de status, US-0002) | Tempo limite 5 s, sem retry; tratamento dos casos (a)/(b) (RE-02 no 503); Carregando com remoção dos valores do DOM; valores brutos + UTC; CORS com a origem do Portal; não envia nem lê `X-Request-Id`; `connect-src` da CSP limitado à origem da API (ADR-0003, a confirmar na stack: PS-01); DOM só com texto |
 | Mobile (Java) | Nenhum | Contrato REST/JSON neutro; pode ser consumido no futuro (ADR-0001) |
-| Backend/APIs | **Sim — nasce o serviço `portal-api`** (primeiro serviço) | Rota única; serviço de saúde com relógio e estado injetáveis só em teste; UUID v4; regex SemVer oficial; OPTIONS de preflight; 404 padrão; versão lida na inicialização (PS-02) |
+| Backend/APIs | **Sim — nasce o serviço `portal-api`** (primeiro serviço) | Rota única; serviço de saúde com relógio, estado de saúde (503) e falha interna (500) injetáveis só na fábrica de teste (500: proposta AS / G3); UUID v4; regex SemVer oficial; OPTIONS de preflight; 404 padrão; versão lida na inicialização (PS-02) |
 | Microsserviços | Nenhum | Primeiro serviço; sem dependência de outros |
 | Integrações | Nenhuma externa | Sondas de monitoramento futuras usariam o mesmo endpoint, sem credenciais, só na rede interna |
 | Dados | **Nenhum** | Sem banco, sem persistência, sem acesso a BD (ADR-0003 diretriz 4); DBA não acionado |
 | Infraestrutura | Execução local; sem container, nuvem ou CI (ADR-0001 D5) | OPS/FS definem valores por ambiente de `PORTAL_API_ALLOWED_ORIGIN` e `PORTAL_WEB_PORT` (TASK-0012); variável obrigatória, fail closed; sem segredos |
-| Segurança/LGPD | Superfície mínima; sem dado pessoal | Condição: exposição só interna (reabre R3/N3 se mudar). Gancho de 503 só na fábrica de teste (N3 se vazasse) |
+| Segurança/LGPD | Superfície mínima; sem dado pessoal | Condição: exposição só interna (reabre R3/N3 se mudar). Ganchos de 503 e 500 só na fábrica de teste (N3 se vazassem para não-teste); o de 500 é proposta AS, confirmação no G3 |
 
 ## 10. Compatibilidade retroativa e versionamento
 - **Contrato novo:** `portal-api` 1.0.0 é a primeira versão; **não há consumidores existentes** nem versão anterior; nenhuma quebra de compatibilidade. O aperto do regex de `version` (DEC-ARQ-0002 L-07) ocorre antes do merge em main e do G3, sem mudança de semântica.
@@ -228,13 +236,14 @@ Não é caminho de `GET /health` nem resposta desse recurso. Como padrão da `po
 | Contrato (provedor) | `200` e `503` válidos contra o esquema aprovado; ausência de campos extras; `version` no padrão SemVer oficial (sem `+build`); `timestamp` no padrão com milissegundos e `Z` | US-0001 CA-01..04, CA-07 |
 | Contrato (provedor) | `405` com `Allow: GET, HEAD` e corpo problem+json; `500` sem detalhe (`type`/`title`/`status`) | US-0001 CA-08, CA-09, CA-05; RN-0001 |
 | Cabeçalhos | `Cache-Control: no-store`, `X-Content-Type-Options: nosniff`, `X-Request-Id` no padrão UUID; ausência de cabeçalhos que revelem servidor/framework/runtime | US-0001 CA-05 |
-| Segurança | Corpo e cabeçalhos sem dado proibido (RT-12); CORS sem curinga e sem credenciais; `X-Request-Id` inválido não gera `400` | US-0001 CA-05; RN-0001 |
+| Segurança | Corpo e cabeçalhos sem dado proibido (RT-12); CORS sem curinga e sem credenciais; `X-Request-Id` inválido não gera `400`; query, cabeçalho ou variável tentando forçar 503/500 **não** alteram o caminho saudável | US-0001 CA-05; RN-0001 |
 | Versão | Resposta = manifesto do artefato testado = tag (quando houver); sem hash na resposta | US-0001 CA-04 |
 | Timestamp | Tolerância ±5 s (ou exata com relógio injetável), inclusive no 503 | US-0001 CA-03 |
 | Somente leitura | Duas ou mais chamadas: status e versão iguais, timestamp pode variar, logs permitidos, sem persistência nem estado de negócio | US-0001 CA-06 |
 | Consumidor (Portal, mocks do contrato — PR-04) | Corpo inválido, tempo esgotado (5 s), `503` (Erro **sem** exibir version/timestamp), `405`, `5xx`, `200` com `status` ≠ `"ok"`, bloqueio CORS ⇒ Erro; Carregando remove valores do DOM; recuperação após a API voltar | US-0002 CA-01, CA-03, CA-04, CA-05; RN-0002 |
 | Desempenho (informativo) | p95 ≤ 100 ms local; **não bloqueia** aceite nem é SLO | ADR-0003 |
-| `503` | Somente por injeção na fábrica (ou equivalente de teste); **proibido** controle remoto em não-teste | US-0001 CA-07; RN-0002 |
+| `503` | Somente por injeção na fábrica (ou equivalente de teste); **proibido** controle remoto em não-teste (endpoint, query, cabeçalho, variável de ambiente, `FORCE_*`, `NODE_ENV`). Distinto do gancho de encerramento gracioso (PS-05) | US-0001 CA-07; RN-0002 |
+| `500` | Somente por injeção na fábrica (falha interna simulada) ou equivalente de teste; corpo problem+json sem detalhe interno; **proibido** o mesmo conjunto de ganchos de rede/env do 503. **Proposta AS, confirmação final do ARQ no G3.** Forma concreta: premissa a confirmar (AH-0001). **Não** documentar no OpenAPI | US-0001 CA-09; RN-0001; REQ-0004 |
 | `OPTIONS` / `404` | Preflight `204`; `404` problem+json com no-store/nosniff (padrão do serviço) | DEC-ARQ-0002 L-02, L-04 |
 
 ## 12. Lacunas, dúvidas e dependências
@@ -250,7 +259,8 @@ Não é caminho de `GET /health` nem resposta desse recurso. Como padrão da `po
 | L-08 | **Resolvida no conteúdo (DEC-PO-0006 / US v1.1–1.2):** US-0001, US-0002 e REQ-0004 citam R3. **Residual:** fechamento formal do CONF-0001 é da **DOC** (a AS não altera o registro) | PO (conteúdo); DOC (CONF) | CONF-0001 permanece aberto até a DOC fechar |
 | L-09 | Não existem modelos EF/ET/contrato em `modelos/` nem `INDEX.md` na base; estrutura própria usada | DOC | Padronização futura |
 | L-11 | **Resolvida (DEC-PO-0006, US/REQ v1.1 promovidos a v1.2 vigente no G1):** CA-07 (503), CA-08 (405), CA-09 (500) e REQ-0001 itens 2–4 no aceite; CA-04 alinhado ao ADR-0002 (manifesto + tag, sem hash); US-0002 CA-03 com RE-02 | PO (decidiu) | Incorporado nesta v1.2 (matriz §14 e EF §7) |
-| L-10 | Dependência: **AH-0001** (stack, N3) — G3 (TASK-0007) só após a decisão e após o merge do OpenAPI ajustado (esse merge não é o G3) | ORQ / ARQ | Contrato permanece "proposto". Ressalva do G1: se os ADR mudarem no G3, o PO reabre os CA afetados |
+| L-10 | Dependência: **AH-0001** (stack, N3) — G3 (TASK-0007) só após a decisão. O OpenAPI 1.0.0 proposto já está na main (merge `cf660fb`; esse merge **não é o G3**) | ORQ / ARQ | Contrato permanece "proposto". Ressalva do G1: se os ADR mudarem no G3, o PO reabre os CA afetados |
+| L-12 | **Aberta (proposta AS):** estender o princípio da DEC-ARQ-0002 L-05 ao HTTP 500 (CA-09) — injeção somente na fábrica de teste, mesmas proibições de controle remoto, fora do OpenAPI. Pedido do parecer G2 do FS (TASK-0008, item 5) e MSG-COL do ORQ. A L-05, no texto, cita só o 503; a extensão ao 500 **não** é decisão já tomada. Confirmação final: ARQ no G3. Qualificação: a AS **concorda** com o princípio e com não documentar o gancho no contrato; **não** adota como normativa a assinatura/arquivos/ferramenta citados no parecer (`app.js`, `buildApp({ clock, healthState, failure })`, `inject` do Fastify) — isso é premissa a confirmar (AH-0001) | ARQ (G3) | Sem confirmação, o CA-09 pode ficar sem oráculo repetível de disparo (risco apontado pelo FS/QA) |
 
 ## 13. Decisões na alçada da AS
 | ID | Decisão | Justificativa |
@@ -259,7 +269,7 @@ Não é caminho de `GET /health` nem resposta desse recurso. Como padrão da `po
 | DEC-AS-0002 | Tolerância de verificação do `timestamp` (US-0001 CA-03) = **±5 s** (exata com relógio injetável) | ADR-0003 deixa "± 5 s, a confirmar pelo AS na ET". **Confirmada** na DEC-ARQ-0002 L-07 |
 | DEC-AS-0003 | Expressões de validação de `version` e de `timestamp` (UTC, `Z`, 3 casas de milissegundos) no OpenAPI | ADR-0002 ("o AS finaliza") e ADR-0003. O regex de `timestamp` foi **confirmado** na DEC-ARQ-0002 L-07. O regex de `version` proposto originalmente era mais permissivo que o SemVer 2.0.0 oficial no pré-release; **vale o regex oficial sem `+build`** definido na DEC-ARQ-0002 (alçada do ARQ) |
 
-Fora da alçada residual: stack (AH-0001), valores de porta/origem no ambiente (OPS/FS, TASK-0012), validação do contrato (G3, TASK-0007), fechamento do CONF-0001 (DOC), modelos/INDEX (DOC).
+Fora da alçada residual: stack (AH-0001), valores de porta/origem no ambiente (OPS/FS, TASK-0012), validação do contrato e confirmação da L-12 / testabilidade do 500 (G3, TASK-0007), fechamento do CONF-0001 (DOC), modelos/INDEX (DOC).
 
 ## 14. Rastreabilidade (CA da US-0001 v1.2 ↔ RT)
 | CA | Requisitos técnicos | Cenários | Esquema/operação no OpenAPI |
@@ -272,7 +282,7 @@ Fora da alçada residual: stack (AH-0001), valores de porta/origem no ambiente (
 | US-0001 CA-06 (somente leitura: 2+ chamadas, logs permitidos, timestamp variável) | RT-01 | CE-12 | `operationId getHealth` (seguro e idempotente) |
 | US-0001 CA-07 (HTTP 503, `"unavailable"`) | RT-06 | **CE-02** | `HealthUnavailable`, `responses.Unavailable` |
 | US-0001 CA-08 (HTTP 405, `Allow: GET, HEAD`) | RT-07, RT-16 | **CE-07**, CE-10 | `responses.MethodNotAllowed`, `headers.Allow` |
-| US-0001 CA-09 (HTTP 500 padronizado) | RT-08 | **CE-05** | `ProblemInternalError`, `responses.InternalError` |
+| US-0001 CA-09 (HTTP 500 padronizado) | RT-08; testabilidade §7.4 e §11 (proposta AS / G3) | **CE-05** | `ProblemInternalError`, `responses.InternalError` (gancho de teste **fora** do OpenAPI) |
 Matriz completa CA ↔ RN ↔ REQ ↔ EF/ET/contrato: EF-0001 v1.2 seção 7.
 
 ## 15. Histórico de versões
@@ -280,4 +290,5 @@ Matriz completa CA ↔ RN ↔ REQ ↔ EF/ET/contrato: EF-0001 v1.2 seção 7.
 |---|---|---|---|
 | 1.0 | 26/11/2026 12:27 | AS | Criação (TASK-0006), sob premissa dos ADRs propostos e da AH-0001 (commit 950ebff) |
 | 1.1 | 26/11/2026 12:33 | AS | Acrescenta L-11 (cobertura de `503`/`405`/`500` por CA/REQ e CA-04 × ADR-0002) e a fonte QA TASK-0005; sem mudança de contrato (commit d836bc6) |
-| 1.2 | 26/11/2026 12:43 | AS | Ajustes do PO (DEC-PO-0006): §14 com CA-07/08/09 (CE-02, CE-05, CE-07); CA-04 manifesto+tag; CA-06 (2+ chamadas, logs, timestamp variável); consumo US-0002 CA-01/03 (RE-02)/04. L-08 e L-11 resolvidas no conteúdo. Incorpora DEC-ARQ-0002 (L-01 a L-07) nas seções 4, 4.1, 5, 7 e 12. Fontes US/REQ/RN v1.2 vigente (G1). |
+| 1.2 | 26/11/2026 12:43 | AS | Ajustes do PO (DEC-PO-0006): §14 com CA-07/08/09 (CE-02, CE-05, CE-07); CA-04 manifesto+tag; CA-06 (2+ chamadas, logs, timestamp variável); consumo US-0002 CA-01/03 (RE-02)/04. L-08 e L-11 resolvidas no conteúdo. Incorpora DEC-ARQ-0002 (L-01 a L-07) nas seções 4, 4.1, 5, 7 e 12. Fontes US/REQ/RN v1.2 vigente (G1). (commit 3a41a2c) |
+| 1.3 | 26/11/2026 13:00 | AS | Testabilidade do HTTP 500 (CA-09) por injeção somente na fábrica de teste, em espelho do §7.2 / L-05: §7.4, §11, CE-05, PS-07 e L-12. Proposta AS, confirmação final do ARQ no G3. OpenAPI não alterado. Qualificação do parecer FS (TASK-0008 item 5): concorda com o princípio; não adota assinatura/stack como normativa (AH-0001). |
