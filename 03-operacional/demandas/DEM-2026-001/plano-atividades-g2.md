@@ -3,12 +3,12 @@ id: PLANO-DEM-2026-001-G2
 titulo: "Plano de atividades para o G2 — DEM-2026-001 [TESTE]"
 tipo: plano
 versao: 1.2
-status: em-revisao
+status: vigente
 dono: PO
 autores: [PO]
-aprovado_por: null
+aprovado_por: "PO (G2 Aprovado com observações — mantido com ajuste, DEM-2026-001; registrado pelo ORQ em aprovacoes.md, 8017a7d)"
 criado_em: 2026-11-26T12:50-03:00
-atualizado_em: 2026-11-26T15:29-03:00
+atualizado_em: 2026-11-26T15:46-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, RM-0002, G1, G2, G3, TASK-0003, TASK-0004, TASK-0005, TASK-0006, TASK-0007, TASK-0008, TASK-0009, TASK-0010, TASK-0011, TASK-0012, US-0001, US-0002, REQ-0001, REQ-0002, REQ-0003, REQ-0004, RN-0001, RN-0002, DEC-PO-0001, DEC-PO-0002, DEC-PO-0004, DEC-PO-0005, DEC-PO-0006, DEC-PO-0007, DEC-PO-0008, DEC-PO-0009, DEC-ARQ-0001, DEC-ARQ-0002, DEC-ARQ-0007, DEC-ARQ-0008, DEC-ARQ-0009, DEC-ARQ-0010, DEC-ARQ-0011, DEC-AS-0001, DEC-AS-0002, DEC-CPO-0001, AH-0003, ADR-0001, ADR-0002, ADR-0003]
 substitui: null
@@ -18,7 +18,7 @@ substituido_por: null
 # Plano de atividades para o G2 — DEM-2026-001 [TESTE] — v1.2
 
 > Fase de testes internos; nada vai à produção. Fluxo 01, responsável do fluxo: PO; classe de risco **R3** (DEC-ARQ-0001); prioridade Normal; pontuação 2,8. Estado da demanda: "Aprovada para execução" (contexto.yaml v37).
-> **Status desta versão: em-revisão (proposta do PO).** A **v1.1 (`f61a1f9`, conteúdo `053a2d4`) continua sendo a versão vigente registrada** (G2 *Aprovado com observações*, `2ad1838`) **até o ORQ registrar a decisão sobre esta v1.2**. Se o conteúdo for recuperado do histórico git, a v1.1 está em `f61a1f9`. Só depois do registro do ORQ o PO promove a v1.2 a vigente (mesmo conteúdo; só status e `aprovado_por`).
+> **Status: vigente** desde 26/11/2026 15:46 (America/Sao_Paulo): o G2 foi decidido pelo PO como **Aprovado com observações — mantido com ajuste** (a)–(f) e registrado pelo ORQ em aprovacoes.md (commit `8017a7d`). O conteúdo é o da v1.2 em revisão (`7d85a6e`); mudaram só o status, `aprovado_por` e o alinhamento da numeração das observações da §7 com o MSG-RET registrado ((e)=DEC-PO-0009, (f)=RM-0002; o item de estimativas passou a (g)). A v1.1 permanece no histórico em `f61a1f9`.
 > Este documento **não** altera estado, etapa, gates, tarefas, `contexto.yaml`, `historico.md`, `aprovacoes.md` nem `Tarefas.csv` (só o ORQ). **Nada aqui foi inventado:** cada número vem de um parecer ou de uma mensagem de retorno do executor/ARQ citada; onde faltou dado, há lacuna registrada na seção 11. Quem produz não aprova; "Concluída" só aparece onde há evidência verificável no repositório (senão "Parcial").
 > Motivo da v1.2: a **AH-0003** (Thiago, 26/11/2026 14:54, substitui a AH-0001) trocou a stack para **C#/.NET 10 LTS (ASP.NET Core Minimal APIs) + Angular 22.3** (ADR-0001 v2.0, `d40518e`; ADR-0002/0003 v1.1; G3 aprovado com ressalvas R1..R5, `a271ac1`). Todas as estimativas de TASK-0008..0012 foram refeitas pelos donos, e o ARQ refez as próprias em horas.
 
@@ -109,9 +109,9 @@ Não são a decisão formal do gate: o PO a declara ao ORQ e o ORQ a transcreve 
 - **(b) [reformulada]** O G3 ocorreu. A DEC-PO-0008 não reabre CA; o **CA-07** fica condicionado ao spike R4 (reabrir só se o spike mostrar inviabilidade).
 - **(c) [reformulada]** O PR da TASK-0008 e a entrada no G4 cumprem **DEC-ARQ-0007** (`verify-local` A1–A5/W1–W5, reexecutado pelo CR na box), **DEC-ARQ-0008** (analyzers, `dotnet format`, angular-eslint), as ressalvas **R3/R5** do G3, a **DEC-ARQ-0011** (L-12 só via fábrica) e a **L-CR2** (incremento A da DOC; hoje Parcial — RK-DOC-1).
 - **(d) [reformulada]** A **execução** da TASK-0010 usa o p95 em Release (DEC-ARQ-0010) e SCA/SAST (DEC-ARQ-0009), já decididos. Resta calibrar com o QA a meta inicial de **80% de linhas** (Coverlet e `ng test`) no G5; não bloqueia o G2.
-- **(e) [nova]** Estimativas **de todos os papéis** em horas e na stack AH-0003 (seção 10). Soma central maior que a da v1.1; o PO registra o aumento sem reabrir escopo.
-- **(f) [nova]** **DEC-PO-0009:** FS escreve o código de teste; PT+CT depende de G3 + R1; execução e PQ após o G4.
-- **(g) [nova]** **RM-0002:** núcleo de capacitação **fora das somas**, em linha separada (seção 10); o PO avisa a CPO se o início da TASK-0008 passar de 2 dias úteis após o desbloqueio.
+- **(e) [nova]** **DEC-PO-0009:** FS escreve o código de teste; PT+CT depende de G3 + R1; execução e PQ após o G4.
+- **(f) [nova]** **RM-0002:** núcleo de capacitação **fora das somas**, em linha separada (seção 10); o PO avisa a CPO se o início da TASK-0008 passar de 2 dias úteis após o desbloqueio.
+- **(g) [nova]** Estimativas **de todos os papéis** em horas e na stack AH-0003 (seção 10). Soma central maior que a da v1.1; o PO registra o aumento sem reabrir escopo.
 
 ## 8. Riscos relevantes
 
