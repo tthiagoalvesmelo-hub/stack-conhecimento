@@ -3,19 +3,21 @@ id: DEC-ARQ-0005
 titulo: "Recorte de SAST/varredura desta demanda (TASK-0010), condicionado ao ADR-0001"
 tipo: dec
 versao: 1.0
-status: vigente
+status: substituida
 dono: ARQ
 autores: [ARQ]
 aprovado_por: ARQ
 criado_em: 2026-11-26T13:10-03:00
-atualizado_em: 2026-11-26T13:10-03:00
+atualizado_em: 2026-11-26T15:03-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0010, TASK-0008, TASK-0009, ADR-0001, DEC-ARQ-0003, DEC-ARQ-0004, AH-0001]
 substitui: null
-substituido_por: null
+substituido_por: DEC-ARQ-0009
 ---
 
 # DEC-ARQ-0005 — Recorte de SAST/varredura (TASK-0010)
+
+> **SUBSTITUÍDA pela DEC-ARQ-0009** em 26/11/2026 (AH-0003: stack C#/.NET + Angular; ADR-0001 v2). O texto abaixo é preservado como histórico da stack Node/Fastify (AH-0001 substituída) e **não vale mais**.
 
 > [TESTE] **Condicionada à aceitação do ADR-0001** (como a DEC-ARQ-0004). Se a stack mudar, esta DEC é revista antes da execução da TASK-0010. Não é N3 (sem custo, sem produção, sem nova tecnologia de serviço/banco/framework). Consulta ao registro npm em 26/11/2026, **sem instalar nada**.
 

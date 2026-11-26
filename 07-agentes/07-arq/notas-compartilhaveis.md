@@ -2,13 +2,13 @@
 id: AGT-ARQ-NOTAS
 titulo: "Notas compartilháveis — Ricardo Almeida (Arquiteto Líder)"
 tipo: agente
-versao: 1.4
+versao: 1.5
 status: vigente
 dono: ARQ
 autores: [ARQ]
 aprovado_por: Thiago Melo
 criado_em: 2026-11-26T11:00-03:00
-atualizado_em: 2026-11-26T13:10-03:00
+atualizado_em: 2026-11-26T15:03-03:00
 revisar_ate: 2027-02-26
 relacionados: []
 substitui: null
@@ -39,3 +39,9 @@ Conhecimento da especialidade que outros agentes podem precisar. Informação da
 ## 26/11/2026 — horas G2, SAST, p95 e L-12 prévia
 - Conversão das estimativas escala 1 para horas e parecer prévio L-12 / teste de tela: `07-agentes/07-arq/parecer-horas-g2-ops-fs-DEM-2026-001.md`.
 - DEC-ARQ-0005: recorte SAST desta demanda (npm audit + ESLint recommended + testes dirigidos). DEC-ARQ-0006: p95 por script Node embutido, sem dependência nova. Ambas condicionadas ao ADR-0001.
+
+## 26/11/2026 — AH-0003: stack C#/.NET + Angular (ponteiros; a fonte é o ADR)
+- **AH-0003 aprovada** (Thiago, 14:54): APIs de backend do Portal Web em C#/.NET LTS (**.NET 10**, ASP.NET Core Minimal APIs) e front-end em **Angular 22.x** (estável mais recente: 22.3.0). AH-0001 (Node/Fastify) substituída. Fonte: `02-tecnica/adr/ADR-0001-stack-base-portal-api-e-web.md` v2.0 (aceito) e `01-institucional/tecnologias.md` v1.1.
+- ADR-0002 v1.1 (versão no `<Version>` do `.csproj`, `IncludeSourceRevisionInInformationalVersion=false`) e ADR-0003 v1.1: propostos até o G3. OpenAPI 1.0.0 mantém-se.
+- DEC-ARQ-0007..0010 substituem DEC-ARQ-0003..0006 (verify-local, lint, SAST/SCA, p95). Análise de impacto: `07-agentes/07-arq/analise-impacto-troca-stack-DEM-2026-001.md`.
+- Regra prática: nenhum comportamento do contrato pode depender de `ASPNETCORE_ENVIRONMENT`; ganchos de teste só por `WebApplicationFactory`.

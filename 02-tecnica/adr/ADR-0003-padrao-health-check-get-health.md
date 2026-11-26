@@ -2,22 +2,22 @@
 id: ADR-0003
 titulo: "Padrão de health-check e diretrizes do contrato GET /health"
 tipo: adr
-versao: 1.0
+versao: 1.1
 status: proposto
 dono: ARQ
 autores: [ARQ]
 aprovado_por: null
 criado_em: 2026-11-26T12:20-03:00
-atualizado_em: 2026-11-26T12:20-03:00
+atualizado_em: 2026-11-26T15:03-03:00
 revisar_ate: 2027-02-26
-relacionados: [DEM-2026-001, TASK-0003, ADR-0001, ADR-0002, US-0001, US-0002, REQ-0001, REQ-0003, REQ-0004, RN-0001, RN-0002]
+relacionados: [DEM-2026-001, TASK-0003, AH-0003, DEC-ARQ-0002, ADR-0001, ADR-0002, US-0001, US-0002, REQ-0001, REQ-0003, REQ-0004, RN-0001, RN-0002]
 substitui: null
 substituido_por: null
 ---
 
 # ADR-0003 — Padrão de health-check e diretrizes do contrato `GET /health`
 
-> [TESTE] **Status: PROPOSTO.** Estas são **diretrizes arquiteturais**, não o contrato. O detalhamento (EF/ET e OpenAPI) é do Analista de Sistemas (AS) e a **validação do contrato (G3) é do ARQ**. Não há decisão de stack aqui; os pontos que dependem da stack estão sinalizados.
+> [TESTE] **Status: PROPOSTO (v1.1).** Estas são **diretrizes arquiteturais**, não o contrato. O detalhamento (EF/ET e OpenAPI) é do Analista de Sistemas (AS) e a **validação do contrato (G3) é do ARQ**. **A troca de stack (AH-0003, ADR-0001 v2 C#/.NET + Angular) NÃO muda nenhuma decisão de contrato deste ADR** (200/503/405/500, `no-store`, CORS, formatos). Alterações da v1.1, todas editoriais ou de alinhamento: (a) `Allow: GET, HEAD` no 405, como já decidido na DEC-ARQ-0002 L-02 (a v1.0 dizia `Allow: GET` com HEAD tolerado); (b) a recomendação de CSP passa a valer para a hospedagem de produção do Portal Angular (ADR futuro); na fase de testes o Portal roda em `ng serve`; (c) referências à stack. **O aceite é do G3 (TASK-0007).**
 
 ## Contexto
 - REQ-0001/US-0001: `GET /health` somente leitura, HTTP 200, com status, versão e timestamp. REQ-0004/RN-0001: nada sensível. RN-0002: indisponibilidade jamais aparece como saudável. US-0002: tela no Portal.
@@ -34,7 +34,7 @@ substituido_por: null
 ### Diretrizes do contrato (para o AS detalhar em `02-tecnica/contratos-api/portal-api/`)
 | Item | Diretriz |
 |---|---|
-| Rota/método | `GET /health`, sem parâmetros, sem corpo, sem efeitos colaterais (seguro e idempotente). Outros métodos: `405` com cabeçalho `Allow: GET` (e `HEAD` tolerado). Fora do prefixo de versão (endpoint operacional) |
+| Rota/método | `GET /health`, sem parâmetros, sem corpo, sem efeitos colaterais (seguro e idempotente). Outros métodos: `405` com cabeçalho `Allow: GET, HEAD` (DEC-ARQ-0002 L-02; `HEAD` tolerado). Fora do prefixo de versão (endpoint operacional) |
 | Resposta de sucesso | `200`, `Content-Type: application/json; charset=utf-8`, objeto com **exatamente** `status`, `version`, `timestamp` (`additionalProperties: false` no provedor; o Portal ignora campos desconhecidos — leitor tolerante). Nomes em minúsculas, ASCII, em inglês (padrão de identificadores de API) |
 | `status` | enum. `200` ⇒ `"ok"`. `"unavailable"` reservado para o `503` (processo em encerramento ou, no futuro, dependência crítica fora). Valores adicionais = versão menor do contrato |
 | `version` | SemVer do serviço, origem e regras no ADR-0002; nunca vazio |
@@ -52,12 +52,12 @@ substituido_por: null
 ### Diretrizes para o Portal (consumidor)
 - Consulta por `fetch` com tempo limite, sem cache; ao carregar e por atualização manual (polling automático fora de escopo; UX decide a ação).
 - Conteúdo da resposta inserido no DOM **somente como texto** (nunca como HTML) e apenas os três campos; mensagens de erro genéricas.
-- Servidor estático do Portal com `Content-Security-Policy` restritiva (`default-src 'self'`; `connect-src` limitado à origem da API) e `X-Content-Type-Options: nosniff` (a confirmar na stack, ADR-0001).
+- Hospedagem de **produção** do Portal Angular (ADR futuro; fora da fase de testes, em que o Portal roda no `ng serve` em loopback) com `Content-Security-Policy` restritiva (`default-src 'self'`; `connect-src` limitado à origem da API) e `X-Content-Type-Options: nosniff`. Compatibilidade da CSP com o build do Angular: a verificar nesse ADR.
 
 ### Delegação e validação (G3)
 - **AS (Juliana Castro):** elabora EF/ET e o OpenAPI 3.1 de `portal-api` em `02-tecnica/contratos-api/portal-api/` seguindo estas diretrizes; consulta o ARQ por MSG-COL para qualquer desvio.
 - **ARQ (G3):** valida o contrato quando: (a) o OpenAPI é válido e traz exemplos de `200`/`503`/`405`; (b) campos, enums, formatos e `additionalProperties: false` coincidem com esta ADR e com o ADR-0002; (c) não há dado sensível nem detalhe interno em nenhuma resposta; (d) cabeçalhos e erros seguem a tabela; (e) os testes de contrato estão previstos; (f) o contrato é interno (qualquer exposição pública reabre R3/N3).
-- **G3 não se inicia antes** da decisão sobre o ADR-0001 (a forma de implementação depende dela; o contrato em si é independente de stack).
+- **G3:** o ADR-0001 v2 está aceito (AH-0003); o contrato em si é independente de stack e a forma de implementação em ASP.NET Core está no ADR-0001 v2 D8.
 
 ## Alternativas avaliadas
 | Alternativa | Veredito |
@@ -74,7 +74,7 @@ Mínimo que atende status, versão e timestamp, sem dado sensível e sem autenti
 
 ## Consequências e impactos
 - **Portal Web:** requisito de tratamento de erro, de renderização segura e de formatação de data.
-- **Backend/APIs:** rota única, serviço de saúde com relógio injetável, esquema de resposta.
+- **Backend/APIs:** rota única, serviço de saúde com relógio injetável (`TimeProvider`), esquema de resposta; conformidade dos padrões do framework (ProblemDetails, cabeçalhos): ADR-0001 v2 D8.
 - **Microsserviços/Integrações/Dados/Mobile:** sem impacto.
 - **Infraestrutura:** sondas futuras usam o mesmo endpoint sem credenciais; exposição só interna.
 - **Segurança:** superfície mínima; ponto de reavaliação obrigatório na mudança de exposição.

@@ -3,19 +3,21 @@ id: DEC-ARQ-0004
 titulo: "Lint e análise estática da stack proposta (L-CR3), condicionada ao ADR-0001"
 tipo: dec
 versao: 1.0
-status: vigente
+status: substituida
 dono: ARQ
 autores: [ARQ]
 aprovado_por: ARQ
 criado_em: 2026-11-26T12:50-03:00
-atualizado_em: 2026-11-26T12:50-03:00
+atualizado_em: 2026-11-26T15:03-03:00
 revisar_ate: 2027-02-26
 relacionados: [DEM-2026-001, TASK-0008, TASK-0009, ADR-0001, DEC-ARQ-0003, L-CR3, AH-0001]
 substitui: null
-substituido_por: null
+substituido_por: DEC-ARQ-0008
 ---
 
 # DEC-ARQ-0004 — Lint e análise estática (L-CR3)
+
+> **SUBSTITUÍDA pela DEC-ARQ-0008** em 26/11/2026 (AH-0003: stack C#/.NET + Angular; ADR-0001 v2). O texto abaixo é preservado como histórico da stack Node/Fastify (AH-0001 substituída) e **não vale mais**.
 
 > [TESTE] **Condicionada à aceitação do ADR-0001** (AH-0001). Se a stack mudar (alternativa B, Node 26 ou outra), esta DEC é revista antes do PR da TASK-0008. Sem custo de licença. Consulta ao registro npm em 26/11/2026, **sem instalar nada**. Não é N3. **Não bloqueia a decisão do G2**; bloqueia a entrada no G4 e deve estar no PR da TASK-0008 (via DEC-ARQ-0003).
 
