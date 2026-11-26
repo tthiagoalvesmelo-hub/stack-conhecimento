@@ -36,7 +36,7 @@ decisoes_por_sigla:   # DEC-<SIGLA>-nnnn
   AN: 0
   AS: 3
   UX: 0
-  ARQ: 6
+  ARQ: 11   # DEC-ARQ-0007..0011 reservados 26/11 15:05 (AH-0003: 0007..0010 substituem DEC-ARQ-0003..0006 p/ .NET+Angular; 0011 = L-12, G3; ARQ)
   FS: 0
   MOB: 0
   DBA: 0
