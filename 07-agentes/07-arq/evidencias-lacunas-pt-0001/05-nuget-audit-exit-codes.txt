@@ -1,0 +1,48 @@
+# Pacote de controle vulnerável: Newtonsoft.Json 9.0.1 (GHSA-5crp-9r3c-p9vr, High) em projeto console net10.0; fontes: nuget.org
+## A1 restore padrão
+exit=0
+VulnProbe.csproj : warning NU1903: Package 'Newtonsoft.Json' 9.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-5crp-9r3c-p9vr
+## A1 restore com WarningsAsErrors=NU1903;NU1904
+exit=1
+VulnProbe.csproj : error NU1903: Warning As Error: Package 'Newtonsoft.Json' 9.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-5crp-9r3c-p9vr
+## A5 dotnet list package --vulnerable --include-transitive (console)
+exit=0
+Project `VulnProbe` has the following vulnerable packages
+   [net10.0]: 
+   Top-level Package      Requested   Resolved   Severity   Advisory URL                                     
+   > Newtonsoft.Json      9.0.1       9.0.1      High       https://github.com/advisories/GHSA-5crp-9r3c-p9vr
+
+## A5 dotnet list package --vulnerable --include-transitive --format json --output-version 1
+exit=0
+{
+ "version": 1,
+ "parameters": "--vulnerable --include-transitive",
+ "sources": [
+  "https://api.nuget.org/v3/index.json"
+ ],
+ "projects": [
+  {
+   "path": "<projeto>",
+   "frameworks": [
+    {
+     "framework": "net10.0",
+     "topLevelPackages": [
+      {
+       "id": "Newtonsoft.Json",
+       "requestedVersion": "9.0.1",
+       "resolvedVersion": "9.0.1",
+       "vulnerabilities": [
+        {
+         "severity": "High",
+         "advisoryurl": "https://github.com/advisories/GHSA-5crp-9r3c-p9vr"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
+## SDK 10: dotnet package list --vulnerable --include-transitive --format json --output-version 1
+exit=0

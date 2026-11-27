@@ -1,0 +1,11 @@
+# Janela de drenagem — protótipo (ApplicationStopping bloqueante) — SIGTERM no processo, sondagem a cada 200 ms (GET /health, Connection: close)
+{"mode": "block", "drain_ms": "3000", "shutdown_s": "5", "exit_code": 0, "exit_after_s": 3.1, "counts": {"503": 15}, "first503_s": [0.07], "last503_s": [2.9], "first_refused_s": []}
+{"mode": "block", "drain_ms": "3000", "shutdown_s": "5", "exit_code": 0, "exit_after_s": 3.09, "counts": {"503": 15}, "first503_s": [0.07], "last503_s": [2.89], "first_refused_s": []}
+{"mode": "block", "drain_ms": "5000", "shutdown_s": "8", "exit_code": 0, "exit_after_s": 5.11, "counts": {"503": 25}, "first503_s": [0.07], "last503_s": [4.91], "first_refused_s": []}
+{"mode": "block", "drain_ms": "10000", "shutdown_s": "8", "exit_code": 0, "exit_after_s": 10.15, "counts": {"503": 50}, "first503_s": [0.07], "last503_s": [9.95], "first_refused_s": []}
+{"mode": "none", "drain_ms": "3000", "shutdown_s": "5", "exit_code": 0, "exit_after_s": 0.22, "counts": {"ERR:RemoteDisconnected": 1}, "first503_s": [], "last503_s": [], "first_refused_s": [0.02]}
+{"mode": "hosted", "drain_ms": "3000", "shutdown_s": "5", "exit_code": 0, "exit_after_s": 3.22, "counts": {"ERR:RemoteDisconnected": 1, "ERR:ConnectionRefusedError": 15}, "first503_s": [], "last503_s": [], "first_refused_s": [0.02]}
+
+# Requisição em voo (30 s) no momento do SIGTERM
+drain=3000ms shutdownTimeout=5s with 1 in-flight 30s request: exit after 6.03s code=0
+drain=3000ms shutdownTimeout=8s with 1 in-flight 30s request: exit after 9.02s code=0

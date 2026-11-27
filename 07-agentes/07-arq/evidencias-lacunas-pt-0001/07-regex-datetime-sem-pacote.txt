@@ -1,0 +1,6 @@
+# Pattern do contrato (Timestamp) com $ final vs \z final, e DateTimeOffset.TryParseExact (sem pacote)
+2026-11-26T15:34:56.789Z         pattern_com_dolar=True pattern_com_\z=True TryParseExact=True
+2026-02-31T10:00:00.000Z         pattern_com_dolar=True pattern_com_\z=True TryParseExact=False
+2026-11-26T15:34:56.789Z\n       pattern_com_dolar=True pattern_com_\z=False TryParseExact=False
+2026-11-26T15:34:56Z             pattern_com_dolar=False pattern_com_\z=False TryParseExact=False
+2026-11-26T24:00:00.000Z         pattern_com_dolar=False pattern_com_\z=False TryParseExact=False

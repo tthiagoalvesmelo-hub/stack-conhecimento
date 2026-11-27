@@ -1,8 +1,8 @@
 # Registro de identificadores — último número usado por prefixo (0 = nenhum ainda)
 # Quem cria um artefato incrementa aqui ANTES de criar o arquivo e registra o commit com o trailer "Agente: <sigla>".
 versao: 1
-atualizado_em: "2026-11-26T15:45-03:00"
-atualizado_por: QA
+atualizado_em: "2026-11-26T15:54-03:00"
+atualizado_por: ARQ
 por_ano:        # formato DEM-AAAA-nnn e INC-AAAA-nnn: sequência reinicia a cada ano
   DEM: {2026: 1}
   INC: {2026: 0}
@@ -36,7 +36,7 @@ decisoes_por_sigla:   # DEC-<SIGLA>-nnnn
   AN: 0
   AS: 3
   UX: 0
-  ARQ: 11   # DEC-ARQ-0007..0011 reservados 26/11 15:05 (AH-0003: 0007..0010 substituem DEC-ARQ-0003..0006 p/ .NET+Angular; 0011 = L-12, G3; ARQ)
+  ARQ: 14   # DEC-ARQ-0012..0014 reservados 26/11 15:54 (lacunas L-PT-03/04/11/13 e PS-09 do PT-0001; ARQ); 0007..0011 reservados 15:05 (AH-0003)
   FS: 0
   MOB: 0
   DBA: 0

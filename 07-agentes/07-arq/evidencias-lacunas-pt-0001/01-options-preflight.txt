@@ -1,0 +1,50 @@
+######## RequireCors=0 (0 = UseCors global após UseRouting; 1 = RequireCors no /health)
+--- curl -X OPTIONS -H Origin: http://localhost:4200 -H Access-Control-Request-Method: GET http://127.0.0.1:5621/health
+HTTP/1.1 204 No Content
+Access-Control-Allow-Methods: GET,HEAD
+Access-Control-Allow-Origin: http://localhost:4200
+
+--- curl -X OPTIONS -H Origin: http://evil.example -H Access-Control-Request-Method: GET http://127.0.0.1:5621/health
+HTTP/1.1 204 No Content
+
+--- curl -X OPTIONS http://127.0.0.1:5621/health
+HTTP/1.1 405 Method Not Allowed
+Content-Length: 0
+Allow: GET, HEAD
+
+--- curl -X OPTIONS -H Origin: http://localhost:4200 http://127.0.0.1:5621/health
+HTTP/1.1 405 Method Not Allowed
+Content-Length: 0
+Access-Control-Allow-Origin: http://localhost:4200
+Allow: GET, HEAD
+
+--- curl -X OPTIONS -H Access-Control-Request-Method: GET http://127.0.0.1:5621/health
+HTTP/1.1 405 Method Not Allowed
+Content-Length: 0
+Allow: GET, HEAD
+
+######## RequireCors=1 (0 = UseCors global após UseRouting; 1 = RequireCors no /health)
+--- curl -X OPTIONS -H Origin: http://localhost:4200 -H Access-Control-Request-Method: GET http://127.0.0.1:5622/health
+HTTP/1.1 204 No Content
+Access-Control-Allow-Methods: GET,HEAD
+Access-Control-Allow-Origin: http://localhost:4200
+
+--- curl -X OPTIONS -H Origin: http://evil.example -H Access-Control-Request-Method: GET http://127.0.0.1:5622/health
+HTTP/1.1 204 No Content
+
+--- curl -X OPTIONS http://127.0.0.1:5622/health
+HTTP/1.1 405 Method Not Allowed
+Content-Length: 0
+Allow: GET, HEAD
+
+--- curl -X OPTIONS -H Origin: http://localhost:4200 http://127.0.0.1:5622/health
+HTTP/1.1 405 Method Not Allowed
+Content-Length: 0
+Access-Control-Allow-Origin: http://localhost:4200
+Allow: GET, HEAD
+
+--- curl -X OPTIONS -H Access-Control-Request-Method: GET http://127.0.0.1:5622/health
+HTTP/1.1 405 Method Not Allowed
+Content-Length: 0
+Allow: GET, HEAD
+
